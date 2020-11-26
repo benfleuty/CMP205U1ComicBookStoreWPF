@@ -6,4 +6,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="images\pp\bitmun.png" />
+    <None Remove="images\pp\spodermin.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\pp\bitmun.png" />
+    <Resource Include="images\pp\spodermin.png" />
+  </ItemGroup>
+
 </Project>

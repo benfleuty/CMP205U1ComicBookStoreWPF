@@ -18,6 +18,8 @@ namespace DundeeComicBookStore.Pages
     /// </summary>
     public partial class RegisterPage : BasePage
     {
+        //private List<Image> ppList = new List<Image>();
+
         public RegisterPage()
         {
             InitializeComponent();
