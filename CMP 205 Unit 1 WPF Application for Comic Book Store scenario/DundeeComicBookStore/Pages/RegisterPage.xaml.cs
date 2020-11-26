@@ -16,7 +16,7 @@ namespace DundeeComicBookStore.Pages
     /// <summary>
     /// Interaction logic for RegisterPage.xaml
     /// </summary>
-    public partial class RegisterPage : Page
+    public partial class RegisterPage : BasePage
     {
         public RegisterPage()
         {
