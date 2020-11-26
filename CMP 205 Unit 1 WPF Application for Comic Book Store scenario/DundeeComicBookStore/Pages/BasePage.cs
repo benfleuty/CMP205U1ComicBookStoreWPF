@@ -20,5 +20,10 @@ namespace DundeeComicBookStore.Pages
         {
             CurrentWindow = App.Current.MainWindow;
         }
+
+        protected void ChangePageTo(object newPage)
+        {
+            CurrentWindow.Content = new Frame() { Content = newPage };
+        }
     }
 }
