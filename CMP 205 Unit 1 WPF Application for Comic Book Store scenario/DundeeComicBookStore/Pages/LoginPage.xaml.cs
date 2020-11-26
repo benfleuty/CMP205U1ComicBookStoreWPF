@@ -22,5 +22,33 @@ namespace DundeeComicBookStore.Pages
         {
             InitializeComponent();
         }
+
+        private void LoginTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LoginButton.IsEnabled = VerifyLoginLengths();
+        }
+
+        private void PasswordPBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            LoginButton.IsEnabled = VerifyLoginLengths();
+        }
+
+        private bool VerifyLoginLengths()
+        {
+            return (UsernameTextBox.Text.Length >= 3 && PasswordPBox.Password.Length >= 6);
+        }
+
+        private void LoginButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            string message = $"{UsernameTextBox.Text} tried logging in with the password:\n {PasswordPBox.Password}";
+            MessageBox.Show(message);
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            //MainWindow.SetData DataContext = new RegisterView();
+            Button sent = (Button)sender;
+            MessageBox.Show(sent.Parent.ToString());
+        }
     }
 }

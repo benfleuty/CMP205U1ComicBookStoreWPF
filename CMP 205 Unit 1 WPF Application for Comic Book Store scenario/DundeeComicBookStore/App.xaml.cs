@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DundeeComicBookStore.Pages;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,11 @@ namespace DundeeComicBookStore
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            window.MainFrame.Content = new LoginPage();
+            window.Show();
+        }
     }
 }

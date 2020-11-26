@@ -10,5 +10,51 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Row 0  -->
+        <Grid Grid.Column="0" Background="red" />
+
+        <!--  Row 1  -->
+        <StackPanel
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <TextBlock Text="Welcome to Dundee Comic Store!" />
+            <TextBlock Margin="0,15,0,0" Text="Username" />
+            <TextBox x:Name="UsernameTextBox" TextChanged="LoginTextBox_TextChanged" />
+            <TextBlock Margin="0,15,0,0" Text="Password" />
+            <PasswordBox x:Name="PasswordPBox" PasswordChanged="PasswordPBox_PasswordChanged" />
+            <Grid Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="RegisterButton"
+                    Grid.Column="0"
+                    Margin="2.5,0"
+                    Background="#ff0"
+                    Click="RegisterButton_Click"
+                    Content="Register" />
+                <Button
+                    x:Name="LoginButton"
+                    Grid.Column="1"
+                    Margin="2.5,0"
+                    Background="#0088ff"
+                    Click="LoginButton_Click"
+                    Content="Login"
+                    IsEnabled="False" />
+            </Grid>
+        </StackPanel>
+
+        <!--  Row 2  -->
+        <Grid Grid.Column="2" Background="blue" />
+    </Grid>
 </Page>
