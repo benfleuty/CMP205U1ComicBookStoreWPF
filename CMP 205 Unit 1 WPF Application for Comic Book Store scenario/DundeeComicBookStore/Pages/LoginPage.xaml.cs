@@ -10,13 +10,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DundeeComicBookStore.Pages;
 
 namespace DundeeComicBookStore.Pages
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class LoginPage : BasePage
     {
         public LoginPage()
         {
@@ -46,7 +47,6 @@ namespace DundeeComicBookStore.Pages
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            //MainWindow.SetData DataContext = new RegisterView();
             Button sent = (Button)sender;
             MessageBox.Show(sent.Parent.ToString());
         }
