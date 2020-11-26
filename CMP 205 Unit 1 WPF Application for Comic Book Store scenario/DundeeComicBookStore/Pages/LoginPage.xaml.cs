@@ -47,8 +47,7 @@ namespace DundeeComicBookStore.Pages
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            Button sent = (Button)sender;
-            MessageBox.Show(sent.Parent.ToString());
+            ChangePageTo(new RegisterPage());
         }
     }
 }
