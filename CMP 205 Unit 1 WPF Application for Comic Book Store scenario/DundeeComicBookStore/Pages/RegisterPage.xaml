@@ -20,12 +20,19 @@
         <Grid Grid.Column="0" Background="red" />
 
         <!--  Row 1  -->
-        <StackPanel
-            Grid.Column="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <TextBlock Margin="0,10" Text="Welcome to Dundee Comic Store!" />
-            <TextBlock Margin="0,0,0,20" Text="Let's get you registered" />
+        <StackPanel Grid.Column="1" MaxWidth="800">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Text="Welcome to Dundee Comic Store!"
+                    TextAlignment="Center" />
+                <TextBlock
+                    Margin="0,0,0,20"
+                    Text="Let's get you registered"
+                    TextAlignment="Center" />
+            </StackPanel>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -37,7 +44,10 @@
                 </Grid.ColumnDefinitions>
 
                 <!--  Label row  -->
-                <StackPanel Grid.Row="0" Grid.Column="0">
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    MinWidth="500">
                     <TextBlock Name="FirstNameTextbox" Text="First name:" />
                     <TextBlock
                         x:Name="FirstNameErrorMessage"
@@ -74,6 +84,37 @@
                     Margin="2"
                     Text="" />
             </Grid>
+
+            <TextBlock Margin="0,15,0,0" Text="Address:" />
+            <TextBlock
+                x:Name="AddressErrorMessage"
+                Margin="5,0,0,5"
+                VerticalAlignment="Bottom"
+                FontSize="18"
+                Foreground="Red"
+                Text="this is an error message"
+                Visibility="Collapsed" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Text="House Name/Number:" />
+                <TextBox
+                    x:Name="HouseNumTextbox"
+                    MinWidth="100"
+                    MaxWidth="300" />
+                <TextBlock
+                    Margin="20,0,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Text="Postcode:" />
+                <TextBox
+                    x:Name="Postcode"
+                    MinWidth="200"
+                    Text="" />
+            </StackPanel>
 
             <StackPanel Margin="0,15,0,0">
                 <TextBlock Text="Email" />
@@ -113,6 +154,12 @@
                     Visibility="Collapsed" />
             </StackPanel>
             <PasswordBox x:Name="PasswordConfirmPBox" PasswordChanged="PasswordConfirmPBox_PasswordChanged" />
+            <!--<StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                <TextBlock Margin="0,0,10,0" Text="Profile picture:" />
+                <ComboBox SelectedIndex="0">
+                    <ComboBoxItem Content="Select a profile picture" />
+                </ComboBox>
+            </StackPanel>-->
 
             <StackPanel Margin="0,15,0,0">
                 <Button
@@ -121,7 +168,8 @@
                     Margin="2.5,0"
                     Background="#ff0"
                     Click="RegisterButton_Click"
-                    Content="Register" />
+                    Content="Register"
+                    Style="{DynamicResource RoundedCorners}" />
                 <Button
                     x:Name="LoginButton"
                     Grid.Column="1"
@@ -136,7 +184,6 @@
                     Foreground="#0088ff" />
             </StackPanel>
         </StackPanel>
-
         <!--  Row 2  -->
         <Grid Grid.Column="2" Background="blue" />
     </Grid>
