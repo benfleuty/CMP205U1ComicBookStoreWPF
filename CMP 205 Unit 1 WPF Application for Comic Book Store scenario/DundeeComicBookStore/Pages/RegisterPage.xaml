@@ -5,9 +5,139 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DundeeComicBookStore.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="1080"
+    d:DesignWidth="1920"
+    FontSize="36"
     mc:Ignorable="d">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
 
-    <Grid />
+        <!--  Row 0  -->
+        <Grid Grid.Column="0" Background="red" />
+
+        <!--  Row 1  -->
+        <StackPanel
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock Margin="0,10" Text="Welcome to Dundee Comic Store!" />
+            <TextBlock Margin="0,0,0,20" Text="Let's get you registered" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  Label row  -->
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Name="FirstNameTextbox" Text="First name:" />
+                    <TextBlock
+                        x:Name="FirstNameErrorMessage"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Foreground="Red"
+                        Text="this is an error message"
+                        Visibility="Collapsed" />
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="Last name:" />
+                    <TextBlock
+                        x:Name="LastNameErrorMessage"
+                        Margin="5,0,0,5"
+                        VerticalAlignment="Bottom"
+                        FontSize="18"
+                        Foreground="Red"
+                        Text="this is an error message"
+                        Visibility="Collapsed" />
+                </StackPanel>
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="2"
+                    Text="" />
+                <TextBox
+                    Name="LastNameTextbox"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="2"
+                    Text="" />
+            </Grid>
+
+            <StackPanel Margin="0,15,0,0">
+                <TextBlock Text="Email" />
+                <TextBlock
+                    x:Name="EmailErrorMessage"
+                    Margin="5,0,0,5"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="Red"
+                    Text="this is an error message"
+                    Visibility="Collapsed" />
+            </StackPanel>
+            <TextBox x:Name="EmailTextBox" TextChanged="EmailTextBox_TextChanged" />
+
+            <StackPanel Margin="0,15,0,0">
+                <TextBlock Text="Password" />
+                <TextBlock
+                    x:Name="PasswordErrorMessage"
+                    Margin="5,0,0,5"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="Red"
+                    Text="this is an error message"
+                    Visibility="Collapsed" />
+            </StackPanel>
+            <PasswordBox x:Name="PasswordPBox" PasswordChanged="PasswordPBox_PasswordChanged" />
+
+            <StackPanel Margin="0,15,0,0">
+                <TextBlock Text="Confirm Password" />
+                <TextBlock
+                    x:Name="PasswordConfirmErrorMessage"
+                    Margin="5,0,0,5"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="Red"
+                    Text="this is an error message"
+                    Visibility="Collapsed" />
+            </StackPanel>
+            <PasswordBox x:Name="PasswordConfirmPBox" PasswordChanged="PasswordConfirmPBox_PasswordChanged" />
+
+            <StackPanel Margin="0,15,0,0">
+                <Button
+                    x:Name="RegisterButton"
+                    Grid.Column="0"
+                    Margin="2.5,0"
+                    Background="#ff0"
+                    Click="RegisterButton_Click"
+                    Content="Register" />
+                <Button
+                    x:Name="LoginButton"
+                    Grid.Column="1"
+                    Margin="2.5,0"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Click="LoginButton_Click"
+                    Content="Got an account? Log in"
+                    FontSize="24"
+                    Foreground="#0088ff" />
+            </StackPanel>
+        </StackPanel>
+
+        <!--  Row 2  -->
+        <Grid Grid.Column="2" Background="blue" />
+    </Grid>
 </local:BasePage>

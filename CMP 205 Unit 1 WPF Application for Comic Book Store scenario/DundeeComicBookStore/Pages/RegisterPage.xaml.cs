@@ -22,5 +22,26 @@ namespace DundeeComicBookStore.Pages
         {
             InitializeComponent();
         }
+
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void PasswordPBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void PasswordConfirmPBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new LoginPage());
+        }
     }
 }
