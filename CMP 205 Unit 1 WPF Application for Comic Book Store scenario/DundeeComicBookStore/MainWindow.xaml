@@ -9,7 +9,5 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Grid>
-        <Frame x:Name="MainFrame" />
-    </Grid>
+    <Frame x:Name="MainFrame" />
 </Window>
