@@ -43,7 +43,8 @@
                     Margin="2.5,0"
                     Background="#ff0"
                     Click="RegisterButton_Click"
-                    Content="Register" />
+                    Content="Register"
+                    Style="{DynamicResource RoundedCorners}" />
                 <Button
                     x:Name="LoginButton"
                     Grid.Column="1"
@@ -51,7 +52,8 @@
                     Background="#0088ff"
                     Click="LoginButton_Click"
                     Content="Login"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    Style="{DynamicResource RoundedCorners}" />
             </Grid>
         </StackPanel>
 
