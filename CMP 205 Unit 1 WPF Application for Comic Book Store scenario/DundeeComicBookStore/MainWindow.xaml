@@ -8,6 +8,8 @@
     Title="MainWindow"
     Width="800"
     Height="450"
+    WindowState="Maximized"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Frame x:Name="MainFrame" />
 </Window>
