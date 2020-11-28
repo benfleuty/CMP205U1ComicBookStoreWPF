@@ -5,8 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DundeeComicBookStore.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="1080"
-    d:DesignWidth="1920"
     FontSize="36"
     mc:Ignorable="d">
     <Grid>
@@ -48,7 +46,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     MinWidth="500">
-                    <TextBlock Name="FirstNameTextbox" Text="First name:" />
+                    <TextBlock Text="First name:" />
                     <TextBlock
                         x:Name="FirstNameErrorMessage"
                         Margin="5,0,0,5"
@@ -73,16 +71,19 @@
                         Visibility="Collapsed" />
                 </StackPanel>
                 <TextBox
+                    Name="FirstNameTextbox"
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="2"
-                    Text="" />
+                    Text=""
+                    TextChanged="FirstNameTextbox_TextChanged" />
                 <TextBox
                     Name="LastNameTextbox"
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="2"
-                    Text="" />
+                    Text=""
+                    TextChanged="LastNameTextbox_TextChanged" />
             </Grid>
 
             <TextBlock Margin="0,15,0,0" Text="Address:" />
@@ -111,7 +112,7 @@
                     FontSize="20"
                     Text="Postcode:" />
                 <TextBox
-                    x:Name="Postcode"
+                    x:Name="PostcodeTextbox"
                     MinWidth="200"
                     Text="" />
             </StackPanel>
@@ -127,7 +128,7 @@
                     Text="this is an error message"
                     Visibility="Collapsed" />
             </StackPanel>
-            <TextBox x:Name="EmailTextBox" TextChanged="EmailTextBox_TextChanged" />
+            <TextBox x:Name="EmailTextbox" TextChanged="EmailTextBox_TextChanged" />
 
             <StackPanel Margin="0,15,0,0">
                 <TextBlock Text="Password" />
@@ -169,6 +170,7 @@
                     Background="#ff0"
                     Click="RegisterButton_Click"
                     Content="Register"
+                    IsEnabled="False"
                     Style="{DynamicResource RoundedCorners}" />
                 <Button
                     x:Name="LoginButton"
