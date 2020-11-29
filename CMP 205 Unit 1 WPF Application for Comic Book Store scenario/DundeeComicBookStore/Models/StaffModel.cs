@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DundeeComicBookStore.Models
 {
-    class Staff : UserBase
+    internal class StaffModel : UserBase
     {
     }
 }
