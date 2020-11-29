@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TolmountDatabase\TolmountDatabase.sqlproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="images\pp\bitmun.png" />
     <Resource Include="images\pp\spodermin.png" />
   </ItemGroup>
