@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DundeeComicBookStore.Models
 {
-    public class CustomerModel : UserBase
+    public class CustomerModel
     {
     }
 }
