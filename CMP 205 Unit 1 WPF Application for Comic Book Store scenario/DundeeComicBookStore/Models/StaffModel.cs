@@ -15,5 +15,32 @@ namespace DundeeComicBookStore.Models
         public AddressModel Address { get; set; }
         public string ProfilePictureSource { get; set; }
         public uint RewardPoints { get; set; }
+
+        [Flags]
+        public enum StaffPermissions
+        {
+            None = 0,
+            ReadCustomerData = 1,
+            WriteCustomerData = 1 << 1,
+            DeleteCustomerData = 1 << 2,
+
+            ReadStockData = 1 << 3,
+            WriteStockData = 1 << 4,
+            DeleteStockData = 1 << 5,
+
+            AccessEmployeeData = 1 << 6,
+
+            CanReadAll = ReadCustomerData & ReadStockData,
+            CanWriteAll = WriteCustomerData & WriteStockData,
+            CanDeleteAll = DeleteCustomerData & DeleteStockData,
+
+            AllOnCustomerData = ReadCustomerData & WriteCustomerData & DeleteCustomerData,
+
+            AllOnStockData = ReadStockData & WriteStockData & DeleteStockData,
+
+            All = AllOnCustomerData & AllOnStockData & AccessEmployeeData
+        }
+
+        public byte Permissions { get; set; }
     }
 }
