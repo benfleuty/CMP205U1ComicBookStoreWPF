@@ -1,2 +1,0 @@
-﻿CREATE USER [mssql1900040] FOR LOGIN [mssql1900040];
-
