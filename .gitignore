@@ -349,3 +349,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /CMP 205 Unit 1 WPF Application for Comic Book Store scenario/DundeeComicBookStore/images/pp
+
+
+App.config
