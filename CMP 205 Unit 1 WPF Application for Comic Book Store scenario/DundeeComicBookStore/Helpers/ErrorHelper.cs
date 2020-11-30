@@ -14,7 +14,8 @@ namespace DundeeComicBookStore.Helpers
             {UIError.InvalidEmail, "This is not a valid email address" },
             {UIError.UsedEmail,"This email is already in use" },
             {UIError.PasswordComplexity, "Your password must contain a lower & uppercase letter, a number, a symbol, and be at least 6 characters long" },
-            {UIError.PasswordMismatch,"Your passwords do not match" }
+            {UIError.PasswordMismatch,"Your passwords do not match" },
+            {UIError.EmailPasswordComboNotRecognised,"This email/password combo is not recognised"}
         };
 
         public enum UIError
@@ -23,7 +24,8 @@ namespace DundeeComicBookStore.Helpers
             InvalidEmail,
             UsedEmail,
             PasswordComplexity,
-            PasswordMismatch
+            PasswordMismatch,
+            EmailPasswordComboNotRecognised
         }
 
         public static void ShowInputError(UIError message, TextBlock control)
