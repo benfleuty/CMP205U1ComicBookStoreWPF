@@ -28,9 +28,25 @@
             VerticalAlignment="Center"
             Orientation="Vertical">
             <TextBlock Text="Welcome to Dundee Comic Store!" />
-            <TextBlock Margin="0,15,0,0" Text="Username" />
+            <TextBlock Margin="0,15,0,0" Text="Email" />
+            <TextBlock
+                x:Name="EmailErrorMessage"
+                Margin="5,0,0,5"
+                VerticalAlignment="Bottom"
+                FontSize="18"
+                Foreground="Red"
+                Text="this is an error message"
+                Visibility="Collapsed" />
             <TextBox x:Name="UsernameTextBox" TextChanged="LoginTextBox_TextChanged" />
             <TextBlock Margin="0,15,0,0" Text="Password" />
+            <TextBlock
+                x:Name="PasswordErrorMessage"
+                Margin="5,0,0,5"
+                VerticalAlignment="Bottom"
+                FontSize="18"
+                Foreground="Red"
+                Text="this is an error message"
+                Visibility="Collapsed" />
             <PasswordBox x:Name="PasswordPBox" PasswordChanged="PasswordPBox_PasswordChanged" />
             <Grid Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
