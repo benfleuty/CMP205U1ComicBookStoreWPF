@@ -2,7 +2,7 @@
 
 namespace DundeeComicBookStore
 {
-    public static class Helper
+    public static class ConnectionHelper
     {
         public static string ConnVal(string name)
         {
