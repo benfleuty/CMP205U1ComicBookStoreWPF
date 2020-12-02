@@ -11,8 +11,9 @@ namespace DundeeComicBookStore.Helpers
         public static readonly Dictionary<UIError, string> UIErrorMessages = new Dictionary<UIError, string>()
         {
             { UIError.RequiredField, "This field is required" },
+            {UIError.InvalidPhoneNumber, "Your phone number must be 11 digits" },
             {UIError.InvalidEmail, "This is not a valid email address" },
-            {UIError.UsedEmail,"This email is already in use" },
+            {UIError.EmailInUse,"This email is already in use" },
             {UIError.PasswordComplexity, "Your password must contain a lower & uppercase letter, a number, a symbol, and be at least 6 characters long" },
             {UIError.PasswordMismatch,"Your passwords do not match" },
             {UIError.EmailPasswordComboNotRecognised,"This email/password combo is not recognised"}
@@ -21,8 +22,9 @@ namespace DundeeComicBookStore.Helpers
         public enum UIError
         {
             RequiredField,
+            InvalidPhoneNumber,
             InvalidEmail,
-            UsedEmail,
+            EmailInUse,
             PasswordComplexity,
             PasswordMismatch,
             EmailPasswordComboNotRecognised
