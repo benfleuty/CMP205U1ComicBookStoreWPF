@@ -37,7 +37,7 @@
                 Foreground="Red"
                 Text="this is an error message"
                 Visibility="Collapsed" />
-            <TextBox x:Name="UsernameTextBox" TextChanged="LoginTextBox_TextChanged" />
+            <TextBox x:Name="EmailTextBox" TextChanged="EmailTextBox_TextChanged" />
             <TextBlock Margin="0,15,0,0" Text="Password" />
             <TextBlock
                 x:Name="PasswordErrorMessage"

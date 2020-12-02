@@ -121,6 +121,19 @@
             </StackPanel>
 
             <StackPanel Margin="0,15,0,0">
+                <TextBlock Text="Phone #" />
+                <TextBlock
+                    x:Name="PhoneErrorMessage"
+                    Margin="5,0,0,5"
+                    VerticalAlignment="Bottom"
+                    FontSize="18"
+                    Foreground="Red"
+                    Text="this is an error message"
+                    Visibility="Collapsed" />
+            </StackPanel>
+            <TextBox x:Name="PhoneTextbox" TextChanged="PhoneTextbox_TextChanged" />
+
+            <StackPanel Margin="0,15,0,0">
                 <TextBlock Text="Email" />
                 <TextBlock
                     x:Name="EmailErrorMessage"
