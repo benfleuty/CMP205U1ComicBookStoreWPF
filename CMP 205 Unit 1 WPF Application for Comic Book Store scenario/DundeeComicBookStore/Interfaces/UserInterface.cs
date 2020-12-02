@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DundeeComicBookStore.Interfaces
 {
-    internal interface IUser
+    public interface IUser
     {
         public int ID { get; set; }
         public string FirstName { get; set; }
