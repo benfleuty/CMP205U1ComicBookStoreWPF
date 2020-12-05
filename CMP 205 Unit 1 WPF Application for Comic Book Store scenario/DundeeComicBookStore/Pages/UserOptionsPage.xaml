@@ -85,10 +85,6 @@
                         <Setter Property="Margin" Value="5" />
                     </Style>
                 </WrapPanel.Resources>
-                <Button Content="test" />
-                <Button Content="test" />
-                <Button Content="test" />
-                <Button Content="test" />
             </WrapPanel>
         </ScrollViewer>
     </Grid>
