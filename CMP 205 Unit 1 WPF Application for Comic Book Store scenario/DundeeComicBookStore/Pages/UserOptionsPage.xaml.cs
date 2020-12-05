@@ -18,7 +18,7 @@ namespace DundeeComicBookStore.Pages
     /// <summary>
     /// Interaction logic for UserOptionsPage.xaml
     /// </summary>
-    public partial class UserOptionsPage : Page
+    public partial class UserOptionsPage : BasePage
     {
         private IUser _user;
 
@@ -73,10 +73,14 @@ namespace DundeeComicBookStore.Pages
 
         private List<IProduct> GetCatalog()
         {
-            var products = new List<IProduct>();
-            products = DBAccessHelper.GetAllProducts();
+            List<IProduct> products = DBAccessHelper.GetAllProducts();
 
             return products;
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new LoginPage());
         }
     }
 }
