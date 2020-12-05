@@ -8,9 +8,88 @@
     Title="UserOptionsPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FontSize="28"
     mc:Ignorable="d">
 
-    <Grid>
-        <TextBlock Name="text" />
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75px" />
+            <RowDefinition Height="50px" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50px" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions />
+        <!--  Row 0  -->
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="Dundee Comic Book Store" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <TextBlock
+                x:Name="usernameTextblock"
+                Margin="0,0,5,0"
+                VerticalAlignment="Center" />
+            <Button
+                x:Name="logoutButton"
+                Padding="5"
+                Content="Log out" />
+            <Button
+                x:Name="basketButton"
+                Padding="5"
+                Content="Basket" />
+        </StackPanel>
+
+        <!--  Row 1  -->
+        <!--  search bar  -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Search:" />
+            <TextBox
+                x:Name="searchTextbox"
+                Grid.Column="1"
+                Margin="10,0,0,0" />
+            <Button
+                x:Name="clearButton"
+                Grid.Column="1"
+                Padding="5"
+                HorizontalAlignment="Right"
+                Content="X" />
+            <Button
+                x:Name="searchButton"
+                Grid.Column="2"
+                Margin="20,0,0,0"
+                Content="Search" />
+        </Grid>
+        <!--  results  -->
+
+        <ScrollViewer
+            Grid.Row="2"
+            Margin="0,50,0,0"
+            Focusable="False"
+            VerticalScrollBarVisibility="Auto">
+            <WrapPanel
+                Name="resultsViewer"
+                ItemHeight="400"
+                ItemWidth="400">
+                <WrapPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="5" />
+                    </Style>
+                </WrapPanel.Resources>
+                <Button Content="test" />
+                <Button Content="test" />
+                <Button Content="test" />
+                <Button Content="test" />
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

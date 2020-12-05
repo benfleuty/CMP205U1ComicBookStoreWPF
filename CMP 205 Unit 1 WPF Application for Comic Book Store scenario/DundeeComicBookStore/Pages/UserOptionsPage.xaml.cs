@@ -21,10 +21,21 @@ namespace DundeeComicBookStore.Pages
     {
         private IUser _user;
 
+        public IUser User
+        { get { return _user; } set { _user = value; } }
+
         public UserOptionsPage(IUser loggedInUser)
         {
             InitializeComponent();
-            _user = loggedInUser;
+            User = loggedInUser;
+
+            DisplayUserInfo();
+        }
+
+        private void DisplayUserInfo()
+        {
+            string message = $"Welcome, {User.FullName} ({User.EmailAddress})";
+            usernameTextblock.Text = message;
         }
     }
 }
