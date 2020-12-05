@@ -78,6 +78,7 @@
             VerticalScrollBarVisibility="Auto">
             <WrapPanel
                 Name="resultsViewer"
+                HorizontalAlignment="Center"
                 ItemHeight="400"
                 ItemWidth="400">
                 <WrapPanel.Resources>
