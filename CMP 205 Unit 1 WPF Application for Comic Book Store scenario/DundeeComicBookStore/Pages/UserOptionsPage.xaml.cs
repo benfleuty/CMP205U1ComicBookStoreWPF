@@ -82,5 +82,10 @@ namespace DundeeComicBookStore.Pages
         {
             ChangePageTo(new LoginPage());
         }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            searchTextbox.Text = string.Empty;
+        }
     }
 }

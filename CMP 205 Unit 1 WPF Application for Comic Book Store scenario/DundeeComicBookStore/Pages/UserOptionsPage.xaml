@@ -63,6 +63,7 @@
                 Grid.Column="1"
                 Padding="5"
                 HorizontalAlignment="Right"
+                Click="ClearButton_Click"
                 Content="X" />
             <Button
                 x:Name="searchButton"
