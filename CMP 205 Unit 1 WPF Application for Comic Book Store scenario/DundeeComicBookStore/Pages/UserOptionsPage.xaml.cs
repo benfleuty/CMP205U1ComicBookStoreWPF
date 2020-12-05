@@ -72,10 +72,10 @@ namespace DundeeComicBookStore.Pages
 
         private List<IProduct> GetCatalog()
         {
-            List<IProduct> products;
+            var products = new List<IProduct>();
             products = DBAccessHelper.GetAllProducts();
 
-            return new List<IProduct>();
+            return products;
         }
     }
 }
