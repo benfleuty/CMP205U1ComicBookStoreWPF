@@ -54,7 +54,8 @@ namespace DundeeComicBookStore.Pages
                 string text = $"{name}\n{desciption}\n{price}";
                 var content = new TextBlock()
                 {
-                    Text = text
+                    Text = text,
+                    TextWrapping = TextWrapping.Wrap
                 };
                 var button = new Button()
                 {
