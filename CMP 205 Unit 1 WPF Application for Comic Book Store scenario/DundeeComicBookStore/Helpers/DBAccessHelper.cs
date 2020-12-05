@@ -1,13 +1,12 @@
-﻿using System;
+﻿using DundeeComicBookStore.Interfaces;
+using DundeeComicBookStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlTypes;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using DundeeComicBookStore.Interfaces;
-using DundeeComicBookStore.Models;
+using System.Threading.Tasks;
 
 namespace DundeeComicBookStore
 {
@@ -179,6 +178,8 @@ namespace DundeeComicBookStore
 
         #endregion Setting users
 
+        #region User Functions
+
         public static bool IsEmailNotInUse(string email)
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
@@ -211,8 +212,6 @@ namespace DundeeComicBookStore
                 return false;
             }
         }
-
-        #endregion Users
 
         private static string HashPassword(string password, string email)
         {
@@ -261,6 +260,56 @@ namespace DundeeComicBookStore
             }
 
             return value;
+        }
+
+        #endregion User Functions
+
+        #endregion Users
+
+        public static List<IProduct> GetAllProducts()
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                string select = "SELECT name,description,unitPrice,stockCount";
+                string from = "FROM Products";
+                string query = $"{select} {from}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                var productList = new List<IProduct>();
+
+                // see if the list is empty
+
+                if (dataTable.Rows.Count < 1)
+                    return productList;
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    var product = new ProductModel()
+                    {
+                        Name = (string)row["name"],
+                        Description = (string)row["description"],
+                        UnitPrice = (uint)(int)row["unitPrice"],
+                        UnitsInStock = (uint)(int)row["stockCount"]
+                    };
+                    productList.Add(product);
+                }
+                return productList;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return new List<IProduct>();
+            }
         }
     }
 }
