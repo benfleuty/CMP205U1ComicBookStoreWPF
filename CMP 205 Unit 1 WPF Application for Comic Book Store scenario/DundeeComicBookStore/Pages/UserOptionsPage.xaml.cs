@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -30,12 +31,51 @@ namespace DundeeComicBookStore.Pages
             User = loggedInUser;
 
             DisplayUserInfo();
+            List<IProduct> catalog = GetCatalog();
+
+            // no products
+            if (catalog.Count == 0)
+            {
+                TextBlock noProducts = new TextBlock()
+                {
+                    Text = "There are no products to display at this time!"
+                };
+                resultsViewer.Children.Add(noProducts);
+                return;
+            }
+
+            // products
+            foreach (IProduct product in catalog)
+            {
+                string name = product.Name;
+                int descLength = (product.Description.Length > 64) ? 64 : product.Description.Length;
+                string desciption = product.Description.Substring(0, descLength);
+                string price = product.UnitPrice.ToString("C");
+                string text = $"{name}\n{desciption}\n{price}";
+                var content = new TextBlock()
+                {
+                    Text = text
+                };
+                var button = new Button()
+                {
+                    Content = content
+                };
+                resultsViewer.Children.Add(button);
+            }
         }
 
         private void DisplayUserInfo()
         {
             string message = $"Welcome, {User.FullName} ({User.EmailAddress})";
             usernameTextblock.Text = message;
+        }
+
+        private List<IProduct> GetCatalog()
+        {
+            List<IProduct> products;
+            products = DBAccessHelper.GetAllProducts();
+
+            return new List<IProduct>();
         }
     }
 }
