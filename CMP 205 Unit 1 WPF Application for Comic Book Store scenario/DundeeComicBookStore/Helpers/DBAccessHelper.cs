@@ -297,7 +297,7 @@ namespace DundeeComicBookStore
                     {
                         Name = (string)row["name"],
                         Description = (string)row["description"],
-                        UnitPrice = (uint)(int)row["unitPrice"],
+                        UnitPrice = (decimal)row["unitPrice"],
                         UnitsInStock = (uint)(int)row["stockCount"]
                     };
                     productList.Add(product);
