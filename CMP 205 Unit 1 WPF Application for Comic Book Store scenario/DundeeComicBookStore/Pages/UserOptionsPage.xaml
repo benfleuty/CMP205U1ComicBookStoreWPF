@@ -14,14 +14,14 @@
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="75px" />
-            <RowDefinition Height="50px" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="50px" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions />
         <!--  Row 0  -->
         <TextBlock
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
             FontSize="48"
             Text="Dundee Comic Book Store" />
@@ -44,6 +44,10 @@
         <!--  Row 1  -->
         <!--  search bar  -->
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
@@ -70,6 +74,32 @@
                 Grid.Column="2"
                 Margin="20,0,0,0"
                 Content="Search" />
+
+            <!--  Row 1  -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Search by: " />
+                <CheckBox
+                    Margin="10,0"
+                    Content="Title"
+                    IsChecked="True" />
+                <CheckBox
+                    Margin="10,0"
+                    Content="Title"
+                    IsChecked="True" />
+                <TextBlock Margin="10,0" Text="Price range: " />
+                <TextBlock x:Name="priceRangeMinimumDisplay" Text="Min " />
+                <TextBox
+                    x:Name="minPriceTextbox"
+                    MinWidth="25px"
+                    PreviewTextInput="CheckPriceTextboxInput"
+                    Text="0.00" />
+                <TextBlock x:Name="priceRangeMaximumDisplay" Text="Max " />
+                <TextBox x:Name="maxPriceTextbox" PreviewTextInput="CheckPriceTextboxInput" />
+            </StackPanel>
         </Grid>
         <!--  results  -->
 
