@@ -7,26 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="images\pp\bitmun.png" />
-    <None Remove="images\pp\spodermin.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TolmountDatabase\TolmountDatabase.sqlproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="images\pp\bitmun.png" />
-    <Resource Include="images\pp\spodermin.png" />
-  </ItemGroup>
-
 </Project>
