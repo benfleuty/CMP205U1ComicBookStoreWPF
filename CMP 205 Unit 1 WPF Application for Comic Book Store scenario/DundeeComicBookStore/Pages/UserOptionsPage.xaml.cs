@@ -103,34 +103,13 @@ namespace DundeeComicBookStore.Pages
             searchTextbox.Text = string.Empty;
         }
 
-        private void CheckPriceTextboxInput(object sender, TextCompositionEventArgs e)
+        private void filterResultsButton_Click(object sender, RoutedEventArgs e)
         {
-            bool val = false;
-            char changedChar = e.Text[0];
-            var sent = sender as TextBox;
-            string currentContent = sent.Text;
-            // prevent input if there are already 2 decimal places
-            if (currentContent.Split('.')[1].Length >= 2)
-            {
-                string wholeNumbers = currentContent.Split('.')[0];
-                string decimals = currentContent.Split('.')[1].Substring(0, 2);
-                string whole = $"{wholeNumbers}.{decimals}";
-                sent.Text = whole;
-                e.Handled = true;
-                return;
-            }
+        }
 
-            // if it isnt a number
-            if (!char.IsNumber(changedChar))
-            {
-                val = true; // no change
-                            // if there is already a decimal
-                if (currentContent.Contains('.')) val = true; // no change
-                                                              // if it is a decimal and since there isnt already a decimal
-                else if (changedChar == '.') val = false; // add the decimal
-            }
-
-            e.Handled = val;
+        private void priceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            priceRangeContainer.IsEnabled = (bool)priceRangeCheckBox.IsChecked;
         }
     }
 }
