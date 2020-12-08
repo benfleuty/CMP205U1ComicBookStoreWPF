@@ -1,7 +1,9 @@
 ﻿using DundeeComicBookStore.Interfaces;
+using DundeeComicBookStore.Windows;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -223,7 +225,10 @@ namespace DundeeComicBookStore.Pages
         private void Product_Clicked(object sender, RoutedEventArgs e)
         {
             var sent = sender as Button;
-            System.Windows.MessageBox.Show(sent.Tag.ToString());
+            int id = (int)sent.Tag;
+            IProduct p = currentSearchResults.First(item => item.ID == id);
+            var viewer = new ProductViewerWindow(p);
+            viewer.Show();
         }
     }
 }
