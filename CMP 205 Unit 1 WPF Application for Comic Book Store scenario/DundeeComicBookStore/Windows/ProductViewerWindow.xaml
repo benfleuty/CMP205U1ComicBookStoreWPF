@@ -32,7 +32,7 @@
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Click="closeProductViewerButton_Click"
+            Click="CloseProductViewerButton_Click"
             Content="Close" />
 
         <!--  Row 1  -->

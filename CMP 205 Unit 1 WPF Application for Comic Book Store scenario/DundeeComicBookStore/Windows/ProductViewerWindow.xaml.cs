@@ -31,7 +31,7 @@ namespace DundeeComicBookStore.Windows
             quantityToAdd.Minimum = 1;
         }
 
-        private void closeProductViewerButton_Click(object sender, RoutedEventArgs e)
+        private void CloseProductViewerButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
