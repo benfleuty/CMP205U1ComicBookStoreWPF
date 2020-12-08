@@ -95,40 +95,6 @@ namespace DundeeComicBookStore
             };
         }
 
-        //public static bool IsValidUser(string email, string password)
-        //{
-        //    HashPassword(ref password, email);
-
-        //    using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
-        //    try
-        //    {
-        //        conn.Open();
-        //        Console.WriteLine("Database connection established");
-
-        //        string select = "SELECT id,firstName,lastName,phone,email,address,rewardPoints,permissions";
-        //        string from = "FROM Users";
-        //        string where = "WHERE email = @email AND password = @password";
-        //        string query = $"{select} {from} {where}";
-
-        //        SqlCommand command = new SqlCommand(query, conn);
-
-        //        command.Parameters.AddWithValue("email", email);
-        //        command.Parameters.AddWithValue("password", password);
-
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        // no rows = no user
-        //        if (!reader.HasRows) return false;
-
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        string output = $@"Database interaction failed.\nException:\n{e.Message}";
-        //        Console.WriteLine(output);
-        //        return false;
-        //    }
-        //}
-
         #endregion Getting Users
 
         #region Setting users
@@ -266,6 +232,10 @@ namespace DundeeComicBookStore
 
         #endregion Users
 
+        #region Products
+
+        #region Get products
+
         public static List<IProduct> GetAllProducts()
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
@@ -311,5 +281,63 @@ namespace DundeeComicBookStore
                 return new List<IProduct>();
             }
         }
+
+        public static List<IProduct> GetProducts(string query, Dictionary<string, object> parameters)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                var command = new SqlCommand(query, conn);
+                foreach (var item in parameters)
+                    command.Parameters.AddWithValue(item.Key, item.Value);
+
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                var productList = new List<IProduct>();
+
+                // see if the list is empty
+
+                if (dataTable.Rows.Count < 1)
+                    return productList;
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    var product = new ProductModel()
+                    {
+                        Name = (string)row["name"],
+                        Description = (string)row["description"],
+                        UnitPrice = (decimal)row["unitPrice"],
+                        UnitsInStock = (uint)(int)row["stockCount"]
+                    };
+                    productList.Add(product);
+                }
+                return productList;
+            }
+            catch (Exception e)
+            {
+                string output = $"Database interaction failed.\nException:\n{e.Message}";
+                output = $"{output}\n{e.InnerException}";
+                System.Windows.MessageBox.Show(output);
+                return new List<IProduct>();
+            }
+        }
+
+        #endregion Get products
+
+        #endregion Products
+
+        #region Misc
+
+        public static SqlConnection GetConnectionString(string _string)
+        {
+            return new SqlConnection(ConnectionHelper.ConnVal(_string));
+        }
+
+        #endregion Misc
     }
 }
