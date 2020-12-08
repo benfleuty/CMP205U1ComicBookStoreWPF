@@ -73,6 +73,7 @@
                 x:Name="searchButton"
                 Grid.Column="2"
                 Margin="20,0,0,0"
+                Click="SearchButton_Click"
                 Content="Search" />
 
             <!--  Row 1  -->
@@ -84,43 +85,57 @@
                 Orientation="Horizontal">
                 <TextBlock Text="Search by: " />
                 <CheckBox
+                    x:Name="titleCheckBox"
                     Margin="10,0"
                     Content="Title"
                     IsChecked="True" />
                 <CheckBox
+                    x:Name="descriptionCheckBox"
                     Margin="10,0"
                     Content="Description"
                     IsChecked="False" />
                 <CheckBox
                     x:Name="priceRangeCheckBox"
                     Margin="10,0"
-                    Checked="priceRangeCheckBox_CheckedChanged"
+                    Checked="PriceRangeCheckBox_CheckedChanged"
                     Content="Price range:"
                     IsChecked="False"
-                    Unchecked="priceRangeCheckBox_CheckedChanged" />
+                    Unchecked="PriceRangeCheckBox_CheckedChanged" />
                 <StackPanel
                     Name="priceRangeContainer"
                     IsEnabled="False"
                     Orientation="Horizontal">
                     <xctk:DecimalUpDown
+                        x:Name="minimumPriceDUD"
                         ClipValueToMinMax="True"
                         DisplayDefaultValueOnEmptyText="True"
                         FormatString="C"
                         Minimum="0"
-                        Watermark="Max Price" />
+                        Watermark="Min Price" />
                     <TextBlock Text=" to " />
                     <xctk:DecimalUpDown
+                        x:Name="maximumPriceDUD"
                         ClipValueToMinMax="True"
                         DisplayDefaultValueOnEmptyText="True"
                         FormatString="C"
                         Minimum="0"
                         Watermark="Max Price" />
-                    <Button
-                        x:Name="filterResultsButton"
-                        Margin="5,0"
-                        Click="filterResultsButton_Click"
-                        Content="Apply filter" />
                 </StackPanel>
+                <TextBlock Text="Sort by: " />
+                <ComboBox x:Name="sortByComboBox" SelectedIndex="0">
+                    <ComboBoxItem
+                        Name="noSort"
+                        Content="None"
+                        Tag="noSort" />
+                    <ComboBoxItem
+                        Name="priceAscending"
+                        Content="Price - Ascending"
+                        Tag="unitPrice ASC" />
+                    <ComboBoxItem
+                        Name="priceDescending"
+                        Content="Price - Descending"
+                        Tag="unitPrice DESC" />
+                </ComboBox>
             </StackPanel>
         </Grid>
         <!--  results  -->
