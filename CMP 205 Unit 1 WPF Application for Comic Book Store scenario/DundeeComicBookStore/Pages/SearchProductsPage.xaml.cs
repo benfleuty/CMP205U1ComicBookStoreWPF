@@ -19,7 +19,7 @@ namespace DundeeComicBookStore.Pages
     /// <summary>
     /// Interaction logic for UserOptionsPage.xaml
     /// </summary>
-    public partial class UserOptionsPage : BasePage
+    public partial class SearchProductsPage : BasePage
     {
         private decimal highestCost = 0.00m;
         private List<IProduct> currentSearchResults;
@@ -28,7 +28,7 @@ namespace DundeeComicBookStore.Pages
         public IUser User
         { get { return _user; } set { _user = value; } }
 
-        public UserOptionsPage(IUser loggedInUser)
+        public SearchProductsPage(IUser loggedInUser)
         {
             InitializeComponent();
             User = loggedInUser;

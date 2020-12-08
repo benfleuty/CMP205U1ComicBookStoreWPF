@@ -64,7 +64,7 @@ namespace DundeeComicBookStore.Pages
             }
             // credentials are valid
 
-            UserOptionsPage uop = new UserOptionsPage(userLoggingIn);
+            SearchProductsPage uop = new SearchProductsPage(userLoggingIn);
             ChangePageTo(uop);
         }
 

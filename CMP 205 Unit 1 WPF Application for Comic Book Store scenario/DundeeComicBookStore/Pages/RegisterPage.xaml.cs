@@ -101,7 +101,7 @@ namespace DundeeComicBookStore.Pages
                 MessageBox.Show("error registering");
                 return;
             }
-            var uop = new UserOptionsPage(returned);
+            var uop = new SearchProductsPage(returned);
             ChangePageTo(uop);
         }
 
