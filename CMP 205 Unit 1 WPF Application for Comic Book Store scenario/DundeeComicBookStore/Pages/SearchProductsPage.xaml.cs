@@ -227,7 +227,7 @@ namespace DundeeComicBookStore.Pages
             var sent = sender as Button;
             int id = (int)sent.Tag;
             IProduct p = currentSearchResults.First(item => item.ID == id);
-            var viewer = new ProductViewerWindow(p);
+            var viewer = new ProductViewerWindow(CurrentWindow, p);
             viewer.Show();
         }
     }
