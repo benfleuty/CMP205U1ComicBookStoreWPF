@@ -244,7 +244,7 @@ namespace DundeeComicBookStore
                 conn.Open();
                 Console.WriteLine("Database connection established");
 
-                string select = "SELECT name,description,unitPrice,stockCount";
+                string select = "SELECT id,name,description,unitPrice,stockCount";
                 string from = "FROM Products";
                 string query = $"{select} {from}";
 
@@ -265,6 +265,7 @@ namespace DundeeComicBookStore
                 {
                     var product = new ProductModel()
                     {
+                        ID = (int)row["id"],
                         Name = (string)row["name"],
                         Description = (string)row["description"],
                         UnitPrice = (decimal)row["unitPrice"],
@@ -309,6 +310,7 @@ namespace DundeeComicBookStore
                 {
                     var product = new ProductModel()
                     {
+                        ID = (int)row["id"],
                         Name = (string)row["name"],
                         Description = (string)row["description"],
                         UnitPrice = (decimal)row["unitPrice"],
