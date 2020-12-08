@@ -35,7 +35,7 @@ namespace DundeeComicBookStore.Pages
 
             DisplayUserInfo();
 
-            OutputSearchResults(DBAccessHelper.GetAllProducts());
+            OutputSearchResults(GetCatalog());
         }
 
         private void DisplayUserInfo()
@@ -53,7 +53,7 @@ namespace DundeeComicBookStore.Pages
 
         private List<IProduct> GetCatalog(string search, bool getAll = false)
         {
-            string select = "SELECT name,description,unitPrice,stockCount";
+            string select = "SELECT id,name,description,unitPrice,stockCount";
             string from = "FROM Products";
             string where = "WHERE";
             string and = "AND ";
@@ -179,7 +179,9 @@ namespace DundeeComicBookStore.Pages
         private void ShowCatalog(List<IProduct> catalog)
         {
             resultsViewer.Children.Clear();
+
             // products
+            currentSearchResults = catalog;
             foreach (IProduct product in catalog)
             {
                 string name = product.Name;
@@ -199,7 +201,6 @@ namespace DundeeComicBookStore.Pages
                     inStock += $"{product.UnitsInStock} available";
                 }
                 else inStock = "OUT OF STOCK!";
-
                 string text = $"{name}\n\n{desciption}\n\n{price}\n\n{inStock}";
                 var content = new TextBlock()
                 {
@@ -208,13 +209,21 @@ namespace DundeeComicBookStore.Pages
                 };
                 var button = new Button()
                 {
-                    Content = content
+                    Content = content,
+                    Tag = product.ID,
                 };
+                button.Click += Product_Clicked;
                 resultsViewer.Children.Add(button);
                 // Set the highest cost product for price range
                 if (highestCost < product.UnitPrice)
                     highestCost = product.UnitPrice;
             }
+        }
+
+        private void Product_Clicked(object sender, RoutedEventArgs e)
+        {
+            var sent = sender as Button;
+            System.Windows.MessageBox.Show(sent.Tag.ToString());
         }
     }
 }
