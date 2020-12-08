@@ -18,10 +18,12 @@ namespace DundeeComicBookStore.Windows
     /// </summary>
     public partial class ProductViewerWindow : Window
     {
-        public ProductViewerWindow(IProduct product)
+        private Window _caller;
+
+        public ProductViewerWindow(Window caller, IProduct product)
         {
             InitializeComponent();
-
+            _caller = caller;
             productTitleTextblock.Text = product.Name;
             productDesciptionTextblock.Text = product.Description;
             productStockCountTextblock.Text = product.UnitsInStock.ToString();
