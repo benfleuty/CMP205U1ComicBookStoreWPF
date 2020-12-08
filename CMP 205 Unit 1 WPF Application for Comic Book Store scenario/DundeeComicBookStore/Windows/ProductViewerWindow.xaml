@@ -1,0 +1,65 @@
+﻿<Window
+    x:Class="DundeeComicBookStore.Windows.ProductViewerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DundeeComicBookStore.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    Title="ProductViewer"
+    FontSize="48"
+    WindowState="Maximized"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--  Row 0  -->
+        <TextBlock
+            x:Name="productTitleTextblock"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="72" />
+        <Button
+            x:Name="closeProductViewerButton"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="closeProductViewerButton_Click"
+            Content="Close" />
+
+        <!--  Row 1  -->
+        <!--  Col 0  -->
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Description" />
+            <TextBlock x:Name="productDesciptionTextblock" />
+        </StackPanel>
+
+        <!--  Col 1  -->
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock HorizontalAlignment="Center" Text="Quantity in stock: " />
+            <TextBlock
+                x:Name="productStockCountTextblock"
+                Margin="0,0,0,10"
+                HorizontalAlignment="Center" />
+            <TextBlock HorizontalAlignment="Center" Text="Quantity to add" />
+            <xctk:IntegerUpDown
+                x:Name="quantityToAdd"
+                HorizontalAlignment="Center"
+                ClipValueToMinMax="True"
+                DefaultValue="1"
+                Value="1" />
+            <Button
+                x:Name="addQuantity"
+                HorizontalAlignment="Center"
+                Content="Add to basket" />
+        </StackPanel>
+    </Grid>
+</Window>
