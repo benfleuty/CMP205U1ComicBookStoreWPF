@@ -9,6 +9,7 @@
     Title="BasketPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FontSize="28"
     mc:Ignorable="d">
 
     <Grid Margin="20">
@@ -34,9 +35,10 @@
                 Click="LogoutButton_Click"
                 Content="Log out" />
             <Button
-                x:Name="basketButton"
+                x:Name="browseProductButton"
                 Padding="5"
-                Content="Basket" />
+                Click="BrowseProductButton_Click"
+                Content="Browse Products" />
         </StackPanel>
 
         <!--  basket  -->

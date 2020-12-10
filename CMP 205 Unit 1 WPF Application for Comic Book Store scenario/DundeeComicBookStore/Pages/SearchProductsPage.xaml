@@ -38,6 +38,7 @@
             <Button
                 x:Name="basketButton"
                 Padding="5"
+                Click="BasketButton_Click"
                 Content="Basket" />
         </StackPanel>
 

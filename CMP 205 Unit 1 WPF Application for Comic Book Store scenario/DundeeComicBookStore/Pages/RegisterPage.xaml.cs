@@ -1,5 +1,6 @@
 ﻿using DundeeComicBookStore.Helpers;
 using DundeeComicBookStore.Interfaces;
+using DundeeComicBookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -101,7 +102,7 @@ namespace DundeeComicBookStore.Pages
                 MessageBox.Show("error registering");
                 return;
             }
-            var uop = new SearchProductsPage(returned);
+            var uop = new SearchProductsPage(new BasketModel(returned));
             ChangePageTo(uop);
         }
 

@@ -39,10 +39,11 @@ namespace DundeeComicBookStore.Pages
             set { _basket = value; }
         }
 
-        public SearchProductsPage(IUser loggedInUser)
+        public SearchProductsPage(BasketModel basket)
         {
             InitializeComponent();
-            User = loggedInUser;
+            Basket = basket;
+            User = Basket.User;
 
             DisplayUserInfo();
 
@@ -254,6 +255,11 @@ namespace DundeeComicBookStore.Pages
                 basketButton.Content = $"Basket";
             else
                 basketButton.Content = $"Basket: ({count})";
+        }
+
+        private void BasketButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new BasketPage(Basket));
         }
     }
 }

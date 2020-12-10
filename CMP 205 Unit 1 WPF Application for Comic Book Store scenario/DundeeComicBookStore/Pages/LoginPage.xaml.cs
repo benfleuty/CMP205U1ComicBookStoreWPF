@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DundeeComicBookStore.Helpers;
 using DundeeComicBookStore.Interfaces;
+using DundeeComicBookStore.Models;
 
 namespace DundeeComicBookStore.Pages
 {
@@ -64,7 +65,7 @@ namespace DundeeComicBookStore.Pages
             }
             // credentials are valid
 
-            SearchProductsPage uop = new SearchProductsPage(userLoggingIn);
+            SearchProductsPage uop = new SearchProductsPage(new BasketModel(userLoggingIn));
             ChangePageTo(uop);
         }
 

@@ -75,5 +75,11 @@ namespace DundeeComicBookStore.Pages
         {
             throw new NotImplementedException();
         }
+
+        private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            browseProductButton.IsEnabled = false;
+            ChangePageTo(new SearchProductsPage(new BasketModel(Basket.User)));
+        }
     }
 }
