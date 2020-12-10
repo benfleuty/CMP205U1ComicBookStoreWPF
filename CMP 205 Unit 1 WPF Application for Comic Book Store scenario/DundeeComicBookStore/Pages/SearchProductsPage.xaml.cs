@@ -46,7 +46,14 @@ namespace DundeeComicBookStore.Pages
 
             DisplayUserInfo();
 
+            InitialiseBasket();
+
             OutputSearchResults(GetCatalog());
+        }
+
+        private void InitialiseBasket()
+        {
+            Basket = new BasketModel(User);
         }
 
         private void DisplayUserInfo()
@@ -236,8 +243,17 @@ namespace DundeeComicBookStore.Pages
             var sent = sender as Button;
             int id = (int)sent.Tag;
             IProduct p = currentSearchResults.First(item => item.ID == id);
-            var viewer = new ProductViewerWindow(CurrentWindow, p);
+            var viewer = new ProductViewerWindow(this, p);
             viewer.Show();
+        }
+
+        public void UpdateBasket()
+        {
+            int count = Basket.Count();
+            if (count == 0)
+                basketButton.Content = $"Basket";
+            else
+                basketButton.Content = $"Basket: ({count})";
         }
     }
 }
