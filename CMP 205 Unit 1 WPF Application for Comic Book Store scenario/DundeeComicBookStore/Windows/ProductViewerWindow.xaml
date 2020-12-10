@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Title="ProductViewer"
+    Closing="Window_Closing"
     FontSize="48"
     WindowState="Maximized"
     WindowStyle="None"
@@ -44,12 +45,18 @@
 
         <!--  Col 1  -->
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBlock HorizontalAlignment="Center" Text="Quantity in stock: " />
+            <TextBlock
+                x:Name="tbQuantityInStock"
+                HorizontalAlignment="Center"
+                Text="Quantity in stock: " />
             <TextBlock
                 x:Name="productStockCountTextblock"
                 Margin="0,0,0,10"
                 HorizontalAlignment="Center" />
-            <TextBlock HorizontalAlignment="Center" Text="Quantity to add" />
+            <TextBlock
+                x:Name="tbQuantityToAdd"
+                HorizontalAlignment="Center"
+                Text="Quantity to add" />
             <xctk:IntegerUpDown
                 x:Name="quantityToAdd"
                 HorizontalAlignment="Center"
@@ -59,6 +66,7 @@
             <Button
                 x:Name="addQuantity"
                 HorizontalAlignment="Center"
+                Click="AddQuantity_Click"
                 Content="Add to basket" />
         </StackPanel>
     </Grid>
