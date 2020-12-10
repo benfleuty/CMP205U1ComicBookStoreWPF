@@ -109,7 +109,12 @@ namespace DundeeComicBookStore.Pages
 
         private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DBAccessHelper.SaveOrder(Basket)) System.Windows.MessageBox.Show("Test"); ;
+            if (!DBAccessHelper.SaveOrder(Basket)) MessageBox.Show("Your order could not be saved!"); ;
+        }
+
+        private void ViewOrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new ViewOrdersPage(Basket));
         }
     }
 }

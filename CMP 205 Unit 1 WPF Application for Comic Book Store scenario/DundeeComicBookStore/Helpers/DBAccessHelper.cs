@@ -329,6 +329,50 @@ namespace DundeeComicBookStore
             }
         }
 
+        public static IProduct GetProductById(int productId)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                string select = "SELECT id,name,description,unitPrice,stockCount,unitCost";
+                string from = "FROM Products";
+                string where = "WHERE id = @productId";
+                string query = $"{select} {from} {where}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("productId", productId);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                if (dataTable.Rows.Count != 1)
+                    return null;
+
+                DataRow data = dataTable.Rows[0];
+
+                return new ProductModel()
+                {
+                    ID = (int)data["id"],
+                    Name = (string)data["name"],
+                    Description = (string)data["description"],
+                    UnitPrice = (decimal)data["unitPrice"],
+                    UnitsInStock = (uint)(int)data["stockCount"],
+                    UnitCost = (decimal)data["unitCost"]
+                };
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return null;
+            }
+        }
+
         #endregion Get products
 
         #endregion Products
@@ -406,6 +450,92 @@ namespace DundeeComicBookStore
         }
 
         #endregion Save an order
+
+        #region Get orders
+
+        public static List<OrderModel> GetOrders(int userId)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                // Get orders
+
+                string select = "SELECT Orders.id AS order_id, Orders.address,Orders.orderDate";
+                string from = "FROM Orders";
+                string where = "WHERE Orders.userId = @userId";
+                string query = $"{select} {from} {where}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("userId", userId);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                if (dataTable.Rows.Count < 1)
+                    return null;
+
+                var orders = new List<OrderModel>();
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    var order = new OrderModel()
+                    {
+                        ID = (int)row["order_id"],
+                        Address = (string)row["address"],
+                        PlacedAt = (DateTime)row["orderDate"]
+                    };
+                    orders.Add(order);
+                }
+
+                // get items ordered by user
+
+                foreach (var order in orders)
+                {
+                    select = "SELECT OrderItems.productId, OrderItems.quantity";
+                    from = "FROM OrderItems";
+                    where = $"WHERE OrderItems.orderId = {order.ID}";
+                    query = $"{select} {from} {where}";
+
+                    command = new SqlCommand(query, conn);
+
+                    command.Parameters.AddWithValue("userId", userId);
+
+                    reader = command.ExecuteReader();
+                    dataTable = new DataTable();
+                    dataTable.Load(reader);
+
+                    if (dataTable.Rows.Count < 1)
+                        return null;
+
+                    var orderBasket = new BasketModel();
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        int productId = (int)row["productId"];
+                        int quantity = (int)row["quantity"];
+                        IProduct product = GetProductById(productId);
+                        orderBasket.Items.Add(product, quantity);
+                    }
+
+                    order.Basket = orderBasket;
+                }
+
+                return orders;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return null;
+            }
+        }
+
+        #endregion Get orders
 
         #endregion Orders
 

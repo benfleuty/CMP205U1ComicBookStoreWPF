@@ -44,17 +44,11 @@ namespace DundeeComicBookStore.Pages
             InitializeComponent();
             Basket = basket;
             User = Basket.User;
+            UpdateBasket();
 
             DisplayUserInfo();
 
-            InitialiseBasket();
-
             OutputSearchResults(GetCatalog());
-        }
-
-        private void InitialiseBasket()
-        {
-            Basket = new BasketModel(User);
         }
 
         private void DisplayUserInfo()
@@ -252,9 +246,9 @@ namespace DundeeComicBookStore.Pages
         {
             int count = Basket.Count();
             if (count == 0)
-                basketButton.Content = $"Basket";
+                basketButton.Content = "Basket";
             else
-                basketButton.Content = $"Basket: ({count})";
+                basketButton.Content = $"Basket ({count})";
         }
 
         private void BasketButton_Click(object sender, RoutedEventArgs e)

@@ -40,10 +40,15 @@ namespace DundeeComicBookStore.Models
         /// </summary>
         /// <param name="user">An IUser object</param>
 
+        public BasketModel()
+        {
+            Items = new Dictionary<IProduct, int>();
+        }
+
         public BasketModel(IUser user)
         {
             User = user;
-            Items = new Dictionary<IProduct, int>();
+            if (Items == null) Items = new Dictionary<IProduct, int>();
         }
 
         /// <summary>
