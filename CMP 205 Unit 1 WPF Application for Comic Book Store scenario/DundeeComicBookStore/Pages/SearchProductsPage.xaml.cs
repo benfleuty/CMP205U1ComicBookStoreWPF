@@ -1,4 +1,5 @@
 ﻿using DundeeComicBookStore.Interfaces;
+using DundeeComicBookStore.Models;
 using DundeeComicBookStore.Windows;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,14 @@ namespace DundeeComicBookStore.Pages
 
         public IUser User
         { get { return _user; } set { _user = value; } }
+
+        private BasketModel _basket;
+
+        public BasketModel Basket
+        {
+            get { return _basket; }
+            set { _basket = value; }
+        }
 
         public SearchProductsPage(IUser loggedInUser)
         {
@@ -187,11 +196,11 @@ namespace DundeeComicBookStore.Pages
             foreach (IProduct product in catalog)
             {
                 string name = product.Name;
-                int descLength = (product.Description.Length >= 61) ? 61 : product.Description.Length;
-                bool cutOffDescription = descLength == 61;
+                bool cutOffDescription = product.Description.Length > 64;
+                int descCutOffPoint = (product.Description.Length >= 64) ? 61 : product.Description.Length;
                 string desciption =
                     (cutOffDescription)
-                    ? $"{product.Description.Substring(0, descLength)}..."
+                    ? $"{product.Description.Substring(0, descCutOffPoint)}..."
                     : product.Description;
                 string price = product.UnitPrice.ToString("C");
                 bool anyInStock = product.UnitsInStock > 1;
