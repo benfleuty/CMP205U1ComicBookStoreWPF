@@ -96,7 +96,7 @@ namespace DundeeComicBookStore.Pages
             string password = PasswordPBox.Password;
             string phone = PhoneTextbox.Text.Trim();
 
-            IUser returned = DBAccessHelper.SetUser(firstName, lastName, email, password, phone);
+            IUser returned = DBAccessHelper.SetUser(firstName, lastName, email, password, phone, address);
             if (returned == null)
             {
                 MessageBox.Show("error registering");

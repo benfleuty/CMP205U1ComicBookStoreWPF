@@ -43,6 +43,7 @@ namespace DundeeComicBookStore.Pages
 
         private void OutputBasketItems()
         {
+            tbNoItems.Visibility = Visibility.Collapsed;
             foreach (var item in Basket.Items)
             {
                 IProduct product = item.Key;
@@ -70,6 +71,8 @@ namespace DundeeComicBookStore.Pages
                 button.Click += BasketItem_Clicked;
                 basketItemsViewer.Children.Add(button);
             }
+            if (basketItemsViewer.Children.Count > 0) return;
+            tbNoItems.Visibility = Visibility.Visible;
         }
 
         private void BasketItem_Clicked(object sender, RoutedEventArgs e)
@@ -102,6 +105,11 @@ namespace DundeeComicBookStore.Pages
 
             basketItemsViewer.Children.Clear();
             OutputBasketItems();
+        }
+
+        private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DBAccessHelper.SaveOrder(Basket)) System.Windows.MessageBox.Show("Test"); ;
         }
     }
 }

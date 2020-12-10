@@ -35,6 +35,11 @@
                 Click="LogoutButton_Click"
                 Content="Log out" />
             <Button
+                x:Name="saveOrderButton"
+                Padding="5"
+                Click="SaveOrderButton_Click"
+                Content="Save Order" />
+            <Button
                 x:Name="browseProductButton"
                 Padding="5"
                 Click="BrowseProductButton_Click"
@@ -42,6 +47,15 @@
         </StackPanel>
 
         <!--  basket  -->
+
+        <TextBlock
+            x:Name="tbNoItems"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="There are no items in your basket"
+            Visibility="Collapsed" />
 
         <ScrollViewer
             Grid.Row="1"

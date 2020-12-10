@@ -36,10 +36,13 @@ namespace DundeeComicBookStore.Windows
             if (this.product.UnitsInStock > 1)
             {
                 quantityToBuy.Maximum = (int)this.product.UnitsInStock;
-                quantityToBuy.Minimum = 1;
+                quantityToBuy.Minimum = 0;
             }
             else if (this.product.UnitsInStock == 1)
-                quantityToBuy.Minimum = quantityToBuy.Maximum = 1;
+            {
+                quantityToBuy.Minimum = 0;
+                quantityToBuy.Maximum = 1;
+            }
             else
             {
                 productStockCountTextblock.Text = "OUT OF STOCK";

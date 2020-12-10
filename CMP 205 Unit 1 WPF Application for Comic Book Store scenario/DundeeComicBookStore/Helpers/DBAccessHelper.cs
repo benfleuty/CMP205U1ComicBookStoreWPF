@@ -26,8 +26,7 @@ namespace DundeeComicBookStore
                 conn.Open();
                 Console.WriteLine("Database connection established");
 
-                string select = "SELECT id,firstName,lastName,phone,email,rewardPoints,permissions";
-                //string select = "SELECT *"; use upon full implementation
+                string select = "SELECT *";
                 string from = "FROM Users";
                 string where = "WHERE email = @email AND password = @password";
                 string query = $"{select} {from} {where}";
@@ -72,7 +71,7 @@ namespace DundeeComicBookStore
                 FirstName = (string)data["firstName"],
                 LastName = (string)data["lastName"],
                 EmailAddress = (string)data["email"],
-                //Address = new AddressModel((string)row["address"])),
+                Address = (string)data["address"],
                 PhoneNumber = (string)data["phone"],
                 //ProfilePictureSource = (string)row["profilePicture"],
                 RewardPoints = (uint)(int)data["rewardPoints"]
@@ -99,7 +98,7 @@ namespace DundeeComicBookStore
 
         #region Setting users
 
-        public static IUser SetUser(string firstName, string lastName, string email, string password, string phone /*, string address, string profilPicture*/)
+        public static IUser SetUser(string firstName, string lastName, string email, string password, string phone, string address/*, string profilPicture*/)
         {
             string hashedPassword = HashPassword(password, email);
 
@@ -111,9 +110,9 @@ namespace DundeeComicBookStore
 
                 string insertInto = "INSERT INTO";
                 string table = "Users";
-                string columns = "(firstName,lastName,phone,email,password)";
+                string columns = "(firstName,lastName,phone,email,address,password)";
                 //string columns = "('firstName','lastName','phone','email','address','password','profilePicture')";
-                string values = $"VALUES (@firstName,@lastName,@phone,@email,@password)";
+                string values = $"VALUES (@firstName,@lastName,@phone,@email,@address,@password)";
                 string query = $"{insertInto} {table} {columns} {values}";
 
                 SqlCommand command = new SqlCommand(query, conn);
@@ -122,6 +121,7 @@ namespace DundeeComicBookStore
                 command.Parameters.AddWithValue("lastName", lastName);
                 command.Parameters.AddWithValue("phone", phone);
                 command.Parameters.AddWithValue("email", email);
+                command.Parameters.AddWithValue("address", address);
                 command.Parameters.AddWithValue("password", hashedPassword);
 
                 int affectedRows = command.ExecuteNonQuery();
@@ -332,6 +332,48 @@ namespace DundeeComicBookStore
         #endregion Get products
 
         #endregion Products
+
+        #region Orders
+
+        #region Save an order
+
+        public static bool SaveOrder(BasketModel basket)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                string insertInto = "INSERT INTO";
+                string table = "Orders";
+                string columns = "(userId,address)";
+                string values = $"VALUES (@userId,@address)";
+                string query = $"{insertInto} {table} {columns} {values}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("userId", basket.User.ID);
+                command.Parameters.AddWithValue("address", basket.User.Address);
+
+                int affectedRows = command.ExecuteNonQuery();
+
+                if (affectedRows != 1)
+                    return false;
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return false;
+            }
+        }
+
+        #endregion Save an order
+
+        #endregion Orders
 
         #region Misc
 
