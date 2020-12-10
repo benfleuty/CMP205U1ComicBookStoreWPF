@@ -348,18 +348,52 @@ namespace DundeeComicBookStore
                 string insertInto = "INSERT INTO";
                 string table = "Orders";
                 string columns = "(userId,address)";
+                string output = "OUTPUT inserted.id";
                 string values = $"VALUES (@userId,@address)";
-                string query = $"{insertInto} {table} {columns} {values}";
+                string query = $"{insertInto} {table} {columns} {output} {values}";
 
                 SqlCommand command = new SqlCommand(query, conn);
 
                 command.Parameters.AddWithValue("userId", basket.User.ID);
                 command.Parameters.AddWithValue("address", basket.User.Address);
 
-                int affectedRows = command.ExecuteNonQuery();
+                SqlDataReader reader = command.ExecuteReader();
 
-                if (affectedRows != 1)
-                    return false;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                DataRow data = dataTable.Rows[0];
+
+                Dictionary<IProduct, int> items = basket.Items;
+
+                int lastOrderId = (int)data["id"];
+
+                insertInto = "INSERT INTO";
+                table = "OrderItems";
+                columns = "(orderId,productId,quantity)";
+                values = $"VALUES ";
+                int count = 1;
+                foreach (var item in items)
+                {
+                    if (count > 1) values += ",";
+                    values += $"({lastOrderId},@productId{count},@quantity{count})";
+                    count++;
+                }
+
+                query = $"{insertInto} {table} {columns} {values}";
+
+                command = new SqlCommand(query, conn);
+
+                count = 1;
+
+                foreach (var item in items)
+                {
+                    command.Parameters.AddWithValue($"productId{count}", item.Key.ID);
+                    command.Parameters.AddWithValue($"quantity{count}", item.Value);
+                    count++;
+                }
+
+                command.ExecuteNonQuery();
 
                 return true;
             }
