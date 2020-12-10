@@ -1,5 +1,6 @@
 ﻿using DundeeComicBookStore.Interfaces;
 using DundeeComicBookStore.Models;
+using DundeeComicBookStore.Windows;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -54,8 +55,8 @@ namespace DundeeComicBookStore.Pages
                     ? $"{product.Description.Substring(0, descCutOffPoint)}..."
                     : product.Description;
                 string price = product.UnitPrice.ToString("C");
-                string total = (product.UnitPrice * quantity).ToString();
-                string text = $"{name}\n\n{desciption}\n\n{quantity}@{price}\n\nTotal: {total}";
+                string total = (product.UnitPrice * quantity).ToString("C");
+                string text = $"{name}\n\n{desciption}\n\n{quantity}@{price}ea.\n\nTotal: {total}";
                 var content = new TextBlock()
                 {
                     Text = text,
@@ -73,13 +74,34 @@ namespace DundeeComicBookStore.Pages
 
         private void BasketItem_Clicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var sent = sender as Button;
+            int id = (int)sent.Tag;
+
+            foreach (var kvp in Basket.Items)
+            {
+                IProduct p = kvp.Key;
+                if (p.ID != id) continue;
+                var window = new BasketItemViewerWindow(this, p, Basket.Items[p]);
+                window.Show();
+                break;
+            }
         }
 
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
             browseProductButton.IsEnabled = false;
             ChangePageTo(new SearchProductsPage(new BasketModel(Basket.User)));
+        }
+
+        public void UpdateBasket(IProduct productToUpdate, int quantity)
+        {
+            if (quantity <= 0)
+                Basket.Items.Remove(productToUpdate);
+            else
+                Basket.Items[productToUpdate] = quantity;
+
+            basketItemsViewer.Children.Clear();
+            OutputBasketItems();
         }
     }
 }
