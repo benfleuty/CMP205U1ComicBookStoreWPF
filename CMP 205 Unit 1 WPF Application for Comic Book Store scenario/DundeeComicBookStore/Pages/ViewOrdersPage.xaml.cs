@@ -1,5 +1,6 @@
 ﻿using DundeeComicBookStore.Interfaces;
 using DundeeComicBookStore.Models;
+using DundeeComicBookStore.Windows;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,14 @@ namespace DundeeComicBookStore.Pages
     /// </summary>
     public partial class ViewOrdersPage : BasePage
     {
+        private List<OrderModel> _orders;
+
+        public List<OrderModel> Orders
+        {
+            get { return _orders; }
+            set { _orders = value; }
+        }
+
         private BasketModel _basket;
 
         public BasketModel Basket
@@ -37,9 +46,9 @@ namespace DundeeComicBookStore.Pages
 
         private void ShowOrders()
         {
-            List<OrderModel> orders = DBAccessHelper.GetOrders(Basket.User.ID);
+            Orders = DBAccessHelper.GetOrders(Basket.User.ID);
             // iterate orders
-            foreach (var order in orders)
+            foreach (var order in Orders)
             {
                 //order
                 string output = "";
@@ -61,11 +70,21 @@ namespace DundeeComicBookStore.Pages
 
                 var orderButton = new Button()
                 {
-                    Content = tb
+                    Content = tb,
+                    Tag = order.ID
                 };
+
+                orderButton.Click += OrderButton_Click;
 
                 ordersViewer.Children.Add(orderButton);
             }
+        }
+
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            var sent = sender as Button;
+            OrderModel result = Orders.Find(order => order.ID == (int)sent.Tag);
+            (new OrderViewerWindow(result)).Show();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
