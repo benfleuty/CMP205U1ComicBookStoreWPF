@@ -64,7 +64,7 @@
             <Button
                 x:Name="setQuantity"
                 HorizontalAlignment="Center"
-                Click="setQuantity_Click"
+                Click="SetQuantity_Click"
                 Content="Change quantity" />
             <Button
                 x:Name="removeItem"

@@ -68,7 +68,7 @@ namespace DundeeComicBookStore.Windows
             quantity = (int)quantityToBuy.Value;
         }
 
-        private void setQuantity_Click(object sender, RoutedEventArgs e)
+        private void SetQuantity_Click(object sender, RoutedEventArgs e)
         {
             caller.UpdateBasket(product, quantity);
         }
