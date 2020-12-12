@@ -96,6 +96,7 @@ namespace DundeeComicBookStore.Windows
                 if (result == MessageBoxResult.Yes)
                     DBAccessHelper.SaveOrder(caller.CurrentOrder);
             }
+            Order.BeingEdited = true;
             caller.CurrentOrder = Order;
             caller.OrderViewerClosing();
             Close();
