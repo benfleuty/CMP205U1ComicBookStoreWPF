@@ -433,57 +433,10 @@ namespace DundeeComicBookStore
                 conn.Open();
                 Console.WriteLine("Database connection established");
 
-                string insertInto = "INSERT INTO";
-                string table = "Orders";
-                string columns = "(userId,address)";
-                string output = "OUTPUT inserted.id";
-                string values = $"VALUES (@userId,@address)";
-                string query = $"{insertInto} {table} {columns} {output} {values}";
-
-                SqlCommand command = new SqlCommand(query, conn);
-
-                BasketModel basket = order.Basket;
-
-                command.Parameters.AddWithValue("userId", order.User.ID);
-                command.Parameters.AddWithValue("address", order.User.Address);
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                DataTable dataTable = new DataTable();
-                dataTable.Load(reader);
-
-                DataRow data = dataTable.Rows[0];
-
-                Dictionary<IProduct, int> items = basket.Items;
-
-                int lastOrderId = (int)data["id"];
-
-                insertInto = "INSERT INTO";
-                table = "OrderItems";
-                columns = "(orderId,productId,quantity)";
-                values = $"VALUES ";
-                int count = 1;
-                foreach (var item in items)
-                {
-                    if (count > 1) values += ",";
-                    values += $"({lastOrderId},@productId{count},@quantity{count})";
-                    count++;
-                }
-
-                query = $"{insertInto} {table} {columns} {values}";
-
-                command = new SqlCommand(query, conn);
-
-                count = 1;
-
-                foreach (var item in items)
-                {
-                    command.Parameters.AddWithValue($"productId{count}", item.Key.ID);
-                    command.Parameters.AddWithValue($"quantity{count}", item.Value);
-                    count++;
-                }
-
-                command.ExecuteNonQuery();
+                // if the order is not being edited
+                if (!order.BeingEdited)
+                    SaveNewOrder(conn, order);
+                else SaveExistingOrder(conn, order);
 
                 return true;
             }
@@ -493,6 +446,162 @@ namespace DundeeComicBookStore
                 Console.WriteLine(output);
                 return false;
             }
+        }
+
+        private static void SaveExistingOrder(SqlConnection conn, OrderModel order)
+        {
+            // get the order currently in the database
+            string select = "SELECT";
+            string columns = "productId,quantity";
+            string from = "FROM";
+            string table = "OrderItems";
+            string where = $"WHERE";
+            string conditions = $"orderId = @orderId";
+            string query = $"{select} {columns} {from} {table} {where} {conditions}";
+
+            var command = new SqlCommand(query, conn);
+
+            command.Parameters.AddWithValue($"orderId", order.ID);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+
+            var dbItems = new Dictionary<int, int>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                int product = (int)row["productId"];
+                int quantity = (int)row["quantity"];
+                dbItems.Add(product, quantity);
+            }
+
+            var existingItems = new BasketModel();
+            var existingItemsToUpdate = new BasketModel();
+            var newItems = new BasketModel();
+
+            // iterate rows to identify products
+
+            foreach (var product in order.Basket.Items)
+            {
+                //if existing
+                if (dbItems.ContainsKey(product.Key.ID))
+                {
+                    if (product.Value == dbItems[product.Key.ID])
+                        existingItems.Add(product.Key, product.Value);
+                    else
+                        existingItemsToUpdate.Add(product.Key, product.Value);
+                }
+                else
+                    newItems.Add(product.Key, product.Value);
+            }
+
+            // update quantities for items already in basket
+            if (existingItemsToUpdate.Items.Count > 0)
+            {
+                foreach (var product in existingItemsToUpdate.Items)
+                {
+                    int productId = product.Key.ID;
+                    int quantity = product.Value;
+
+                    string update = "UPDATE";
+                    table = "OrderItems";
+                    string set = "SET";
+                    columns = "quantity = @quantity";
+                    where = $"WHERE";
+                    conditions = $"orderId = @orderId AND productId = @productId";
+                    query = $"{update} {table} {set} {columns} {where} {conditions}";
+
+                    command = new SqlCommand(query, conn);
+
+                    command.Parameters.AddWithValue($"quantity", quantity);
+                    command.Parameters.AddWithValue($"orderId", order.ID);
+                    command.Parameters.AddWithValue($"productId", productId);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            // check if any items remain
+            // if not return
+            if (newItems.Items.Count < 1) return;
+
+            // there are new items
+            foreach (var product in newItems.Items)
+            {
+                int productId = product.Key.ID;
+                int quantity = product.Value;
+
+                string insertInto = "INSERT INTO";
+                table = "OrderItems";
+                columns = "(orderId,productId,quantity)";
+                string values = $"VALUES (@orderId,@productId,@quantity)";
+                query = $"{insertInto} {table} {columns} {values}";
+
+                command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue($"orderId", order.ID);
+                command.Parameters.AddWithValue($"productId", productId);
+                command.Parameters.AddWithValue($"quantity", quantity);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private static void SaveNewOrder(SqlConnection conn, OrderModel order)
+        {
+            string insertInto = "INSERT INTO";
+            string table = "Orders";
+            string columns = "(userId,address)";
+            string output = "OUTPUT inserted.id";
+            string values = $"VALUES (@userId,@address)";
+            string query = $"{insertInto} {table} {columns} {output} {values}";
+
+            SqlCommand command = new SqlCommand(query, conn);
+
+            BasketModel basket = order.Basket;
+
+            command.Parameters.AddWithValue("userId", order.User.ID);
+            command.Parameters.AddWithValue("address", order.User.Address);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+
+            DataRow data = dataTable.Rows[0];
+
+            Dictionary<IProduct, int> items = basket.Items;
+
+            int lastOrderId = (int)data["id"];
+
+            insertInto = "INSERT INTO";
+            table = "OrderItems";
+            columns = "(orderId,productId,quantity)";
+            values = $"VALUES ";
+            int count = 1;
+            foreach (var item in items)
+            {
+                if (count > 1) values += ",";
+                values += $"({lastOrderId},@productId{count},@quantity{count})";
+                count++;
+            }
+
+            query = $"{insertInto} {table} {columns} {values}";
+
+            command = new SqlCommand(query, conn);
+
+            count = 1;
+
+            foreach (var item in items)
+            {
+                command.Parameters.AddWithValue($"productId{count}", item.Key.ID);
+                command.Parameters.AddWithValue($"quantity{count}", item.Value);
+                count++;
+            }
+
+            command.ExecuteNonQuery();
         }
 
         #endregion Save an order
@@ -583,8 +692,6 @@ namespace DundeeComicBookStore
         }
 
         #endregion Get orders
-
-        #endregion Orders
 
         #region Misc
 
