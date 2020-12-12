@@ -84,7 +84,7 @@ namespace DundeeComicBookStore.Pages
         {
             var sent = sender as Button;
             OrderModel result = Orders.Find(order => order.ID == (int)sent.Tag);
-            (new OrderViewerWindow(result)).Show();
+            (new OrderViewerWindow(this, result)).Show();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)

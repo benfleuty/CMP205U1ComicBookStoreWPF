@@ -1,4 +1,5 @@
 ﻿using DundeeComicBookStore.Models;
+using DundeeComicBookStore.Pages;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,7 @@ namespace DundeeComicBookStore.Windows
     /// </summary>
     public partial class OrderViewerWindow : Window
     {
+        private ViewOrdersPage caller;
         private OrderModel _order;
 
         public OrderModel Order
@@ -26,10 +28,11 @@ namespace DundeeComicBookStore.Windows
             set { _order = value; }
         }
 
-        public OrderViewerWindow(OrderModel order)
+        public OrderViewerWindow(ViewOrdersPage caller, OrderModel order)
         {
             InitializeComponent();
             Order = order;
+            this.caller = caller;
             SetupWindow();
         }
 
