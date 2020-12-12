@@ -44,5 +44,11 @@ namespace DundeeComicBookStore.Windows
             DialogResult = true;
             Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
+        }
     }
 }

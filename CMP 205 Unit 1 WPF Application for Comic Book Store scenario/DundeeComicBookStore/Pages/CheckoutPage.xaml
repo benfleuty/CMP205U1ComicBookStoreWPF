@@ -83,6 +83,12 @@
                 </GroupBox>
                 <TextBlock x:Name="tbTotal" Text="Total:" />
                 <TextBlock Text="Please see a member of staff to pay!" />
+                <TextBlock Text="Staff only:" />
+                <TextBlock Text="Payment type:" />
+                <ComboBox x:Name="selectedPaymentMethod" SelectedIndex="0">
+                    <ComboBoxItem Name="paymentCard" Content="Card" />
+                    <ComboBoxItem Name="paymentCash" Content="Cash" />
+                </ComboBox>
                 <Button
                     x:Name="confirmPaymentButton"
                     Click="ConfirmPaymentButton_Click"

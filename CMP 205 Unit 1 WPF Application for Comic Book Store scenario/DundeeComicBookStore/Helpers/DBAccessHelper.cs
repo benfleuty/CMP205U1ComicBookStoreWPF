@@ -726,6 +726,211 @@ namespace DundeeComicBookStore
 
         #endregion Delete an order
 
+        #region Process order
+
+        public static bool ProcessOrder(OrderModel order)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            if (order.ID == 0)
+                return ProcessNewOrder(conn, order);
+            else return ProcessExistingOrder(conn, order);
+        }
+
+        private static bool ProcessNewOrder(SqlConnection conn, OrderModel order)
+        {
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                #region insert the order into Orders, OrderItems
+
+                string insertInto = "INSERT INTO";
+                string table = "Orders";
+                string columns = "(userId,address)";
+                string output = "OUTPUT inserted.id";
+                string values = $"VALUES (@userId,@address)";
+                string query = $"{insertInto} {table} {columns} {output} {values}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                BasketModel basket = order.Basket;
+
+                command.Parameters.AddWithValue("userId", order.User.ID);
+                command.Parameters.AddWithValue("address", order.User.Address);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                DataRow data = dataTable.Rows[0];
+
+                Dictionary<IProduct, int> items = basket.Items;
+
+                int lastOrderId = (int)data["id"];
+
+                insertInto = "INSERT INTO";
+                table = "OrderItems";
+                columns = "(orderId,productId,quantity)";
+                values = $"VALUES ";
+                int count = 1;
+                foreach (var item in items)
+                {
+                    if (count > 1) values += ",";
+                    values += $"({lastOrderId},@productId{count},@quantity{count})";
+                    count++;
+                }
+
+                query = $"{insertInto} {table} {columns} {values}";
+
+                command = new SqlCommand(query, conn);
+
+                count = 1;
+
+                foreach (var item in items)
+                {
+                    command.Parameters.AddWithValue($"productId{count}", item.Key.ID);
+                    command.Parameters.AddWithValue($"quantity{count}", item.Value);
+                    count++;
+                }
+
+                command.ExecuteNonQuery();
+
+                #endregion insert the order into Orders, OrderItems
+
+                #region insert the payment information
+
+                insertInto = "INSERT INTO";
+                table = "Payments";
+                columns = "(orderId,type,amount)";
+                values = "VALUES (@orderId,@type,@amount)";
+                query = $"{insertInto} {table} {columns} {values}";
+
+                command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("orderId", lastOrderId);
+
+                switch (order.PaymentType)
+                {
+                    case 0:
+                        command.Parameters.AddWithValue("type", "card");
+                        break;
+
+                    case 1:
+                        command.Parameters.AddWithValue("type", "cash");
+                        break;
+                }
+
+                command.Parameters.AddWithValue("amount", order.Basket.Total);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1) return true;
+                else return false;
+
+                #endregion insert the payment information
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return false;
+            }
+        }
+
+        private static bool ProcessExistingOrder(SqlConnection conn, OrderModel order)
+        {
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                #region insert the payment information
+
+                string insertInto = "INSERT INTO";
+                string table = "Payments";
+                string columns = "(orderId,type,amount)";
+                string values = "VALUES (@orderId,@type,@amount)";
+                string query = $"{insertInto} {table} {columns} {values}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("orderId", order.ID);
+
+                switch (order.PaymentType)
+                {
+                    case 0:
+                        command.Parameters.AddWithValue("type", "card");
+                        break;
+
+                    case 1:
+                        command.Parameters.AddWithValue("type", "cash");
+                        break;
+                }
+
+                command.Parameters.AddWithValue("amount", order.Basket.Total);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1) return true;
+                else return false;
+
+                #endregion insert the payment information
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return false;
+            }
+        }
+
+        /* process existing
+        private static bool ProcessNewOrder(SqlConnection conn, OrderModel order)
+        {
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                string insertInto = "INSERT INTO";
+                string table = "Payments";
+                string columns = "orderId,type,amount";
+                string values = "VALUES (@orderId,@type,@amount)";
+                string query = $"{insertInto} {table} {columns} {values}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("orderId", order.ID);
+
+                switch (order.PaymentType)
+                {
+                    case 0:
+                        command.Parameters.AddWithValue("type", "card");
+                        break;
+
+                    case 1:
+                        command.Parameters.AddWithValue("type", "cash");
+                        break;
+                }
+
+                command.Parameters.AddWithValue("amount", order.Basket.Total);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1) return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return false;
+            }
+        }
+
+        */
+
+        #endregion Process order
+
         #endregion Orders
 
         #region Misc

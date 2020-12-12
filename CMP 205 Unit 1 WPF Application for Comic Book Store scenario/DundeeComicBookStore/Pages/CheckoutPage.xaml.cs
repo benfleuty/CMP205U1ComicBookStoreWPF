@@ -86,8 +86,29 @@ namespace DundeeComicBookStore.Pages
 
         private void ConfirmPaymentButton_Click(object sender, RoutedEventArgs e)
         {
+            bool items = Order.Basket.Count() != 0;
+            bool deliverySet = (rbCollection.IsChecked ?? false) || (rbHomeDelivery.IsChecked ?? false);
+            bool correctInput = items & deliverySet;
+            if (!correctInput)
+            {
+                string output = string.Empty;
+                if (!items)
+                    output += "You need to add items to your basket to checkout!\n";
+                if (!deliverySet)
+                    output += "Please select a delivery option";
+                MessageBox.Show(output);
+                return;
+            }
             Window window = new StaffConfirmAction();
-            window.Show();
+            bool result = window.ShowDialog() ?? false;
+            // if the action is cancelled
+            if (!result) return;
+            // enter order into the db
+
+            Order.PaymentType = selectedPaymentMethod.SelectedIndex;
+
+            if (DBAccessHelper.ProcessOrder(Order)) MessageBox.Show("Payment saved!");
+            else MessageBox.Show("Payment could not be saved!");
         }
     }
 }
