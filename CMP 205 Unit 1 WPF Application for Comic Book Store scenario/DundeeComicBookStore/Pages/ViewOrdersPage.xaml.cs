@@ -55,7 +55,7 @@ namespace DundeeComicBookStore.Pages
                 string output = "";
                 output += $"Order ID: {order.ID}\n";
                 output += $"Order Address: {order.Address}\n";
-                output += $"Order PlacedAt: {order.PlacedAt}\n";
+                output += $"Order Date:\n{order.PlacedAt}\n";
                 string yesNo = (order.Complete) ? "Yes" : "No";
                 output += $"Complete: {yesNo} \n";
                 if (order.Complete)
