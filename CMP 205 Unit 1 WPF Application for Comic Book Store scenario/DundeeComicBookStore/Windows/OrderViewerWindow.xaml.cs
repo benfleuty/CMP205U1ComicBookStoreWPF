@@ -98,12 +98,18 @@ namespace DundeeComicBookStore.Windows
             }
             Order.BeingEdited = true;
             caller.CurrentOrder = Order;
-            caller.OrderViewerClosing();
+            caller.OrderViewerClosingGoToBasket();
             Close();
         }
 
         private void DeleteOrderViewerButton_Click(object sender, RoutedEventArgs e)
         {
+            if (DBAccessHelper.DeleteOrder(Order))
+            {
+                MessageBox.Show("Your order was deleted!"); ;
+                caller.OrderViewerClosingUpdateOrderDisplay();
+                Close();
+            }
         }
     }
 }

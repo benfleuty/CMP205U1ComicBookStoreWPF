@@ -98,6 +98,8 @@ namespace DundeeComicBookStore.Pages
             ChangePageTo(new SearchProductsPage(CurrentOrder));
         }
 
-        internal void OrderViewerClosing() => ChangePageTo(new BasketPage(CurrentOrder));
+        internal void OrderViewerClosingGoToBasket() => ChangePageTo(new BasketPage(CurrentOrder));
+
+        internal void OrderViewerClosingUpdateOrderDisplay() => ShowOrders();
     }
 }

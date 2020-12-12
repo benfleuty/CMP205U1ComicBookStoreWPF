@@ -693,6 +693,41 @@ namespace DundeeComicBookStore
 
         #endregion Get orders
 
+        #region Delete an order
+
+        public static bool DeleteOrder(OrderModel order)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                string deleteFROM = "DELETE FROM";
+                string table = "Orders";
+                string where = "WHERE id = @orderId";
+                string query = $"{deleteFROM} {table} {where}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                command.Parameters.AddWithValue("orderId", order.ID);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1) return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return false;
+            }
+        }
+
+        #endregion Delete an order
+
+        #endregion Orders
+
         #region Misc
 
         public static SqlConnection GetConnectionString(string _string)
