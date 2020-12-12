@@ -41,8 +41,9 @@ namespace DundeeComicBookStore.Pages
             ChangePageTo(new LoginPage());
         }
 
-        private void OutputBasketItems()
+        public void OutputBasketItems()
         {
+            basketItemsViewer.Children.Clear();
             tbNoItems.Visibility = Visibility.Collapsed;
             foreach (var item in CurrentOrder.Basket.Items)
             {
