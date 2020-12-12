@@ -87,6 +87,20 @@ namespace DundeeComicBookStore.Windows
 
         private void OpenOrderViewerButton_Click(object sender, RoutedEventArgs e)
         {
+            // if there is a basket that is currently in use
+            if (caller.Basket.Items.Count > 0)
+            {
+                MessageBoxResult result =
+                    MessageBox.Show("You currently have items in a basket? Would you like to save that order?", "Existing order!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    BasketModel basketToSave = caller.Basket;
+                    DBAccessHelper.SaveOrder(basketToSave);
+                }
+            }
+            caller.Basket = Order.Basket;
+            Close();
         }
 
         private void DeleteOrderViewerButton_Click(object sender, RoutedEventArgs e)
