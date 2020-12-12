@@ -115,7 +115,7 @@ namespace DundeeComicBookStore.Models
                 decimal total = 0.0m;
                 foreach (var product in Items)
                 {
-                    total += product.Key.UnitCost * product.Value;
+                    total += product.Key.UnitPrice * product.Value;
                 }
 
                 return total;
