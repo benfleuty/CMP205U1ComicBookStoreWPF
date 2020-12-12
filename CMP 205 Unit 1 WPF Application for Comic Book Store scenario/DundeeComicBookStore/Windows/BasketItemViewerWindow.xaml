@@ -66,6 +66,11 @@
                 HorizontalAlignment="Center"
                 Click="setQuantity_Click"
                 Content="Change quantity" />
+            <Button
+                x:Name="removeItem"
+                HorizontalAlignment="Center"
+                Click="RemoveItem_Click"
+                Content="Remove from basket" />
         </StackPanel>
     </Grid>
 </Window>

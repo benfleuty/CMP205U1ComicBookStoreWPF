@@ -72,5 +72,13 @@ namespace DundeeComicBookStore.Windows
         {
             caller.UpdateBasket(product, quantity);
         }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            caller.CurrentOrder.Basket.Items.Remove(product);
+            MessageBox.Show("This item was removed from your basket!", "Item removed");
+            caller.OutputBasketItems();
+            Close();
+        }
     }
 }
