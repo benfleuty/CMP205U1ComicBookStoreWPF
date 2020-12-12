@@ -33,6 +33,7 @@
                 Grid.Column="0"
                 Margin="2.5,0"
                 Background="#ff0"
+                Click="CancelButton_Click"
                 Content="Cancel"
                 Style="{DynamicResource RoundedCorners}" />
             <Button
@@ -40,8 +41,8 @@
                 Grid.Column="1"
                 Margin="2.5,0"
                 Background="#0088ff"
+                Click="VerifyLoginButton_Click"
                 Content="Confirm"
-                IsEnabled="False"
                 Style="{DynamicResource RoundedCorners}" />
         </Grid>
     </Grid>

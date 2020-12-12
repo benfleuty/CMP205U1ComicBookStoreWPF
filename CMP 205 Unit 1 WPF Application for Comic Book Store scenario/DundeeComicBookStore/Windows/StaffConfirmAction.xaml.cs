@@ -21,5 +21,13 @@ namespace DundeeComicBookStore.Windows
         {
             InitializeComponent();
         }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void VerifyLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
