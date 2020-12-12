@@ -43,6 +43,11 @@ namespace DundeeComicBookStore.Pages
             ChangePageTo(new ViewOrdersPage(Order));
         }
 
+        private void BasketButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new BasketPage(Order));
+        }
+
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
             ChangePageTo(new BasketPage(Order));

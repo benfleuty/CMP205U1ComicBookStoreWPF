@@ -40,6 +40,11 @@
                 Click="ViewOrdersButton_Click"
                 Content="View Orders" />
             <Button
+                x:Name="viewBasketButton"
+                Padding="5"
+                Click="ViewOrdersButton_Click"
+                Content="View Orders" />
+            <Button
                 x:Name="browseProductButton"
                 Padding="5"
                 Click="BrowseProductButton_Click"
@@ -51,28 +56,24 @@
         <TextBlock
             x:Name="tbNoItems"
             Grid.Row="1"
+            Margin="0,50,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="48"
             Text="There are no items in your basket"
             Visibility="Collapsed" />
 
-        <ScrollViewer
-            Grid.Row="1"
-            Margin="0,50,0,0"
-            Focusable="False"
-            VerticalScrollBarVisibility="Auto">
-            <WrapPanel
-                Name="basketItemsViewer"
-                HorizontalAlignment="Center"
-                ItemHeight="400"
-                ItemWidth="400">
-                <WrapPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Margin" Value="5" />
-                    </Style>
-                </WrapPanel.Resources>
-            </WrapPanel>
+        <ScrollViewer Grid.Row="1" Margin="0,50,0,0">
+            <StackPanel>
+                <TextBlock x:Name="totalCost" Text="Total:" />
+
+                <GroupBox Header="Delivery">
+                    <StackPanel>
+                        <RadioButton x:Name="rbHomeDelivery" Content="Home delivery: £4.99" />
+                        <RadioButton x:Name="rbCollection" Content="Collect in store: Free" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </local:BasePage>
