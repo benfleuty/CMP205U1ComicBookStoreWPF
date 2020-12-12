@@ -40,11 +40,6 @@
                 Click="ViewOrdersButton_Click"
                 Content="View Orders" />
             <Button
-                x:Name="saveOrderButton"
-                Padding="5"
-                Click="SaveOrderButton_Click"
-                Content="Save Order" />
-            <Button
                 x:Name="browseProductButton"
                 Padding="5"
                 Click="BrowseProductButton_Click"

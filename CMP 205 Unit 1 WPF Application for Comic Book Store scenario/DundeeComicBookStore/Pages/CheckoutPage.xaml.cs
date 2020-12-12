@@ -19,25 +19,33 @@ namespace DundeeComicBookStore.Pages
     /// </summary>
     public partial class CheckoutPage : BasePage
     {
+        private OrderModel _order;
+
+        public OrderModel Order
+        {
+            get { return _order; }
+            set { _order = value; }
+        }
+
         public CheckoutPage(OrderModel currentOrder)
         {
             InitializeComponent();
+            Order = currentOrder;
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
+            ChangePageTo(new LoginPage());
         }
 
         private void ViewOrdersButton_Click(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
-        {
+            ChangePageTo(new ViewOrdersPage(Order));
         }
 
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
+            ChangePageTo(new BasketPage(Order));
         }
     }
 }
