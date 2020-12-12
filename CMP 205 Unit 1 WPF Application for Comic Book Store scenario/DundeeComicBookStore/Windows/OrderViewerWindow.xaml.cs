@@ -40,6 +40,7 @@ namespace DundeeComicBookStore.Windows
         {
             orderNumberTitleTextbox.Text = $"Order #{Order.ID}";
             tbOrderDate.Text = $"Order created: {Order.PlacedAt}";
+            if (Order.Complete) openOrderViewerButton.Content = "Buy again";
 
             foreach (var product in Order.Basket.Items)
             {
@@ -96,9 +97,27 @@ namespace DundeeComicBookStore.Windows
                 if (result == MessageBoxResult.Yes)
                     DBAccessHelper.SaveOrder(caller.CurrentOrder);
             }
-            Order.BeingEdited = true;
-            caller.CurrentOrder = Order;
+            if (Order.Complete)
+            {
+                OrderModel newOrder = new OrderModel()
+                {
+                    ID = 0,
+                    User = Order.User,
+                    PlacedAt = DateTime.Now,
+                    Basket = Order.Basket,
+                    Address = Order.Address,
+                    BeingEdited = false,
+                    Complete = false
+                };
+                caller.CurrentOrder = newOrder;
+            }
+            else
+            {
+                Order.BeingEdited = true;
+                caller.CurrentOrder = Order;
+            }
             caller.OrderViewerClosingGoToBasket();
+
             Close();
         }
 
