@@ -70,5 +70,19 @@ namespace DundeeComicBookStore.Models
             get { return _homeDelivery; }
             set { _homeDelivery = value; }
         }
+
+        private int _paymentType;
+
+        public int PaymentType
+        {
+            get { return _paymentType; }
+            set { _paymentType = value; }
+        }
+
+        public enum PaymentTypes
+        {
+            Card,
+            Cash
+        }
     }
 }
