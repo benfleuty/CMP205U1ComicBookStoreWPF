@@ -1,0 +1,48 @@
+﻿<Window
+    x:Class="DundeeComicBookStore.Windows.StaffConfirmAction"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DundeeComicBookStore.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="StaffConfirmAction"
+    Width="800"
+    Height="450"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid Margin="20,50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Email" />
+        <TextBox x:Name="staffEmailTxt" Grid.Row="1" />
+        <TextBlock Grid.Row="2" Text="Password" />
+        <PasswordBox x:Name="staffPasswordPwb" Grid.Row="3" />
+        <Grid Grid.Row="4" Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="cancelButton"
+                Grid.Column="0"
+                Margin="2.5,0"
+                Background="#ff0"
+                Content="Cancel"
+                Style="{DynamicResource RoundedCorners}" />
+            <Button
+                x:Name="verifyLoginButton"
+                Grid.Column="1"
+                Margin="2.5,0"
+                Background="#0088ff"
+                Content="Confirm"
+                IsEnabled="False"
+                Style="{DynamicResource RoundedCorners}" />
+        </Grid>
+    </Grid>
+</Window>
