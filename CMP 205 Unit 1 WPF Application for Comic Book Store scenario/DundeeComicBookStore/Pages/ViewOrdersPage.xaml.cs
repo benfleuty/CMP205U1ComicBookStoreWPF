@@ -46,6 +46,7 @@ namespace DundeeComicBookStore.Pages
 
         private void ShowOrders()
         {
+            ordersViewer.Children.Clear();
             Orders = DBAccessHelper.GetOrders(CurrentOrder.User.ID);
             // iterate orders
             foreach (var order in Orders)
