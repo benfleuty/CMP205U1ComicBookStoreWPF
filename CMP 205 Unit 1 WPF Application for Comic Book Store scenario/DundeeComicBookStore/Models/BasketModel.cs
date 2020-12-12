@@ -107,5 +107,19 @@ namespace DundeeComicBookStore.Models
                 count += kvp.Value;
             return count;
         }
+
+        public decimal Total
+        {
+            get
+            {
+                decimal total = 0.0m;
+                foreach (var product in Items)
+                {
+                    total += product.Key.UnitCost * product.Value;
+                }
+
+                return total;
+            }
+        }
     }
 }
