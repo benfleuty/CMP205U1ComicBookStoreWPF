@@ -42,8 +42,8 @@
             <Button
                 x:Name="viewBasketButton"
                 Padding="5"
-                Click="ViewOrdersButton_Click"
-                Content="View Orders" />
+                Click="BasketButton_Click"
+                Content="View Basket" />
             <Button
                 x:Name="browseProductButton"
                 Padding="5"
@@ -60,19 +60,33 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="48"
-            Text="There are no items in your basket"
+            Text="You cannot checkout with no items in your basket"
             Visibility="Collapsed" />
 
-        <ScrollViewer Grid.Row="1" Margin="0,50,0,0">
+        <ScrollViewer
+            x:Name="orderViewer"
+            Grid.Row="1"
+            Margin="0,50,0,0">
             <StackPanel>
                 <TextBlock x:Name="tbSubtotal" Text="Subtotal:" />
                 <GroupBox Header="Delivery">
                     <StackPanel>
-                        <RadioButton x:Name="rbHomeDelivery" Content="Home delivery: £4.99" />
-                        <RadioButton x:Name="rbCollection" Content="Collect in store: Free" />
+                        <RadioButton
+                            x:Name="rbHomeDelivery"
+                            Checked="DeliveryChoice_Changed"
+                            Content="Home delivery: £4.99" />
+                        <RadioButton
+                            x:Name="rbCollection"
+                            Checked="DeliveryChoice_Changed"
+                            Content="Collect in store: Free" />
                     </StackPanel>
                 </GroupBox>
                 <TextBlock x:Name="tbTotal" Text="Total:" />
+                <TextBlock Text="Please see a member of staff to pay!" />
+                <Button
+                    x:Name="confirmPaymentButton"
+                    Click="ConfirmPaymentButton_Click"
+                    Content="Confirm payment" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
