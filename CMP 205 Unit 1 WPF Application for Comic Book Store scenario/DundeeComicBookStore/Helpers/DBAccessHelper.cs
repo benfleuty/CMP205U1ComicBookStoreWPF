@@ -566,6 +566,7 @@ namespace DundeeComicBookStore
                         orderBasket.Items.Add(product, quantity);
                     }
 
+                    orderBasket.User = GetUser(userId);
                     order.Basket = orderBasket;
                 }
 
