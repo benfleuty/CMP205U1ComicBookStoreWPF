@@ -65,14 +65,14 @@
 
         <ScrollViewer Grid.Row="1" Margin="0,50,0,0">
             <StackPanel>
-                <TextBlock x:Name="totalCost" Text="Total:" />
-
+                <TextBlock x:Name="tbSubtotal" Text="Subtotal:" />
                 <GroupBox Header="Delivery">
                     <StackPanel>
                         <RadioButton x:Name="rbHomeDelivery" Content="Home delivery: £4.99" />
                         <RadioButton x:Name="rbCollection" Content="Collect in store: Free" />
                     </StackPanel>
                 </GroupBox>
+                <TextBlock x:Name="tbTotal" Text="Total:" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
