@@ -32,22 +32,22 @@
             <Button
                 x:Name="logoutButton"
                 Padding="5"
-                Click="logoutButton_Click"
+                Click="LogoutButton_Click"
                 Content="Log out" />
             <Button
                 x:Name="viewOrdersButton"
                 Padding="5"
-                Click="viewOrdersButton_Click"
+                Click="ViewOrdersButton_Click"
                 Content="View Orders" />
             <Button
                 x:Name="saveOrderButton"
                 Padding="5"
-                Click="saveOrderButton_Click"
+                Click="SaveOrderButton_Click"
                 Content="Save Order" />
             <Button
                 x:Name="browseProductButton"
                 Padding="5"
-                Click="browseProductButton_Click"
+                Click="BrowseProductButton_Click"
                 Content="Browse Products" />
         </StackPanel>
 

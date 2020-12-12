@@ -24,19 +24,19 @@ namespace DundeeComicBookStore.Pages
             InitializeComponent();
         }
 
-        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void viewOrdersButton_Click(object sender, RoutedEventArgs e)
+        private void ViewOrdersButton_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void saveOrderButton_Click(object sender, RoutedEventArgs e)
+        private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private void browseProductButton_Click(object sender, RoutedEventArgs e)
+        private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
         }
     }
