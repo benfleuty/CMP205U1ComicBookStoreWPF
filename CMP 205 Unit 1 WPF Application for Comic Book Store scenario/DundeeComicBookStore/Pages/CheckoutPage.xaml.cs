@@ -31,6 +31,11 @@ namespace DundeeComicBookStore.Pages
         {
             InitializeComponent();
             Order = currentOrder;
+            SetupPage();
+        }
+
+        private void SetupPage()
+        {
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
