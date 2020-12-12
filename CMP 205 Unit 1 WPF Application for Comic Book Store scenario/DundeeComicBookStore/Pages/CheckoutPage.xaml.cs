@@ -55,7 +55,7 @@ namespace DundeeComicBookStore.Pages
 
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangePageTo(new BasketPage(Order));
+            ChangePageTo(new SearchProductsPage(Order));
         }
     }
 }
