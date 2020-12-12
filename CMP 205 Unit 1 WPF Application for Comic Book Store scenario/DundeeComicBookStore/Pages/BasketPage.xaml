@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:DundeeComicBookStore.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    Title="BasketPage"
+    Title="CheckoutPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
     FontSize="28"
@@ -40,20 +40,10 @@
                 Click="ViewOrdersButton_Click"
                 Content="View Orders" />
             <Button
-                x:Name="saveOrderButton"
-                Padding="5"
-                Click="SaveOrderButton_Click"
-                Content="Save Order" />
-            <Button
                 x:Name="browseProductButton"
                 Padding="5"
                 Click="BrowseProductButton_Click"
                 Content="Browse Products" />
-            <Button
-                x:Name="checkoutButton"
-                Padding="5"
-                Click="CheckoutButton_Click"
-                Content="Checkout" />
         </StackPanel>
 
         <!--  basket  -->
