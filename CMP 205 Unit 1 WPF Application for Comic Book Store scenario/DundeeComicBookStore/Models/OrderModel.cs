@@ -45,5 +45,13 @@ namespace DundeeComicBookStore.Models
             get { return _address; }
             set { _address = value; }
         }
+
+        private bool _beingEditied;
+
+        public bool BeingEdited
+        {
+            get { return _beingEditied; }
+            set { _beingEditied = value; }
+        }
     }
 }
