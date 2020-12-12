@@ -249,5 +249,9 @@ namespace DundeeComicBookStore.Pages
         {
             ChangePageTo(new BasketPage(CurrentOrder));
         }
+
+        private void CheckoutButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

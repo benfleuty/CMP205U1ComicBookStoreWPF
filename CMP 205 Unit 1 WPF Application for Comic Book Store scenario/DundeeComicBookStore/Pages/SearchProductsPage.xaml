@@ -40,6 +40,11 @@
                 Padding="5"
                 Click="BasketButton_Click"
                 Content="Basket" />
+            <Button
+                x:Name="checkoutButton"
+                Padding="5"
+                Click="CheckoutButton_Click"
+                Content="Checkout" />
         </StackPanel>
 
         <!--  Row 1  -->
