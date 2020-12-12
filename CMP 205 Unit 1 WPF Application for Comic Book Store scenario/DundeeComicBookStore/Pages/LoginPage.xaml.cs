@@ -64,9 +64,15 @@ namespace DundeeComicBookStore.Pages
                 return;
             }
             // credentials are valid
+            OrderModel order = new OrderModel()
+            {
+                User = userLoggingIn,
+                Basket = new BasketModel()
+            };
 
-            SearchProductsPage uop = new SearchProductsPage(new BasketModel(userLoggingIn));
-            ChangePageTo(uop);
+            SearchProductsPage searchPage = new SearchProductsPage(order);
+
+            ChangePageTo(searchPage);
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)

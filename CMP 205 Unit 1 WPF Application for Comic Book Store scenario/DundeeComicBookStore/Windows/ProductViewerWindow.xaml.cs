@@ -60,7 +60,7 @@ namespace DundeeComicBookStore.Windows
 
         private void AddQuantity_Click(object sender, RoutedEventArgs e)
         {
-            caller.Basket.Add(product, quantityToAdd.Value.GetValueOrDefault());
+            caller.CurrentOrder.Basket.Add(product, quantityToAdd.Value.GetValueOrDefault());
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

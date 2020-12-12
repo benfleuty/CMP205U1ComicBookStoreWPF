@@ -29,24 +29,24 @@ namespace DundeeComicBookStore.Pages
             set { _orders = value; }
         }
 
-        private BasketModel _basket;
+        private OrderModel _currentOrder;
 
-        public BasketModel Basket
+        public OrderModel CurrentOrder
         {
-            get { return _basket; }
-            set { _basket = value; }
+            get { return _currentOrder; }
+            set { _currentOrder = value; }
         }
 
-        public ViewOrdersPage(BasketModel basket)
+        public ViewOrdersPage(OrderModel order)
         {
             InitializeComponent();
-            Basket = basket;
+            CurrentOrder = order;
             ShowOrders();
         }
 
         private void ShowOrders()
         {
-            Orders = DBAccessHelper.GetOrders(Basket.User.ID);
+            Orders = DBAccessHelper.GetOrders(CurrentOrder.User.ID);
             // iterate orders
             foreach (var order in Orders)
             {
@@ -95,7 +95,7 @@ namespace DundeeComicBookStore.Pages
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
             browseProductButton.IsEnabled = false;
-            ChangePageTo(new SearchProductsPage(Basket));
+            ChangePageTo(new SearchProductsPage(CurrentOrder));
         }
     }
 }

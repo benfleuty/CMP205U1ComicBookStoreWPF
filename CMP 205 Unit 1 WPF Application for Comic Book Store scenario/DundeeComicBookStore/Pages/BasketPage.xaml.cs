@@ -21,17 +21,17 @@ namespace DundeeComicBookStore.Pages
     /// </summary>
     public partial class BasketPage : BasePage
     {
-        private BasketModel _basket;
+        private OrderModel _currentOrder;
 
-        public BasketModel Basket
+        public OrderModel CurrentOrder
         {
-            get { return _basket; }
-            set { _basket = value; }
+            get { return _currentOrder; }
+            set { _currentOrder = value; }
         }
 
-        public BasketPage(BasketModel basket)
+        public BasketPage(OrderModel order)
         {
-            Basket = basket;
+            CurrentOrder = order;
             InitializeComponent();
             OutputBasketItems();
         }
@@ -44,7 +44,7 @@ namespace DundeeComicBookStore.Pages
         private void OutputBasketItems()
         {
             tbNoItems.Visibility = Visibility.Collapsed;
-            foreach (var item in Basket.Items)
+            foreach (var item in CurrentOrder.Basket.Items)
             {
                 IProduct product = item.Key;
                 int quantity = item.Value;
@@ -80,11 +80,11 @@ namespace DundeeComicBookStore.Pages
             var sent = sender as Button;
             int id = (int)sent.Tag;
 
-            foreach (var kvp in Basket.Items)
+            foreach (var kvp in CurrentOrder.Basket.Items)
             {
                 IProduct p = kvp.Key;
                 if (p.ID != id) continue;
-                var window = new BasketItemViewerWindow(this, p, Basket.Items[p]);
+                var window = new BasketItemViewerWindow(this, p, CurrentOrder.Basket.Items[p]);
                 window.Show();
                 break;
             }
@@ -93,15 +93,15 @@ namespace DundeeComicBookStore.Pages
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
             browseProductButton.IsEnabled = false;
-            ChangePageTo(new SearchProductsPage(new BasketModel(Basket.User)));
+            ChangePageTo(new SearchProductsPage(CurrentOrder));
         }
 
         public void UpdateBasket(IProduct productToUpdate, int quantity)
         {
             if (quantity <= 0)
-                Basket.Items.Remove(productToUpdate);
+                CurrentOrder.Basket.Items.Remove(productToUpdate);
             else
-                Basket.Items[productToUpdate] = quantity;
+                CurrentOrder.Basket.Items[productToUpdate] = quantity;
 
             basketItemsViewer.Children.Clear();
             OutputBasketItems();
@@ -109,12 +109,12 @@ namespace DundeeComicBookStore.Pages
 
         private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!DBAccessHelper.SaveOrder(Basket)) MessageBox.Show("Your order could not be saved!"); ;
+            if (!DBAccessHelper.SaveOrder(CurrentOrder)) MessageBox.Show("Your order could not be saved!"); ;
         }
 
         private void ViewOrdersButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangePageTo(new ViewOrdersPage(Basket));
+            ChangePageTo(new ViewOrdersPage(CurrentOrder));
         }
     }
 }

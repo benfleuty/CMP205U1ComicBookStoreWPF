@@ -26,24 +26,18 @@ namespace DundeeComicBookStore.Pages
     {
         private decimal highestCost = 0.00m;
         private List<IProduct> currentSearchResults;
-        private IUser _user;
+        private OrderModel _currentOrder;
 
-        public IUser User
-        { get { return _user; } set { _user = value; } }
-
-        private BasketModel _basket;
-
-        public BasketModel Basket
+        public OrderModel CurrentOrder
         {
-            get { return _basket; }
-            set { _basket = value; }
+            get { return _currentOrder; }
+            set { _currentOrder = value; }
         }
 
-        public SearchProductsPage(BasketModel basket)
+        public SearchProductsPage(OrderModel order)
         {
             InitializeComponent();
-            Basket = basket;
-            User = Basket.User;
+            CurrentOrder = order;
             UpdateBasket();
 
             DisplayUserInfo();
@@ -53,7 +47,7 @@ namespace DundeeComicBookStore.Pages
 
         private void DisplayUserInfo()
         {
-            string message = $"Welcome, {User.FullName} ({User.EmailAddress})";
+            string message = $"Welcome, {CurrentOrder.User.FullName} ({CurrentOrder.User.EmailAddress})";
             usernameTextblock.Text = message;
         }
 
@@ -244,7 +238,7 @@ namespace DundeeComicBookStore.Pages
 
         public void UpdateBasket()
         {
-            int count = Basket.Count();
+            int count = CurrentOrder.Basket.Items.Count();
             if (count == 0)
                 basketButton.Content = "Basket";
             else
@@ -253,7 +247,7 @@ namespace DundeeComicBookStore.Pages
 
         private void BasketButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangePageTo(new BasketPage(Basket));
+            ChangePageTo(new BasketPage(CurrentOrder));
         }
     }
 }

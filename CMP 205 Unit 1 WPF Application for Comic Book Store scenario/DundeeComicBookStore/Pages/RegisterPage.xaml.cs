@@ -102,8 +102,14 @@ namespace DundeeComicBookStore.Pages
                 MessageBox.Show("error registering");
                 return;
             }
-            var uop = new SearchProductsPage(new BasketModel(returned));
-            ChangePageTo(uop);
+
+            OrderModel order = new OrderModel()
+            {
+                User = returned,
+                Basket = new BasketModel()
+            };
+            var searchpage = new SearchProductsPage(order);
+            ChangePageTo(searchpage);
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

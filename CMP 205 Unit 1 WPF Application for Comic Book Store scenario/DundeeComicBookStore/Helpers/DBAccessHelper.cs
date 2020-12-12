@@ -425,7 +425,7 @@ namespace DundeeComicBookStore
 
         #region Save an order
 
-        public static bool SaveOrder(BasketModel basket)
+        public static bool SaveOrder(OrderModel order)
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
             try
@@ -442,8 +442,10 @@ namespace DundeeComicBookStore
 
                 SqlCommand command = new SqlCommand(query, conn);
 
-                command.Parameters.AddWithValue("userId", basket.User.ID);
-                command.Parameters.AddWithValue("address", basket.User.Address);
+                BasketModel basket = order.Basket;
+
+                command.Parameters.AddWithValue("userId", order.User.ID);
+                command.Parameters.AddWithValue("address", order.User.Address);
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -566,7 +568,7 @@ namespace DundeeComicBookStore
                         orderBasket.Items.Add(product, quantity);
                     }
 
-                    orderBasket.User = GetUser(userId);
+                    order.User = GetUser(userId);
                     order.Basket = orderBasket;
                 }
 
