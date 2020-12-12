@@ -97,5 +97,7 @@ namespace DundeeComicBookStore.Pages
             browseProductButton.IsEnabled = false;
             ChangePageTo(new SearchProductsPage(CurrentOrder));
         }
+
+        internal void OrderViewerClosing() => ChangePageTo(new BasketPage(CurrentOrder));
     }
 }

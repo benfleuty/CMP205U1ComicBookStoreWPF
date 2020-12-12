@@ -97,6 +97,7 @@ namespace DundeeComicBookStore.Windows
                     DBAccessHelper.SaveOrder(caller.CurrentOrder);
             }
             caller.CurrentOrder = Order;
+            caller.OrderViewerClosing();
             Close();
         }
 
