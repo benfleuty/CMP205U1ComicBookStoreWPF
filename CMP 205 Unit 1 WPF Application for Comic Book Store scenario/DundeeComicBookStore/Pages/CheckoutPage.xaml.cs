@@ -1,4 +1,5 @@
 ﻿using DundeeComicBookStore.Models;
+using DundeeComicBookStore.Windows;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,6 +37,16 @@ namespace DundeeComicBookStore.Pages
 
         private void SetupPage()
         {
+            if (Order.Basket.Count() == 0)
+            {
+                orderViewer.Visibility = Visibility.Collapsed;
+                tbNoItems.Visibility = Visibility.Visible;
+                return;
+            }
+            decimal basketTotal = Order.Basket.Total;
+            tbSubtotal.Text = $"Subtotal: {basketTotal:C}";
+            rbHomeDelivery.IsChecked = true;
+            tbTotal.Text = $"Total: {basketTotal + 4.99m:C}";
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -56,6 +67,27 @@ namespace DundeeComicBookStore.Pages
         private void BrowseProductButton_Click(object sender, RoutedEventArgs e)
         {
             ChangePageTo(new SearchProductsPage(Order));
+        }
+
+        private void DeliveryChoice_Changed(object sender, RoutedEventArgs e)
+        {
+            decimal basketTotal = Order.Basket.Total;
+            if (rbHomeDelivery.IsChecked == true)
+            {
+                Order.HomeDelivery = true;
+                tbTotal.Text = $"Total: {basketTotal + 4.99m:C}";
+            }
+            else
+            {
+                tbTotal.Text = $"Total: {basketTotal:C}";
+                Order.HomeDelivery = false;
+            }
+        }
+
+        private void ConfirmPaymentButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new StaffConfirmAction();
+            window.Show();
         }
     }
 }
