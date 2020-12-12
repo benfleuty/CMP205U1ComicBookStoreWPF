@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DundeeComicBookStore.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -52,6 +53,14 @@ namespace DundeeComicBookStore.Models
         {
             get { return _beingEditied; }
             set { _beingEditied = value; }
+        }
+
+        private IUser _user;
+
+        public IUser User
+        {
+            get { return _user; }
+            set { _user = value; }
         }
     }
 }
