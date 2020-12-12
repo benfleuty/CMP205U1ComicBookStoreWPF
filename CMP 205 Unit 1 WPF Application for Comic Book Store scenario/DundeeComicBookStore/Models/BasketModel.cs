@@ -10,20 +10,6 @@ namespace DundeeComicBookStore.Models
         /// <summary>
         /// ACCESS VIA PUBLIC METHOD
         /// </summary>
-        private IUser _user;
-
-        /// <summary>
-        /// Method for getting and setting the basket's user
-        /// </summary>
-        public IUser User
-        {
-            get { return _user; }
-            set { _user = value; }
-        }
-
-        /// <summary>
-        /// ACCESS VIA PUBLIC METHOD
-        /// </summary>
         private Dictionary<IProduct, int> _items;
 
         /// <summary>
@@ -36,19 +22,11 @@ namespace DundeeComicBookStore.Models
         }
 
         /// <summary>
-        /// Create a new instance with the owning user defined
+        /// Create a new instance and initialise Items
         /// </summary>
-        /// <param name="user">An IUser object</param>
-
         public BasketModel()
         {
             Items = new Dictionary<IProduct, int>();
-        }
-
-        public BasketModel(IUser user)
-        {
-            User = user;
-            if (Items == null) Items = new Dictionary<IProduct, int>();
         }
 
         /// <summary>
@@ -61,29 +39,16 @@ namespace DundeeComicBookStore.Models
         }
 
         /// <summary>
-        /// Create a new instance with the given user, and product & quantity
+        /// Create a new instance with product & quantity
         /// </summary>
-        /// <param name="user">An IUser object</param>
         /// <param name="product">An IProduct object</param>
         /// <param name="quantity">The quantity of item to order as int</param>
-        public BasketModel(IUser user, IProduct product, int quantity)
+        public BasketModel(IProduct product, int quantity)
         {
-            User = user;
             Items = new Dictionary<IProduct, int>
             {
                 { product, quantity }
             };
-        }
-
-        /// <summary>
-        /// Create a new instance with the given user, and dictionary of products
-        /// </summary>
-        /// <param name="user">An IUser object</param>
-        /// <param name="products">Products stored in a dictionary of IProduct,int</param>
-        public BasketModel(IUser user, Dictionary<IProduct, int> products)
-        {
-            User = user;
-            Items = products;
         }
 
         /// <summary>
