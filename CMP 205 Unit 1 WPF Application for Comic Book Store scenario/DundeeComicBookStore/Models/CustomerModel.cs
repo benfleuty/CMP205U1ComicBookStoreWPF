@@ -16,5 +16,6 @@ namespace DundeeComicBookStore.Models
         public string ProfilePictureSource { get; set; }
         public uint RewardPoints { get; set; }
         public byte Permissions { get; set; }
+        public bool IsStaff => false;
     }
 }
