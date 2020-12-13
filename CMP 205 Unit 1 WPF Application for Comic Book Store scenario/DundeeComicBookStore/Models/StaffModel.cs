@@ -42,5 +42,7 @@ namespace DundeeComicBookStore.Models
         }
 
         public byte Permissions { get; set; }
+
+        public bool IsStaff => true;
     }
 }
