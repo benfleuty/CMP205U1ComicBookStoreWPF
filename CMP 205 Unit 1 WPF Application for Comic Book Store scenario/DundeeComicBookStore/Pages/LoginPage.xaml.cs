@@ -63,16 +63,24 @@ namespace DundeeComicBookStore.Pages
                 ErrorHelper.ShowInputError(ErrorHelper.UIError.EmailPasswordComboNotRecognised, PasswordErrorMessage);
                 return;
             }
-            // credentials are valid
-            OrderModel order = new OrderModel()
+
+            // customer logging in
+            if (!userLoggingIn.IsStaff)
             {
-                User = userLoggingIn,
-                Basket = new BasketModel()
-            };
+                // credentials are valid
+                OrderModel order = new OrderModel()
+                {
+                    User = userLoggingIn,
+                    Basket = new BasketModel()
+                };
 
-            SearchProductsPage searchPage = new SearchProductsPage(order);
+                ChangePageTo(new SearchProductsPage(order));
+                return;
+            }
 
-            ChangePageTo(searchPage);
+            // staff logging in
+            var staffMember = (StaffModel)userLoggingIn;
+            ChangePageTo(new StaffLandingPage(staffMember));
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
