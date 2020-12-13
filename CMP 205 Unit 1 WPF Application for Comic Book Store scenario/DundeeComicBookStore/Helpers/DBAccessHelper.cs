@@ -677,6 +677,20 @@ namespace DundeeComicBookStore
                         orderBasket.Items.Add(product, quantity);
                     }
 
+                    // check for made payments
+
+                    select = "SELECT id";
+                    from = "FROM Payments";
+                    where = $"WHERE orderId = {order.ID}";
+                    query = $"{select} {from} {where}";
+
+                    command = new SqlCommand(query, conn);
+
+                    reader = command.ExecuteReader();
+                    dataTable = new DataTable();
+                    dataTable.Load(reader);
+
+                    order.Complete = dataTable.Rows.Count > 0;
                     order.User = GetUser(userId);
                     order.Basket = orderBasket;
                 }
