@@ -19,26 +19,29 @@ namespace DundeeComicBookStore.Models
         [Flags]
         public enum StaffPermissions
         {
-            None = 0,                       // 0000 0000
-            ReadCustomerData = 1,           // 0000 0001
-            WriteCustomerData = 1 << 1,     // 0000 0010
-            DeleteCustomerData = 1 << 2,    // 0000 0100
+            None = 0,                   // 0000 0000 // 0x00
+            ReadCustomerData = 1,       // 0000 0001 // 0x01
+            WriteCustomerData = 2,      // 0000 0010 // 0x02
+            DeleteCustomerData = 4,     // 0000 0100 // 0x04
 
-            ReadStockData = 1 << 3,         // 0000 1000
-            WriteStockData = 1 << 4,        // 0001 0000
-            DeleteStockData = 1 << 5,       // 0010 0000
+            ReadStockData = 8,          // 0000 1000 // 0x08
+            WriteStockData = 16,        // 0001 0000 // 0x10
+            DeleteStockData = 32,       // 0010 0000 // 0x20
 
-            AccessEmployeeData = 1 << 6,    // 0100 0000
+            AccessEmployeeData = 64,    // 0100 0000 // 0x40
 
-            CanReadAll = ReadCustomerData & ReadStockData,          // 0000 1001
-            CanWriteAll = WriteCustomerData & WriteStockData,       // 0001 0010
-            CanDeleteAll = DeleteCustomerData & DeleteStockData,    // 0010 0100
+            CanReadAll = ReadCustomerData & ReadStockData,          // 0000 1001 // 0x09 // 9
+            CanWriteAll = WriteCustomerData & WriteStockData,       // 0001 0010 // 0x12 // 18
+            CanDeleteAll = DeleteCustomerData & DeleteStockData,    // 0010 0100 // 0x24 // 36
 
-            AllOnCustomerData = ReadCustomerData & WriteCustomerData & DeleteCustomerData, // 0000 0111
+            // 0000 0111 // 0x07 // 7
+            AllOnCustomerData = ReadCustomerData & WriteCustomerData & DeleteCustomerData,
 
-            AllOnStockData = ReadStockData & WriteStockData & DeleteStockData,             // 0011 1000
+            // 0011 1000 // 0x38 // 56
+            AllOnStockData = ReadStockData & WriteStockData & DeleteStockData,
 
-            All = AllOnCustomerData & AllOnStockData & AccessEmployeeData                  // 0111 1111
+            // 0111 1111 // 0x7F // 127
+            All = AllOnCustomerData & AllOnStockData & AccessEmployeeData
         }
 
         public byte Permissions { get; set; }
