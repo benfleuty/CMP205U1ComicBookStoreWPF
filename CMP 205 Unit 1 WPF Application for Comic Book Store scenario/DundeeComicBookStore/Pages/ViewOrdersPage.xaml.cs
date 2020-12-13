@@ -102,5 +102,10 @@ namespace DundeeComicBookStore.Pages
         internal void OrderViewerClosingGoToBasket() => ChangePageTo(new BasketPage(CurrentOrder));
 
         internal void OrderViewerClosingUpdateOrderDisplay() => ShowOrders();
+
+        private void CheckoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new CheckoutPage(CurrentOrder));
+        }
     }
 }
