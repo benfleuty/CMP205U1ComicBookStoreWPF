@@ -24,6 +24,11 @@
             VerticalAlignment="Center"
             FontSize="48"
             Text="Dundee Comic Book Store" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="Basket" />
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             <TextBlock
                 x:Name="usernameTextblock"
@@ -44,6 +49,11 @@
                 Padding="5"
                 Click="BrowseProductButton_Click"
                 Content="Browse Products" />
+            <Button
+                x:Name="checkoutButton"
+                Padding="5"
+                Click="CheckoutButton_Click"
+                Content="Checkout" />
         </StackPanel>
 
         <!--  basket  -->
