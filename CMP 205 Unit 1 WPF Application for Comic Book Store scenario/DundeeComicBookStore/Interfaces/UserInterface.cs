@@ -18,5 +18,6 @@ namespace DundeeComicBookStore.Interfaces
         public string Address { get; set; }
         public string ProfilePictureSource { get; set; }
         public uint RewardPoints { get; set; }
+        bool IsStaff { get; }
     }
 }
