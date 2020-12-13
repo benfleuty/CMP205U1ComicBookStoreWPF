@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DundeeComicBookStore.Models
 {
-    internal class StaffModel : IUser
+    public class StaffModel : IUser
     {
         public int ID { get; set; }
         public string FirstName { get; set; }
