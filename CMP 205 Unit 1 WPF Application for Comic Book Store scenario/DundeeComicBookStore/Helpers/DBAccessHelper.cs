@@ -825,6 +825,34 @@ namespace DundeeComicBookStore
             }
         }
 
+        public static DataTable GetOrders(string query, Dictionary<string, object> parameters)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                Console.WriteLine("Database connection established");
+
+                // Get orders
+
+                SqlCommand command = new SqlCommand(query, conn);
+                foreach (var item in parameters)
+                    command.Parameters.AddWithValue(item.Key, item.Value);
+
+                conn.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+                return dataTable;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return null;
+            }
+        }
+
         #endregion Get orders
 
         #region Delete an order
