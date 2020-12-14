@@ -37,6 +37,8 @@ namespace DundeeComicBookStore.Pages
             OrderRecord
         }
 
+        #region No entity type given
+
         public EntityEditorPage(StaffModel staff)
         {
             InitializeComponent();
@@ -46,7 +48,46 @@ namespace DundeeComicBookStore.Pages
 
         private void GetEntityType()
         {
+            if (Staff.Can(StaffModel.Permission.ReadCustomerData))
+            {
+                customerEntityButton.IsEnabled = true;
+                customerEntityButton.Visibility = Visibility.Visible;
+                orderEntityButton.IsEnabled = true;
+                orderEntityButton.Visibility = Visibility.Visible;
+            }
+            if (Staff.Can(StaffModel.Permission.ReadStockData))
+            {
+                productEntityButton.IsEnabled = true;
+                productEntityButton.Visibility = Visibility.Visible;
+            }
+            if (Staff.Can(StaffModel.Permission.AccessEmployeeData))
+            {
+                staffEntityButton.IsEnabled = true;
+                staffEntityButton.Visibility = Visibility.Visible;
+            }
         }
+
+        private void CustomerEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new EntityEditorPage(Staff, EntityType.CustomerRecord));
+        }
+
+        private void OrderEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new EntityEditorPage(Staff, EntityType.OrderRecord));
+        }
+
+        private void StaffEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new EntityEditorPage(Staff, EntityType.StaffRecord));
+        }
+
+        private void ProductEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new EntityEditorPage(Staff, EntityType.ProductRecord));
+        }
+
+        #endregion No entity type given
 
         public EntityEditorPage(StaffModel staff, EntityType entityType)
         {
@@ -64,22 +105,6 @@ namespace DundeeComicBookStore.Pages
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             ChangePageTo(new StaffLandingPage(Staff));
-        }
-
-        private void CustomerEntityButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void OrderEntityButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void StaffEntityButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ProductEntityButton_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }
