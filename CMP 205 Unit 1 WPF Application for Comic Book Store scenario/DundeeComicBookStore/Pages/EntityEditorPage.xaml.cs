@@ -1,6 +1,7 @@
 ﻿using DundeeComicBookStore.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,8 @@ namespace DundeeComicBookStore.Pages
     /// </summary>
     public partial class EntityEditorPage : BasePage
     {
+        private DataTable dataSource;
+
         private StaffModel _staff;
 
         public StaffModel Staff
@@ -27,7 +30,7 @@ namespace DundeeComicBookStore.Pages
             set { _staff = value; }
         }
 
-        private int Entity;
+        private EntityType Entity;
 
         public enum EntityType
         {
@@ -93,8 +96,19 @@ namespace DundeeComicBookStore.Pages
         {
             InitializeComponent();
             Staff = staff;
-            Entity = (int)entityType;
-            GetEntityType();
+            Entity = entityType;
+            GetData();
+        }
+
+        private void GetData()
+        {
+            if (Entity == EntityType.CustomerRecord)
+            {
+                bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
+                dataSource = DBAccessHelper.GetUsers(canAccessEmployees);
+                resultDg.Visibility = Visibility.Visible;
+                resultDg.ItemsSource = dataSource.AsDataView();
+            }
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)

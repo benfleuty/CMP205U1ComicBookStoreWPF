@@ -109,6 +109,41 @@ namespace DundeeComicBookStore
             }
         }
 
+        public static DataTable GetUsers(bool canAccessEmployees)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                string select = "SELECT *";
+                string from = "FROM Users";
+                string where = "";
+                if (!canAccessEmployees)
+                    where = $"WHERE permissions IS NULL";
+                string query = $"{select} {from} {where}";
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                dataTable.Columns.Remove("permissions");
+                dataTable.Columns.Remove("password");
+                dataTable.Columns.Remove("profilepicture");
+
+                return dataTable;
+            }
+            catch (Exception e)
+            {
+                string output = $@"Database interaction failed.\nException:\n{e.Message}";
+                Console.WriteLine(output);
+                return null;
+            }
+        }
+
         private static IUser GenerateUser(DataRow data)
         {
             return new CustomerModel()
