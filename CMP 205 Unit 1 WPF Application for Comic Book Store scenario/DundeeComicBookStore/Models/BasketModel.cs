@@ -98,14 +98,15 @@ namespace DundeeComicBookStore.Models
         /// Gets Items.Count
         /// </summary>
         /// <returns>The number of products in the basket</returns>
-        public int Count(bool unique = false)
+        public int Count
         {
-            if (unique) return Items.Count;
-
-            int count = 0;
-            foreach (var kvp in Items)
-                count += kvp.Value;
-            return count;
+            get
+            {
+                int quantity = 0;
+                foreach (var kvp in Items)
+                    quantity += kvp.Value;
+                return quantity;
+            }
         }
 
         public decimal Total
