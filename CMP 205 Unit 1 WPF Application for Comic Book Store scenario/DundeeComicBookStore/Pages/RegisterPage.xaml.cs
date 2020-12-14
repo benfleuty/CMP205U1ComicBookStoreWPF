@@ -105,8 +105,7 @@ namespace DundeeComicBookStore.Pages
 
             OrderModel order = new OrderModel()
             {
-                User = returned,
-                Basket = new BasketModel()
+                User = returned
             };
             var searchpage = new SearchProductsPage(order);
             ChangePageTo(searchpage);

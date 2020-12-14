@@ -70,8 +70,7 @@ namespace DundeeComicBookStore.Pages
                 // credentials are valid
                 OrderModel order = new OrderModel()
                 {
-                    User = userLoggingIn,
-                    Basket = new BasketModel()
+                    User = userLoggingIn
                 };
 
                 ChangePageTo(new SearchProductsPage(order));
