@@ -441,6 +441,58 @@ namespace DundeeComicBookStore
             }
         }
 
+        public static DataTable GetProductsReturnDataTable(string query)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                var command = new SqlCommand(query, conn);
+
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                return dataTable;
+            }
+            catch (Exception e)
+            {
+                string output = $"Database interaction failed.\nException:\n{e.Message}";
+                output = $"{output}\n{e.InnerException}";
+                System.Windows.MessageBox.Show(output);
+                return new DataTable();
+            }
+        }
+
+        public static DataTable GetProductsReturnDataTable(string query, Dictionary<string, object> parameters)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                var command = new SqlCommand(query, conn);
+                foreach (var item in parameters)
+                    command.Parameters.AddWithValue(item.Key, item.Value);
+
+                conn.Open();
+                Console.WriteLine("Database connection established");
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                return dataTable;
+            }
+            catch (Exception e)
+            {
+                string output = $"Database interaction failed.\nException:\n{e.Message}";
+                output = $"{output}\n{e.InnerException}";
+                System.Windows.MessageBox.Show(output);
+                return new DataTable();
+            }
+        }
+
         public static IProduct GetProductById(int productId)
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
