@@ -41,7 +41,7 @@
         </StackPanel>
 
         <!--  Row 1  -->
-        <ScrollViewer>
+        <ScrollViewer Grid.Row="1">
             <WrapPanel
                 ItemHeight="400"
                 ItemWidth="400"
