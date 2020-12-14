@@ -487,5 +487,18 @@
                     Visibility="Collapsed" />
             </WrapPanel>
         </ScrollViewer>
+
+        <DataGrid
+            x:Name="resultDg"
+            Grid.Row="2"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            CanUserResizeColumns="True"
+            CanUserResizeRows="True"
+            CanUserSortColumns="True"
+            ItemsSource="{Binding dataSource}"
+            SelectionMode="Single"
+            Visibility="Collapsed" />
     </Grid>
 </local:BasePage>
