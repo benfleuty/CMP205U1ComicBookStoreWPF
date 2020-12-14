@@ -97,20 +97,66 @@ namespace DundeeComicBookStore.Pages
             InitializeComponent();
             Staff = staff;
             Entity = entityType;
-            GetData();
+            SetupPage();
         }
 
-        private void GetData()
+        private void SetupPage()
         {
             if (Entity == EntityType.CustomerRecord)
-            {
-                pageName.Text = "Entity Editor - Customer Records";
-                bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
-                dataSource = DBAccessHelper.GetUsers(canAccessEmployees);
-                customerSearchBar.Visibility = Visibility.Visible;
-                resultDg.Visibility = Visibility.Visible;
-                resultDg.ItemsSource = dataSource.AsDataView();
-            }
+                CustomerSetup();
+            else if (Entity == EntityType.ProductRecord)
+                ProductSetup();
+            else if (Entity == EntityType.OrderRecord)
+                OrderSetup();
+            else
+                StaffSetup();
+        }
+
+        private void CustomerSetup()
+        {
+            pageName.Text = "Entity Editor - Customer Records";
+            bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
+            dataSource = DBAccessHelper.GetUsers(canAccessEmployees);
+            resultDg.ItemsSource = dataSource.AsDataView();
+            customerSearchBar.Visibility = Visibility.Visible;
+            formCustomerData.Visibility = Visibility.Visible;
+            resultDg.Visibility = Visibility.Visible;
+        }
+
+        private void ProductSetup()
+        {
+            pageName.Text = "Entity Editor - Product Records";
+
+            // need sql query
+
+            dataSource = DBAccessHelper.GetProducts();
+            resultDg.ItemsSource = dataSource.AsDataView();
+            productSearchBar.Visibility = Visibility.Visible;
+            formProductData.Visibility = Visibility.Visible;
+            resultDg.Visibility = Visibility.Visible;
+        }
+
+        private void OrderSetup()
+        {
+            pageName.Text = "Entity Editor - Order Records";
+            // need get orders by query search
+            dataSource = DBAccessHelper.GetOrders();
+            resultDg.ItemsSource = dataSource.AsDataView();
+            orderSearchBar.Visibility = Visibility.Visible;
+            formOrderData.Visibility = Visibility.Visible;
+            resultDg.Visibility = Visibility.Visible;
+        }
+
+        private void StaffSetup()
+        {
+            pageName.Text = "Entity Editor - Staff Records";
+            bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
+            // need get staff function
+            dataSource = DBAccessHelper.GetStaff(canAccessEmployees);
+            resultDg.ItemsSource = dataSource.AsDataView();
+            employeeSearchBar.Visibility = Visibility.Visible;
+            formEmployeeData.Visibility = Visibility.Visible;
+            resultDg.Visibility = Visibility.Visible;
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
