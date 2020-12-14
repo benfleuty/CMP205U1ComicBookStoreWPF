@@ -5,10 +5,464 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DundeeComicBookStore.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     Title="EntityEditorPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions />
+        <!--  Row 0  -->
+        <TextBlock
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="Dundee Comic Book Store" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="Entity Editor" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <TextBlock
+                x:Name="usernameTextblock"
+                Margin="0,0,5,0"
+                VerticalAlignment="Center" />
+            <Button
+                x:Name="logoutButton"
+                Padding="5"
+                Click="LogoutButton_Click"
+                Content="Log out" />
+            <Button
+                x:Name="homeButton"
+                Padding="5"
+                Click="HomeButton_Click"
+                Content="Home" />
+        </StackPanel>
 
-    <Grid />
+        <!--  Row 1  -->
+        <!--  search bar  -->
+        <Grid
+            Name="productSearchBox"
+            Grid.Row="1"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Search:" />
+            <TextBox
+                x:Name="searchTextbox"
+                Grid.Column="1"
+                Margin="10,0,0,0" />
+            <Button
+                x:Name="clearButton"
+                Grid.Column="1"
+                Padding="5"
+                HorizontalAlignment="Right"
+                Click="ClearButton_Click"
+                Content="X" />
+            <Button
+                x:Name="searchButton"
+                Grid.Column="2"
+                Margin="20,0,0,0"
+                Click="SearchButton_Click"
+                Content="Search" />
+
+            <!--  Row 1  -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Search by: " />
+                <CheckBox
+                    x:Name="titleCheckBox"
+                    Margin="10,0"
+                    Content="Title"
+                    IsChecked="True" />
+                <CheckBox
+                    x:Name="descriptionCheckBox"
+                    Margin="10,0"
+                    Content="Description"
+                    IsChecked="False" />
+                <CheckBox
+                    x:Name="priceRangeCheckBox"
+                    Margin="10,0"
+                    Checked="PriceRangeCheckBox_CheckedChanged"
+                    Content="Price range:"
+                    IsChecked="False"
+                    Unchecked="PriceRangeCheckBox_CheckedChanged" />
+                <StackPanel
+                    Name="priceRangeContainer"
+                    IsEnabled="False"
+                    Orientation="Horizontal">
+                    <xctk:DecimalUpDown
+                        x:Name="minimumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Min Price" />
+                    <TextBlock Text=" to " />
+                    <xctk:DecimalUpDown
+                        x:Name="maximumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Max Price" />
+                </StackPanel>
+                <TextBlock Text="Sort by: " />
+                <ComboBox x:Name="sortByComboBox" SelectedIndex="0">
+                    <ComboBoxItem
+                        Name="noSort"
+                        Content="None"
+                        Tag="noSort" />
+                    <ComboBoxItem
+                        Name="priceAscending"
+                        Content="Price - Ascending"
+                        Tag="unitPrice ASC" />
+                    <ComboBoxItem
+                        Name="priceDescending"
+                        Content="Price - Descending"
+                        Tag="unitPrice DESC" />
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Name="orderSearchBox"
+            Grid.Row="1"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Search:" />
+            <TextBox
+                x:Name="searchTextbox"
+                Grid.Column="1"
+                Margin="10,0,0,0" />
+            <Button
+                x:Name="clearButton"
+                Grid.Column="1"
+                Padding="5"
+                HorizontalAlignment="Right"
+                Click="ClearButton_Click"
+                Content="X" />
+            <Button
+                x:Name="searchButton"
+                Grid.Column="2"
+                Margin="20,0,0,0"
+                Click="SearchButton_Click"
+                Content="Search" />
+
+            <!--  Row 1  -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Search by: " />
+                <CheckBox
+                    x:Name="titleCheckBox"
+                    Margin="10,0"
+                    Content="Title"
+                    IsChecked="True" />
+                <CheckBox
+                    x:Name="descriptionCheckBox"
+                    Margin="10,0"
+                    Content="Description"
+                    IsChecked="False" />
+                <CheckBox
+                    x:Name="priceRangeCheckBox"
+                    Margin="10,0"
+                    Checked="PriceRangeCheckBox_CheckedChanged"
+                    Content="Price range:"
+                    IsChecked="False"
+                    Unchecked="PriceRangeCheckBox_CheckedChanged" />
+                <StackPanel
+                    Name="priceRangeContainer"
+                    IsEnabled="False"
+                    Orientation="Horizontal">
+                    <xctk:DecimalUpDown
+                        x:Name="minimumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Min Price" />
+                    <TextBlock Text=" to " />
+                    <xctk:DecimalUpDown
+                        x:Name="maximumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Max Price" />
+                </StackPanel>
+                <TextBlock Text="Sort by: " />
+                <ComboBox x:Name="sortByComboBox" SelectedIndex="0">
+                    <ComboBoxItem
+                        Name="noSort"
+                        Content="None"
+                        Tag="noSort" />
+                    <ComboBoxItem
+                        Name="priceAscending"
+                        Content="Price - Ascending"
+                        Tag="unitPrice ASC" />
+                    <ComboBoxItem
+                        Name="priceDescending"
+                        Content="Price - Descending"
+                        Tag="unitPrice DESC" />
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Name="customerSearchBox"
+            Grid.Row="1"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Search:" />
+            <TextBox
+                x:Name="searchTextbox"
+                Grid.Column="1"
+                Margin="10,0,0,0" />
+            <Button
+                x:Name="clearButton"
+                Grid.Column="1"
+                Padding="5"
+                HorizontalAlignment="Right"
+                Click="ClearButton_Click"
+                Content="X" />
+            <Button
+                x:Name="searchButton"
+                Grid.Column="2"
+                Margin="20,0,0,0"
+                Click="SearchButton_Click"
+                Content="Search" />
+
+            <!--  Row 1  -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Search by: " />
+                <CheckBox
+                    x:Name="titleCheckBox"
+                    Margin="10,0"
+                    Content="Title"
+                    IsChecked="True" />
+                <CheckBox
+                    x:Name="descriptionCheckBox"
+                    Margin="10,0"
+                    Content="Description"
+                    IsChecked="False" />
+                <CheckBox
+                    x:Name="priceRangeCheckBox"
+                    Margin="10,0"
+                    Checked="PriceRangeCheckBox_CheckedChanged"
+                    Content="Price range:"
+                    IsChecked="False"
+                    Unchecked="PriceRangeCheckBox_CheckedChanged" />
+                <StackPanel
+                    Name="priceRangeContainer"
+                    IsEnabled="False"
+                    Orientation="Horizontal">
+                    <xctk:DecimalUpDown
+                        x:Name="minimumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Min Price" />
+                    <TextBlock Text=" to " />
+                    <xctk:DecimalUpDown
+                        x:Name="maximumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Max Price" />
+                </StackPanel>
+                <TextBlock Text="Sort by: " />
+                <ComboBox x:Name="sortByComboBox" SelectedIndex="0">
+                    <ComboBoxItem
+                        Name="noSort"
+                        Content="None"
+                        Tag="noSort" />
+                    <ComboBoxItem
+                        Name="priceAscending"
+                        Content="Price - Ascending"
+                        Tag="unitPrice ASC" />
+                    <ComboBoxItem
+                        Name="priceDescending"
+                        Content="Price - Descending"
+                        Tag="unitPrice DESC" />
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Name="staffSearchBox"
+            Grid.Row="1"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="Search:" />
+            <TextBox
+                x:Name="searchTextbox"
+                Grid.Column="1"
+                Margin="10,0,0,0" />
+            <Button
+                x:Name="clearButton"
+                Grid.Column="1"
+                Padding="5"
+                HorizontalAlignment="Right"
+                Click="ClearButton_Click"
+                Content="X" />
+            <Button
+                x:Name="searchButton"
+                Grid.Column="2"
+                Margin="20,0,0,0"
+                Click="SearchButton_Click"
+                Content="Search" />
+
+            <!--  Row 1  -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Text="Search by: " />
+                <CheckBox
+                    x:Name="titleCheckBox"
+                    Margin="10,0"
+                    Content="Title"
+                    IsChecked="True" />
+                <CheckBox
+                    x:Name="descriptionCheckBox"
+                    Margin="10,0"
+                    Content="Description"
+                    IsChecked="False" />
+                <CheckBox
+                    x:Name="priceRangeCheckBox"
+                    Margin="10,0"
+                    Checked="PriceRangeCheckBox_CheckedChanged"
+                    Content="Price range:"
+                    IsChecked="False"
+                    Unchecked="PriceRangeCheckBox_CheckedChanged" />
+                <StackPanel
+                    Name="priceRangeContainer"
+                    IsEnabled="False"
+                    Orientation="Horizontal">
+                    <xctk:DecimalUpDown
+                        x:Name="minimumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Min Price" />
+                    <TextBlock Text=" to " />
+                    <xctk:DecimalUpDown
+                        x:Name="maximumPriceDUD"
+                        ClipValueToMinMax="True"
+                        DisplayDefaultValueOnEmptyText="True"
+                        FormatString="C"
+                        Minimum="0"
+                        Watermark="Max Price" />
+                </StackPanel>
+                <TextBlock Text="Sort by: " />
+                <ComboBox x:Name="sortByComboBox" SelectedIndex="0">
+                    <ComboBoxItem
+                        Name="noSort"
+                        Content="None"
+                        Tag="noSort" />
+                    <ComboBoxItem
+                        Name="priceAscending"
+                        Content="Price - Ascending"
+                        Tag="unitPrice ASC" />
+                    <ComboBoxItem
+                        Name="priceDescending"
+                        Content="Price - Descending"
+                        Tag="unitPrice DESC" />
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <!--  results  -->
+
+        <ScrollViewer
+            Grid.Row="2"
+            Margin="0,50,0,0"
+            Focusable="False"
+            VerticalScrollBarVisibility="Auto">
+            <WrapPanel
+                Name="entityGetterPanel"
+                HorizontalAlignment="Center"
+                ItemHeight="400"
+                ItemWidth="400">
+                <WrapPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="5" />
+                    </Style>
+                </WrapPanel.Resources>
+
+                <Button x:Name="customerEntityButton" Click="CustomerEntityButton_Click" />
+                <Button x:Name="orderEntityButton" Click="OrderEntityButton_Click" />
+                <Button x:Name="staffEntityButton" Click="StaffEntityButton_Click" />
+                <Button x:Name="productEntityButton" Click="ProductEntityButton_Click" />
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
 </local:BasePage>

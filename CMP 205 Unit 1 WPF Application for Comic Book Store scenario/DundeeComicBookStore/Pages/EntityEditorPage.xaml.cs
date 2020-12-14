@@ -27,10 +27,59 @@ namespace DundeeComicBookStore.Pages
             set { _staff = value; }
         }
 
+        private int Entity;
+
+        public enum EntityType
+        {
+            CustomerRecord,
+            StaffRecord,
+            ProductRecord,
+            OrderRecord
+        }
+
         public EntityEditorPage(StaffModel staff)
         {
             InitializeComponent();
             Staff = staff;
+            GetEntityType();
+        }
+
+        private void GetEntityType()
+        {
+        }
+
+        public EntityEditorPage(StaffModel staff, EntityType entityType)
+        {
+            InitializeComponent();
+            Staff = staff;
+            Entity = (int)entityType;
+            GetEntityType();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new LoginPage());
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new StaffLandingPage(Staff));
+        }
+
+        private void CustomerEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OrderEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void StaffEntityButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ProductEntityButton_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
