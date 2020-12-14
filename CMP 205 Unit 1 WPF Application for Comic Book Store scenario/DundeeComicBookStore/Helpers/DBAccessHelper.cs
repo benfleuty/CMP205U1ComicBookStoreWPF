@@ -26,7 +26,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string select = "SELECT *";
                 string from = "FROM Users";
@@ -60,7 +59,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -71,7 +69,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string select = "SELECT *";
                 string from = "FROM Users";
@@ -104,7 +101,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -115,7 +111,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string select = "SELECT *";
                 string from = "FROM Users";
@@ -139,7 +134,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -218,7 +212,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string insertInto = "INSERT INTO";
                 string table = "Users";
@@ -249,7 +242,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -264,7 +256,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string select = "SELECT email";
                 string from = "FROM Users";
@@ -286,7 +277,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return false;
             }
         }
@@ -354,7 +344,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string select = "SELECT id,name,description,unitPrice,stockCount";
                 string from = "FROM Products";
@@ -390,7 +379,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return new List<IProduct>();
             }
         }
@@ -405,7 +393,6 @@ namespace DundeeComicBookStore
                     command.Parameters.AddWithValue(item.Key, item.Value);
 
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 SqlDataReader reader = command.ExecuteReader();
                 DataTable dataTable = new DataTable();
@@ -449,7 +436,6 @@ namespace DundeeComicBookStore
                 var command = new SqlCommand(query, conn);
 
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 SqlDataReader reader = command.ExecuteReader();
                 DataTable dataTable = new DataTable();
@@ -476,7 +462,6 @@ namespace DundeeComicBookStore
                     command.Parameters.AddWithValue(item.Key, item.Value);
 
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 SqlDataReader reader = command.ExecuteReader();
                 DataTable dataTable = new DataTable();
@@ -499,7 +484,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string select = "SELECT id,name,description,unitPrice,stockCount,unitCost";
                 string from = "FROM Products";
@@ -532,7 +516,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -551,7 +534,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 // if the order is not being edited
                 if (!order.BeingEdited)
@@ -563,7 +545,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return false;
             }
         }
@@ -734,7 +715,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 // Get orders
 
@@ -820,7 +800,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -830,8 +809,6 @@ namespace DundeeComicBookStore
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
             try
             {
-                Console.WriteLine("Database connection established");
-
                 // Get orders
 
                 SqlCommand command = new SqlCommand(query, conn);
@@ -848,7 +825,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return null;
             }
         }
@@ -863,7 +839,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string deleteFROM = "DELETE FROM";
                 string table = "Orders";
@@ -881,7 +856,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return false;
             }
         }
@@ -903,7 +877,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 #region insert the order into Orders, OrderItems
 
@@ -995,7 +968,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return false;
             }
         }
@@ -1005,7 +977,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 #region insert the payment information
 
@@ -1041,7 +1012,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return false;
             }
         }
@@ -1052,7 +1022,6 @@ namespace DundeeComicBookStore
             try
             {
                 conn.Open();
-                Console.WriteLine("Database connection established");
 
                 string insertInto = "INSERT INTO";
                 string table = "Payments";
@@ -1084,7 +1053,6 @@ namespace DundeeComicBookStore
             catch (Exception e)
             {
                 string output = $@"Database interaction failed.\nException:\n{e.Message}";
-                Console.WriteLine(output);
                 return false;
             }
         }
