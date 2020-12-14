@@ -104,8 +104,10 @@ namespace DundeeComicBookStore.Pages
         {
             if (Entity == EntityType.CustomerRecord)
             {
+                pageName.Text = "Entity Editor - Customer Records";
                 bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
                 dataSource = DBAccessHelper.GetUsers(canAccessEmployees);
+                customerSearchBar.Visibility = Visibility.Visible;
                 resultDg.Visibility = Visibility.Visible;
                 resultDg.ItemsSource = dataSource.AsDataView();
             }
@@ -119,6 +121,41 @@ namespace DundeeComicBookStore.Pages
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             ChangePageTo(new StaffLandingPage(Staff));
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ProductPriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OrderPriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CustomerPriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EmployeePriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
