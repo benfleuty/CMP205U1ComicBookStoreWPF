@@ -33,5 +33,10 @@ namespace DundeeComicBookStore.Pages
             Staff = staff;
             usernameTextblock.Text = $"Welcome, {Staff.FullName} ({Staff.EmailAddress})";
         }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new LoginPage());
+        }
     }
 }
