@@ -32,6 +32,12 @@ namespace DundeeComicBookStore.Pages
             InitializeComponent();
             Staff = staff;
             usernameTextblock.Text = $"Welcome, {Staff.FullName} ({Staff.EmailAddress})";
+
+            SetupActionButtons();
+        }
+
+        private void SetupActionButtons()
+        {
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)

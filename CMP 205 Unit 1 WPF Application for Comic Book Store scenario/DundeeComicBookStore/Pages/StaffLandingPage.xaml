@@ -43,14 +43,10 @@
         <!--  Row 1  -->
         <ScrollViewer Grid.Row="1">
             <WrapPanel
+                x:Name="staffActionButtonsPanel"
                 ItemHeight="400"
-                ItemWidth="400"
-                Orientation="Horizontal">
-                <Button />
-                <Button />
-                <Button />
-                <Button />
-            </WrapPanel>
+                ItemWidth="600"
+                Orientation="Horizontal" />
         </ScrollViewer>
     </Grid>
 </local:BasePage>
