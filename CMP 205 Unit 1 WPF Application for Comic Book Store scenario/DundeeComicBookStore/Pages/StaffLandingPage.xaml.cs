@@ -31,6 +31,7 @@ namespace DundeeComicBookStore.Pages
         {
             InitializeComponent();
             Staff = staff;
+            usernameTextblock.Text = $"Welcome, {Staff.FullName} ({Staff.EmailAddress})";
         }
     }
 }
