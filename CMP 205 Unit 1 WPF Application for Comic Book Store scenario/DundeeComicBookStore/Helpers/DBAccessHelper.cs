@@ -1,12 +1,14 @@
 ﻿using DundeeComicBookStore.Interfaces;
 using DundeeComicBookStore.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static DundeeComicBookStore.Models.StaffModel;
 
 namespace DundeeComicBookStore
 {
@@ -134,8 +136,39 @@ namespace DundeeComicBookStore
                 PhoneNumber = (string)data["phone"],
                 //ProfilePictureSource = (string)row["profilePicture"],
                 RewardPoints = (uint)(int)data["rewardPoints"],
-                Permissions = permissions
+                Permissions = CalculatePermissions(permissions)
             };
+        }
+
+        private static BitArray CalculatePermissions(byte permsToCheck)
+        {
+            BitArray perms = new BitArray(8);
+
+            // check for all setter
+            if (permsToCheck == 127)
+            {
+                for (int i = 0; i < 8; i++)
+                    perms[i] = true;
+                return perms;
+            }
+
+            // check for no perms
+            if (permsToCheck == 0)
+            {
+                for (int i = 0; i < 8; i++)
+                    perms[i] = false;
+                return perms;
+            }
+
+            // otherwise individual permissions
+            perms[(byte)Permission.ReadCustomerData] = ((byte)StaffPermissions.ReadCustomerData & permsToCheck) > 0;
+            perms[(byte)Permission.WriteCustomerData] = ((byte)StaffPermissions.WriteCustomerData & permsToCheck) > 0;
+            perms[(byte)Permission.DeleteCustomerData] = ((byte)StaffPermissions.DeleteCustomerData & permsToCheck) > 0;
+            perms[(byte)Permission.ReadStockData] = ((byte)StaffPermissions.ReadStockData & permsToCheck) > 0;
+            perms[(byte)Permission.WriteStockData] = ((byte)StaffPermissions.WriteStockData & permsToCheck) > 0;
+            perms[(byte)Permission.DeleteStockData] = ((byte)StaffPermissions.DeleteStockData & permsToCheck) > 0;
+            perms[(byte)Permission.AccessEmployeeData] = ((byte)StaffPermissions.AccessEmployeeData & permsToCheck) > 0;
+            return perms;
         }
 
         #endregion Getting Users
