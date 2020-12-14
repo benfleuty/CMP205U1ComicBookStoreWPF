@@ -344,7 +344,7 @@
             <Grid
                 x:Name="employeeSearchBar"
                 Grid.Row="1"
-                Visibility="Visible">
+                Visibility="Collapsed">
                 <Grid.RowDefinitions />
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -459,6 +459,7 @@
                 CanUserResizeColumns="True"
                 CanUserResizeRows="True"
                 CanUserSortColumns="True"
+                IsReadOnly="True"
                 ItemsSource="{Binding dataSource}"
                 SelectionMode="Single"
                 Visibility="Collapsed" />
@@ -675,80 +676,82 @@
                 </StackPanel>
                 <!--#endregion-->
                 <!--#region Product Data Form-->
-                <StackPanel x:Name="formProductData" Visibility="Collapsed">
-                    <!--#region Product Name-->
-                    <TextBlock Margin="5,0" Text="Product Name" />
-                    <TextBox Margin="5,0" />
-                    <!--#endregion-->
-                    <!--#region Product Description-->
-                    <TextBlock Margin="5,0" Text="Product Description" />
-                    <TextBox Margin="5,0" />
-                    <!--#endregion-->
-                    <!--#region Address-->
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Margin="5,0"
-                            Text="Price per Unit" />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="5,0"
-                            Text="Number in stock" />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Margin="5,0"
-                            Text="Cost per unit" />
+                <StackPanel x:Name="form" Visibility="Collapsed">
+                    <StackPanel x:Name="formProductData" Visibility="Collapsed">
+                        <!--#region Product Name-->
+                        <TextBlock Margin="5,0" Text="Product Name" />
+                        <TextBox Margin="5,0" />
+                        <!--#endregion-->
+                        <!--#region Product Description-->
+                        <TextBlock Margin="5,0" Text="Product Description" />
+                        <TextBox Margin="5,0" />
+                        <!--#endregion-->
+                        <!--#region Address-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Margin="5,0"
+                                Text="Price per Unit" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="5,0"
+                                Text="Number in stock" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Margin="5,0"
+                                Text="Cost per unit" />
 
-                        <xctk:DecimalUpDown
-                            x:Name="productPricePerUnit"
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            ClipValueToMinMax="True"
-                            DisplayDefaultValueOnEmptyText="True"
-                            FormatString="C"
-                            Minimum="0"
-                            Watermark="£/unit" />
+                            <xctk:DecimalUpDown
+                                x:Name="productPricePerUnit"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                ClipValueToMinMax="True"
+                                DisplayDefaultValueOnEmptyText="True"
+                                FormatString="C"
+                                Minimum="0"
+                                Watermark="£/unit" />
 
-                        <xctk:IntegerUpDown
-                            x:Name="productStockCount"
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            ClipValueToMinMax="True"
-                            DisplayDefaultValueOnEmptyText="True"
-                            Minimum="0"
-                            Watermark="Stock count" />
+                            <xctk:IntegerUpDown
+                                x:Name="productStockCount"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                ClipValueToMinMax="True"
+                                DisplayDefaultValueOnEmptyText="True"
+                                Minimum="0"
+                                Watermark="Stock count" />
 
-                        <xctk:DecimalUpDown
-                            x:Name="productUnitCost"
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            ClipValueToMinMax="True"
-                            DisplayDefaultValueOnEmptyText="True"
-                            FormatString="C"
-                            Minimum="0"
-                            Watermark="£/unit" />
-                    </Grid>
+                            <xctk:DecimalUpDown
+                                x:Name="productUnitCost"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                ClipValueToMinMax="True"
+                                DisplayDefaultValueOnEmptyText="True"
+                                FormatString="C"
+                                Minimum="0"
+                                Watermark="£/unit" />
+                        </Grid>
+                        <!--#endregion-->
+                    </StackPanel>
                     <!--#endregion-->
+                    <Button
+                        x:Name="saveFormChanges"
+                        Margin="50,20"
+                        Click="SaveChanges_Click"
+                        Content="Save Changes"
+                        Style="{DynamicResource RoundedCorners}" />
                 </StackPanel>
-                <!--#endregion-->
-                <Button
-                    x:Name="saveFormChanges"
-                    Margin="50,20"
-                    Click="SaveChanges_Click"
-                    Content="Save Changes"
-                    Style="{DynamicResource RoundedCorners}" />
             </StackPanel>
         </Grid>
     </Grid>
