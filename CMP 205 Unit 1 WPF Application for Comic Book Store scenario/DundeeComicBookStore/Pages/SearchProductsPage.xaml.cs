@@ -238,7 +238,7 @@ namespace DundeeComicBookStore.Pages
 
         public void UpdateBasket()
         {
-            int count = CurrentOrder.Basket.Count();
+            int count = CurrentOrder.Basket.Count;
             if (count == 0)
                 basketButton.Content = "Basket";
             else

@@ -37,7 +37,7 @@ namespace DundeeComicBookStore.Pages
 
         private void SetupPage()
         {
-            if (Order.Basket.Count() == 0)
+            if (Order.Basket.Count == 0)
             {
                 orderViewer.Visibility = Visibility.Collapsed;
                 tbNoItems.Visibility = Visibility.Visible;
@@ -86,7 +86,7 @@ namespace DundeeComicBookStore.Pages
 
         private void ConfirmPaymentButton_Click(object sender, RoutedEventArgs e)
         {
-            bool items = Order.Basket.Count() != 0;
+            bool items = Order.Basket.Count != 0;
             bool deliverySet = (rbCollection.IsChecked ?? false) || (rbHomeDelivery.IsChecked ?? false);
             bool correctInput = items & deliverySet;
             if (!correctInput)
