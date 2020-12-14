@@ -100,6 +100,8 @@ namespace DundeeComicBookStore.Pages
             SetupPage();
         }
 
+        #region Initial page setup
+
         private void SetupPage()
         {
             if (Entity == EntityType.CustomerRecord)
@@ -135,13 +137,32 @@ namespace DundeeComicBookStore.Pages
 
         private void OrderSetup()
         {
-            //pageName.Text = "Entity Editor - Order Records";
-            //// need get orders by query search
-            //dataSource = DBAccessHelper.GetOrders();
-            //resultDg.ItemsSource = dataSource.AsDataView();
-            //orderSearchBar.Visibility = Visibility.Visible;
-            //formOrderData.Visibility = Visibility.Visible;
-            //resultDg.Visibility = Visibility.Visible;
+            pageName.Text = "Entity Editor - Order Records";
+            string query = @"SELECT
+OrderItems.orderId,
+Orders.userId,
+Orders.address,
+FORMAT (Orders.orderDate, 'dd-MM-yyy hh:mm:ss') as date,
+OrderItems.productId,
+OrderItems.quantity,
+Payments.amount,
+Payments.type
+FROM Orders
+LEFT JOIN OrderItems ON OrderItems.orderId = Orders.id
+LEFT JOIN Payments ON Orders.id = Payments.orderId
+ORDER BY Orders.id DESC";
+            dataSource = DBAccessHelper.GetOrders(query);
+            if (dataSource == null) dataSource = new DataTable()
+            {
+                Columns = {
+                    {"error" },
+                    {"no values found" }
+                }
+            };
+            resultDg.ItemsSource = dataSource.AsDataView();
+            saveFormChanges.Visibility = Visibility.Collapsed;
+            orderSearchBar.Visibility = resultDg.Visibility = form.Visibility =
+                formOrderData.Visibility = Visibility.Visible;
         }
 
         private void StaffSetup()
@@ -155,6 +176,10 @@ namespace DundeeComicBookStore.Pages
             //formEmployeeData.Visibility = Visibility.Visible;
             //resultDg.Visibility = Visibility.Visible;
         }
+
+        #endregion Initial page setup
+
+        #region Top bar events
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
@@ -196,9 +221,19 @@ namespace DundeeComicBookStore.Pages
             throw new NotImplementedException();
         }
 
+        #endregion Top bar events
+
+        #region Form
+
+        #region Form events
+
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
+
+        #endregion Form events
+
+        #endregion Form
     }
 }
