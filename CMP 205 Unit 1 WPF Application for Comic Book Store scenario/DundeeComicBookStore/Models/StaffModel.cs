@@ -10,7 +10,7 @@ namespace DundeeComicBookStore.Models
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string FullName { get { return $"{FirstName} {LastName}"; } }
+        public string FullName => $"{FirstName} {LastName}";
 
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
