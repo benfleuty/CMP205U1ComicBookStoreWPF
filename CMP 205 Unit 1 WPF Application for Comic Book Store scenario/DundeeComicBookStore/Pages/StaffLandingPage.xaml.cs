@@ -38,6 +38,33 @@ namespace DundeeComicBookStore.Pages
 
         private void SetupActionButtons()
         {
+            var button = new Button()
+            {
+                Content = "Continue as a customer"
+            };
+            button.Click += ContinueAsCustomer;
+            staffActionButtonsPanel.Children.Add(button);
+            button = new Button()
+            {
+                Content = "Entity editor"
+            };
+            button.Click += OpenEntityEditor;
+            staffActionButtonsPanel.Children.Add(button);
+        }
+
+        private void ContinueAsCustomer(object sender, RoutedEventArgs e)
+        {
+            OrderModel order = new OrderModel()
+            {
+                User = Staff
+            };
+
+            ChangePageTo(new SearchProductsPage(order));
+        }
+
+        private void OpenEntityEditor(object sender, RoutedEventArgs e)
+        {
+            ChangePageTo(new EntityEditorPage(Staff));
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
