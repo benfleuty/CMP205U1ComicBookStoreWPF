@@ -46,13 +46,14 @@
                 x:Name="staffActionButtonsPanel"
                 ItemHeight="400"
                 ItemWidth="600"
-                Orientation="Horizontal" />
+                Orientation="Horizontal">
 
-            <WrapPanel.Resources>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Margin" Value="5" />
-                </Style>
-            </WrapPanel.Resources>
+                <WrapPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="5" />
+                    </Style>
+                </WrapPanel.Resources>
+            </WrapPanel>
         </ScrollViewer>
     </Grid>
 </local:BasePage>
