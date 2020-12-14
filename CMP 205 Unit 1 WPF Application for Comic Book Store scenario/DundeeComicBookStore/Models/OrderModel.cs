@@ -7,6 +7,11 @@ namespace DundeeComicBookStore.Models
 {
     public class OrderModel
     {
+        public OrderModel()
+        {
+            Basket = new BasketModel();
+        }
+
         private int _id;
 
         public int ID
