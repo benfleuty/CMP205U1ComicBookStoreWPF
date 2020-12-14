@@ -110,6 +110,11 @@ namespace DundeeComicBookStore.Pages
 
         private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
         {
+            if (CurrentOrder.Basket.Count == 0)
+            {
+                MessageBox.Show("You can't save an empty order!");
+                return;
+            }
             if (!DBAccessHelper.SaveOrder(CurrentOrder)) MessageBox.Show("Your order could not be saved!");
             else MessageBox.Show("Your order was saved!");
         }

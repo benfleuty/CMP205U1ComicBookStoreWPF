@@ -59,9 +59,9 @@ namespace DundeeComicBookStore.Pages
                 string yesNo = (order.Complete) ? "Yes" : "No";
                 output += $"Complete: {yesNo} \n";
                 if (order.Complete)
-                    output += $"{order.Basket.Count()} items ordered";
+                    output += $"{order.Basket.Count} items ordered";
                 else
-                    output += $"{order.Basket.Count()} items in this basket";
+                    output += $"{order.Basket.Count} items in this basket";
 
                 TextBlock tb = new TextBlock()
                 {
@@ -111,6 +111,17 @@ namespace DundeeComicBookStore.Pages
         private void BasketButton_Click(object sender, RoutedEventArgs e)
         {
             ChangePageTo(new BasketPage(CurrentOrder));
+        }
+
+        private void SaveOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentOrder.Basket.Count == 0)
+            {
+                MessageBox.Show("You can't save an empty order!");
+                return;
+            }
+            if (!DBAccessHelper.SaveOrder(CurrentOrder)) MessageBox.Show("Your order could not be saved!");
+            else MessageBox.Show("Your order was saved!");
         }
     }
 }

@@ -40,6 +40,11 @@
                 Click="LogoutButton_Click"
                 Content="Log out" />
             <Button
+                x:Name="saveOrderButton"
+                Padding="5"
+                Click="SaveOrderButton_Click"
+                Content="Save Order" />
+            <Button
                 x:Name="viewOrdersButton"
                 Padding="5"
                 Click="ViewOrdersButton_Click"
