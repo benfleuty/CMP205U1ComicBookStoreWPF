@@ -41,5 +41,16 @@
         </StackPanel>
 
         <!--  Row 1  -->
+        <ScrollViewer>
+            <WrapPanel
+                ItemHeight="400"
+                ItemWidth="400"
+                Orientation="Horizontal">
+                <Button />
+                <Button />
+                <Button />
+                <Button />
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </local:BasePage>
