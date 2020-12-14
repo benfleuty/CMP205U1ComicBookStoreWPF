@@ -56,9 +56,8 @@ namespace DundeeComicBookStore
                 if (isCustomer) return GenerateUser(data);
                 else return GenerateStaff(data, (byte)permissions);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -98,9 +97,8 @@ namespace DundeeComicBookStore
                 if (isCustomer) return GenerateUser(data);
                 else return GenerateStaff(data, permissions);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -131,9 +129,8 @@ namespace DundeeComicBookStore
 
                 return dataTable;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -239,9 +236,8 @@ namespace DundeeComicBookStore
 
                 return GetUser(email, password);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -274,9 +270,8 @@ namespace DundeeComicBookStore
                     return false;
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return false;
             }
         }
@@ -376,9 +371,8 @@ namespace DundeeComicBookStore
                 }
                 return productList;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return new List<IProduct>();
             }
         }
@@ -419,11 +413,8 @@ namespace DundeeComicBookStore
                 }
                 return productList;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $"Database interaction failed.\nException:\n{e.Message}";
-                output = $"{output}\n{e.InnerException}";
-                System.Windows.MessageBox.Show(output);
                 return new List<IProduct>();
             }
         }
@@ -443,11 +434,8 @@ namespace DundeeComicBookStore
 
                 return dataTable;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $"Database interaction failed.\nException:\n{e.Message}";
-                output = $"{output}\n{e.InnerException}";
-                System.Windows.MessageBox.Show(output);
                 return new DataTable();
             }
         }
@@ -469,11 +457,8 @@ namespace DundeeComicBookStore
 
                 return dataTable;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $"Database interaction failed.\nException:\n{e.Message}";
-                output = $"{output}\n{e.InnerException}";
-                System.Windows.MessageBox.Show(output);
                 return new DataTable();
             }
         }
@@ -513,9 +498,8 @@ namespace DundeeComicBookStore
                     UnitCost = (decimal)data["unitCost"]
                 };
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -542,9 +526,8 @@ namespace DundeeComicBookStore
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return false;
             }
         }
@@ -797,9 +780,8 @@ namespace DundeeComicBookStore
 
                 return orders;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -818,9 +800,8 @@ namespace DundeeComicBookStore
                 dataTable.Load(reader);
                 return dataTable;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -843,9 +824,8 @@ namespace DundeeComicBookStore
                 dataTable.Load(reader);
                 return dataTable;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return null;
             }
         }
@@ -874,9 +854,8 @@ namespace DundeeComicBookStore
                 if (affected == 1) return true;
                 else return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return false;
             }
         }
@@ -986,9 +965,8 @@ namespace DundeeComicBookStore
 
                 #endregion insert the payment information
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return false;
             }
         }
@@ -1030,9 +1008,8 @@ namespace DundeeComicBookStore
 
                 #endregion insert the payment information
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return false;
             }
         }
@@ -1071,9 +1048,8 @@ namespace DundeeComicBookStore
                 if (affected == 1) return true;
                 else return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                string output = $@"Database interaction failed.\nException:\n{e.Message}";
                 return false;
             }
         }
