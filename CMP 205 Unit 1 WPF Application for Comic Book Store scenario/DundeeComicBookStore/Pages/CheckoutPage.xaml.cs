@@ -43,10 +43,13 @@ namespace DundeeComicBookStore.Pages
                 tbNoItems.Visibility = Visibility.Visible;
                 return;
             }
-            decimal basketTotal = Order.Basket.Total;
-            tbSubtotal.Text = $"Subtotal: {basketTotal:C}";
+
+            // 25% discount for 100 or more reward points
+            tbSubtotal.Text = $"Subtotal: {Order.Subtotal:C}";
+            if (Order.Discounted)
+                tbSubtotal.Text += $"\nDiscount: 25% - Reward Points";
+
             rbHomeDelivery.IsChecked = true;
-            tbTotal.Text = $"Total: {basketTotal + 4.99m:C}";
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -75,12 +78,12 @@ namespace DundeeComicBookStore.Pages
             if (rbHomeDelivery.IsChecked == true)
             {
                 Order.HomeDelivery = true;
-                tbTotal.Text = $"Total: {basketTotal + 4.99m:C}";
+                tbTotal.Text = $"Total: {Order.Total:C}";
             }
             else
             {
-                tbTotal.Text = $"Total: {basketTotal:C}";
                 Order.HomeDelivery = false;
+                tbTotal.Text = $"Total: {Order.Total:C}";
             }
         }
 
