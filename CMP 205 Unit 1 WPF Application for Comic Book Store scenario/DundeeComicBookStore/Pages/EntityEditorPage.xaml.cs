@@ -625,7 +625,19 @@ ORDER BY Orders.id DESC";
 
         private bool SaveProductChanges()
         {
-            throw new NotImplementedException();
+            if (!CheckFields()) return false;
+
+            var changedModel = new ProductModel()
+            {
+                ID = ((ProductModel)selectedRow).ID,
+                Name = formProductName.Text.Trim(),
+                Description = formProductDescription.Text.Trim(),
+                UnitPrice = formProductPricePerUnit.Value ?? 0,
+                UnitsInStock = formProductStockCount.Value ?? 0,
+                UnitCost = formProductUnitCost.Value ?? 0
+            };
+
+            return DBAccessHelper.AlterProduct(changedModel);
         }
 
         private bool SaveStaffChanges()
