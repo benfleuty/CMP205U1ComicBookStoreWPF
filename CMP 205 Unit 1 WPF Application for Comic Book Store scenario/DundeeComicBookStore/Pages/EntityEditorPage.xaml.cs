@@ -131,7 +131,9 @@ namespace DundeeComicBookStore.Pages
             resultDg.ItemsSource = dataSource.AsDataView();
             resultDg.Visibility = form.Visibility =
                 formCustomerData.Visibility = deleteSelectedRecord.Visibility =
-                addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
+                makeStaffButton.Visibility = saveFormChanges.Visibility = Visibility.Visible;
+
+            addNewRecord.Visibility = Visibility.Collapsed;
         }
 
         private void ProductSetup()
@@ -218,36 +220,6 @@ ORDER BY Orders.id DESC";
             ChangePageTo(new StaffLandingPage(Staff));
         }
 
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ProductPriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OrderPriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void CustomerPriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void EmployeePriceRangeCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion Top bar events
 
         #region DataGrid
@@ -287,6 +259,8 @@ ORDER BY Orders.id DESC";
                 EmailAddress = email,
                 Address = address
             };
+
+            CheckCustomerEmail();
         }
 
         private void ParseTableToProductForm(DataRow row)
@@ -366,6 +340,7 @@ ORDER BY Orders.id DESC";
                 employeeCB_AED.IsChecked = true;
 
             selectedRow = selected;
+            CheckEmployeeEmail();
         }
 
         #region Events
@@ -768,7 +743,6 @@ ORDER BY Orders.id DESC";
             if (result)
             {
                 MessageBox.Show("Changes saved successfully!", "Changes Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-                ClearForm();
                 return;
             }
 
@@ -776,6 +750,11 @@ ORDER BY Orders.id DESC";
         }
 
         private void FormCustomerEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckCustomerEmail();
+        }
+
+        private void CheckCustomerEmail()
         {
             if (selectedRow == null) return;
             if (formCustomerEmailAddressTextbox.Text.Trim() != ((CustomerModel)selectedRow).EmailAddress)
@@ -792,6 +771,11 @@ ORDER BY Orders.id DESC";
         }
 
         private void FormEmployeeEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckEmployeeEmail();
+        }
+
+        private void CheckEmployeeEmail()
         {
             if (selectedRow == null) return;
             if (formEmployeeEmailAddressTextbox.Text.Trim() != ((StaffModel)selectedRow).EmailAddress)
@@ -810,5 +794,30 @@ ORDER BY Orders.id DESC";
         #endregion Form events
 
         #endregion Form
+
+        private void MakeStaffButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Staff.Can(StaffModel.Permission.AccessEmployeeData))
+            {
+                MessageBox.Show("You do not have permission to do this!", "Not Authorised!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (selectedRow == null) return;
+
+            CustomerModel selected = selectedRow as CustomerModel;
+
+            var toStaff = new StaffModel()
+            {
+                ID = selected.ID,
+                FirstName = selected.FirstName,
+                LastName = selected.LastName,
+                PhoneNumber = selected.PhoneNumber,
+                EmailAddress = selected.EmailAddress,
+                Address = selected.Address
+            };
+
+            toStaff.Permissions = DBAccessHelper.CalculatePermissions(1);
+            DBAccessHelper.AlterStaff(toStaff, 1);
+        }
     }
 }

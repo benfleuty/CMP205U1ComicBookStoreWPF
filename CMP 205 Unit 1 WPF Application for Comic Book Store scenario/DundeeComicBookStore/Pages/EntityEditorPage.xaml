@@ -467,6 +467,15 @@
                             Content="Add New"
                             Style="{DynamicResource RoundedCorners}" />
                         <Button
+                            x:Name="makeStaffButton"
+                            Grid.Column="1"
+                            Margin="10,20"
+                            Background="DeepSkyBlue"
+                            Click="MakeStaffButton_Click"
+                            Content="Make Staff"
+                            Style="{DynamicResource RoundedCorners}"
+                            Visibility="Collapsed" />
+                        <Button
                             x:Name="saveFormChanges"
                             Grid.Column="2"
                             Margin="10,20"
