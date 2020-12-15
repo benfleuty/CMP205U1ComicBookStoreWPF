@@ -353,3 +353,4 @@ MigrationBackup/
 
 App.config
 App.*
+/CMP 205 Unit 1 WPF Application for Comic Book Store scenario/DundeeComicBookStore/GlobalSuppressions.cs
