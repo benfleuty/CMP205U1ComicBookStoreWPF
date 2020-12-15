@@ -62,6 +62,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!--  # of items sold  -->
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
@@ -69,7 +70,10 @@
             <TextBlock
                 Name="numOfItemsSold"
                 Grid.Row="0"
-                Grid.Column="1" />
+                Grid.Column="1"
+                Margin="20,0" />
+
+            <!--  # of orders  -->
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="0"
@@ -77,15 +81,21 @@
             <TextBlock
                 Name="numOfOrders"
                 Grid.Row="1"
-                Grid.Column="1" />
+                Grid.Column="1"
+                Margin="20,0" />
+
+            <!--  gross revenue  -->
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
                 Text="Gross Revenue:" />
             <TextBlock
-                Name="grossRevenue"
+                Name="grossRevenueTb"
                 Grid.Row="2"
-                Grid.Column="1" />
+                Grid.Column="1"
+                Margin="20,0" />
+
+            <!--  expenses  -->
             <TextBlock
                 Grid.Row="3"
                 Grid.Column="0"
@@ -93,15 +103,19 @@
             <TextBlock
                 Name="expenses"
                 Grid.Row="3"
-                Grid.Column="1" />
+                Grid.Column="1"
+                Margin="20,0" />
+
+            <!--  net revenue  -->
             <TextBlock
                 Grid.Row="4"
                 Grid.Column="0"
                 Text="Net Revenue:" />
             <TextBlock
-                Name="netRevenue"
+                Name="netRevenueTb"
                 Grid.Row="4"
-                Grid.Column="1" />
+                Grid.Column="1"
+                Margin="20,0" />
         </Grid>
     </Grid>
 </local:BasePage>
