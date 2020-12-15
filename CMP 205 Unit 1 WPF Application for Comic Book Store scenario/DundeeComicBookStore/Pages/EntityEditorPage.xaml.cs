@@ -306,6 +306,7 @@ ORDER BY Orders.id DESC";
 
             selectedRow = new ProductModel()
             {
+                ID = id,
                 Name = name,
                 Description = desc,
                 UnitPrice = unitPrice,
