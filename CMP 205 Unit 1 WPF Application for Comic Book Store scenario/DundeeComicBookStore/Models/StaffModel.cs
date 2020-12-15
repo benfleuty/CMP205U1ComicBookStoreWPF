@@ -116,7 +116,8 @@ namespace DundeeComicBookStore.Models
                     break;
 
                 default:
-                    throw new Exception("Permission not matched!");
+                    result = Can((Permission)perm);
+                    break;
             }
 
             return result;
