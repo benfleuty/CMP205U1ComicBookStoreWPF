@@ -423,7 +423,7 @@ ORDER BY Orders.id DESC";
 
             // Email address
             if (formCustomerEmailAddressTextbox.Text.Trim().Length == 0)
-                errorMessage.Append("You have not entered a first name!\n");
+                errorMessage.Append("You have not entered an email!\n");
             else if (!InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.InvalidEmail))
                 errorMessage.Append("You have not entered a valid email address!\n");
 
@@ -488,7 +488,7 @@ ORDER BY Orders.id DESC";
 
             // Email address
             if (formEmployeeEmailAddressTextbox.Text.Trim().Length == 0)
-                errorMessage.Append("You have not entered a first name!\n");
+                errorMessage.Append("You have not entered an email!\n");
             else if (!InputValidationHelper.ValidInput(formEmployeeEmailAddressTextbox, ErrorHelper.UIError.InvalidEmail))
                 errorMessage.Append("You have not entered a valid email address!\n");
 
