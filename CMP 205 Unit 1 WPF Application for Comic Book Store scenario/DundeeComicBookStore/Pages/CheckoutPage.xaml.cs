@@ -94,6 +94,11 @@ namespace DundeeComicBookStore.Pages
             }
         }
 
+        public void SetGuestAddress(string address)
+        {
+            Order.User.Address = address;
+        }
+
         private void ConfirmPaymentButton_Click(object sender, RoutedEventArgs e)
         {
             bool items = Order.Basket.Count != 0;
@@ -109,6 +114,15 @@ namespace DundeeComicBookStore.Pages
                 MessageBox.Show(output);
                 return;
             }
+
+            // if guest get address
+            if (Order.User.ID == 0)
+            {
+                Window window = new GetGuestAddressWindow(this);
+                bool result = window.ShowDialog() ?? false;
+                if (!result) return;
+            }
+
             // if the user is a customer, get confirmation of payment from a staff member
             if (!Order.User.IsStaff)
             {
