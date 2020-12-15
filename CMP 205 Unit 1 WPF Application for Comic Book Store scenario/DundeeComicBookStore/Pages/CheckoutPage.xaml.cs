@@ -99,12 +99,15 @@ namespace DundeeComicBookStore.Pages
                 MessageBox.Show(output);
                 return;
             }
-            Window window = new StaffConfirmAction();
-            bool result = window.ShowDialog() ?? false;
-            // if the action is cancelled
-            if (!result) return;
+            // if the user is a customer, get confirmation of payment from a staff member
+            if (!Order.User.IsStaff)
+            {
+                Window window = new StaffConfirmAction();
+                bool result = window.ShowDialog() ?? false;
+                // if the action is cancelled
+                if (!result) return;
+            }
             // enter order into the db
-
             Order.PaymentType = selectedPaymentMethod.SelectedIndex;
 
             if (DBAccessHelper.ProcessOrder(Order)) MessageBox.Show("Payment saved!");
