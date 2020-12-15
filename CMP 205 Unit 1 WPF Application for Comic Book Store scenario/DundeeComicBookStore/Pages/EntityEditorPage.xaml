@@ -675,8 +675,8 @@
                             <StackPanel Margin="20">
                                 <TextBlock Margin="0,0,0,20" Text="Employee Data" />
                                 <CheckBox x:Name="employeeCB_AED" Content="Can access" />
-                                <Button x:Name="employeeBtn_applyAll" Content="Apply all" />
-                                <Button x:Name="employeeBtn_removeAll" Content="Remove all" />
+                                <Button x:Name="employeeBtn_applyAll" Content="Apply all" Click="EmployeeBtn_applyAll_Click" />
+                                <Button x:Name="employeeBtn_removeAll" Content="Remove all" Click="EmployeeBtn_removeAll_Click" />
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
