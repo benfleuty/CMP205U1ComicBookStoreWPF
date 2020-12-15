@@ -1270,9 +1270,37 @@ namespace DundeeComicBookStore
         public static bool ProcessOrder(OrderModel order)
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
-            if (order.ID == 0)
-                return ProcessNewOrder(conn, order);
-            else return ProcessExistingOrder(conn, order);
+            try
+            {
+                bool result = false;
+                if (order.ID == 0)
+                    result = ProcessNewOrder(conn, order);
+                else result = ProcessExistingOrder(conn, order);
+
+                // if no success, end function
+                if (!result) return false;
+
+                // otherwise add reward points to user
+
+                string pointsAsString = order.Total.ToString().Split('.')[0];
+                int points = int.Parse(pointsAsString);
+
+                var sql = new StringBuilder();
+
+                sql.Append("UPDATE ");
+                sql.Append("Users ");
+                sql.Append("SET ");
+                sql.Append($"rewardPoints = rewardPoints + {points} ");
+                sql.Append($"WHERE id = {order.User.ID}");
+
+                string query = sql.ToString();
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                int affected = command.ExecuteNonQuery();
+                return affected == 1;
+            }
+            catch (Exception) { return false; }
         }
 
         private static bool ProcessNewOrder(SqlConnection conn, OrderModel order)
