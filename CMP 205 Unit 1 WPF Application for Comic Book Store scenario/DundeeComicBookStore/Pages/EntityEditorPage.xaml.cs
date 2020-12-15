@@ -252,8 +252,6 @@ ORDER BY Orders.id DESC";
                 ParseTableToCustomerForm(row);
             else if (Entity == EntityType.ProductRecord)
                 ParseTableToProductForm(row);
-            else if (Entity == EntityType.OrderRecord)
-                ParseTableToOrderForm(row);
             else if (Entity == EntityType.StaffRecord)
                 ParseTableToEmployeeForm(row);
         }
@@ -272,26 +270,11 @@ ORDER BY Orders.id DESC";
 
         private void ParseTableToProductForm(DataRow row)
         {
-            formCustomerFirstNameTextbox.Text = (string)row["firstName"];
-            formCustomerLastNameTextbox.Text = (string)row["lastName"];
-            formCustomerPhoneNumberTextbox.Text = (string)row["phone"];
-            formCustomerEmailAddressTextbox.Text = (string)row["email"];
-            string content = (string)row["address"];
-            string[] address = content.Split('|');
-            formCustomerHouseNumberNameTextbox.Text = address[0];
-            formCustomerPostCodeTextbox.Text = address[1];
-        }
-
-        private void ParseTableToOrderForm(DataRow row)
-        {
-            formCustomerFirstNameTextbox.Text = (string)row["firstName"];
-            formCustomerLastNameTextbox.Text = (string)row["lastName"];
-            formCustomerPhoneNumberTextbox.Text = (string)row["phone"];
-            formCustomerEmailAddressTextbox.Text = (string)row["email"];
-            string content = (string)row["address"];
-            string[] address = content.Split('|');
-            formCustomerHouseNumberNameTextbox.Text = address[0];
-            formCustomerPostCodeTextbox.Text = address[1];
+            formProductName.Text = (string)row["name"];
+            formProductDescription.Text = (string)row["description"];
+            formProductPricePerUnit.Text = $"{(decimal)row["unitPrice"]:C}";
+            formProductStockCount.Text = $"{(int)row["stockCount"]}";
+            formProductUnitCost.Text = $"{(decimal)row["unitCost"]:C}";
         }
 
         private void ParseTableToEmployeeForm(DataRow row)
