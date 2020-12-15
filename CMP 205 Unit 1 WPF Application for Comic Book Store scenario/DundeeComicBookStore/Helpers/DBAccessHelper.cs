@@ -1360,7 +1360,7 @@ namespace DundeeComicBookStore
                         break;
                 }
 
-                command.Parameters.AddWithValue("amount", order.Basket.Total);
+                command.Parameters.AddWithValue("amount", order.Total);
 
                 int affected = command.ExecuteNonQuery();
                 if (affected == 1) return true;
@@ -1403,7 +1403,7 @@ namespace DundeeComicBookStore
                         break;
                 }
 
-                command.Parameters.AddWithValue("amount", order.Basket.Total);
+                command.Parameters.AddWithValue("amount", order.Total);
 
                 int affected = command.ExecuteNonQuery();
                 if (affected == 1) return true;
