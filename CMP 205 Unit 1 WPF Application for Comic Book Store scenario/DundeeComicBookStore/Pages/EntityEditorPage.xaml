@@ -614,7 +614,7 @@
                         Margin="5,0"
                         Text="Email address" />
                     <TextBox
-                        x:Name="formEmployeeEmailTextbox"
+                        x:Name="formEmployeeEmailAddressTextbox"
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
