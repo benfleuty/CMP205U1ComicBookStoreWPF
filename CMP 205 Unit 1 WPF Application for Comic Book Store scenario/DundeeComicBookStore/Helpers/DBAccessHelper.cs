@@ -285,8 +285,8 @@ namespace DundeeComicBookStore
 
                 StringBuilder sql = new StringBuilder();
 
-                sql.Append("DELETE FROM");
-                sql.Append("Users");
+                sql.Append("DELETE FROM ");
+                sql.Append("Users ");
                 sql.Append("WHERE id = @id");
 
                 SqlCommand command = new SqlCommand(sql.ToString(), conn);
