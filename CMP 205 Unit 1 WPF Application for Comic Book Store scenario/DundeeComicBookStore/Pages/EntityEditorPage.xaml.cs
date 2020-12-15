@@ -181,21 +181,21 @@ ORDER BY Orders.id DESC";
 
         private void StaffSetup()
         {
-            //pageName.Text = "Entity Editor - Staff Records";
-            //bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
-            //// need get staff function
-            //dataSource = DBAccessHelper.GetStaff(canAccessEmployees);
-            //if (dataSource == null) dataSource = new DataTable()
-            //{
-            //    Columns = {
-            //        {"error" },
-            //        {"no values found" }
-            //    }
-            //};
-            //resultDg.ItemsSource = dataSource.AsDataView();
-            //employeeSearchBar.Visibility = Visibility.Visible;
-            //formEmployeeData.Visibility = Visibility.Visible;
-            //resultDg.Visibility = Visibility.Visible;
+            pageName.Text = "Entity Editor - Staff Records";
+            bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
+            // need get staff function
+            dataSource = DBAccessHelper.GetStaff(canAccessEmployees);
+            if (dataSource == null) dataSource = new DataTable()
+            {
+                Columns = {
+                    {"error" },
+                    {"no values found" }
+                }
+            };
+            resultDg.ItemsSource = dataSource.AsDataView();
+            employeeSearchBar.Visibility = Visibility.Visible;
+            formEmployeeData.Visibility = Visibility.Visible;
+            resultDg.Visibility = Visibility.Visible;
         }
 
         #endregion Initial page setup
