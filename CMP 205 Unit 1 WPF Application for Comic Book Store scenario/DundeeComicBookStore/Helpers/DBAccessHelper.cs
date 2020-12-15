@@ -154,7 +154,6 @@ namespace DundeeComicBookStore
                 DataTable dataTable = new DataTable();
                 dataTable.Load(reader);
 
-                dataTable.Columns.Remove("permissions");
                 dataTable.Columns.Remove("password");
                 dataTable.Columns.Remove("profilepicture");
 
