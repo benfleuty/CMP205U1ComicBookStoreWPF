@@ -44,11 +44,26 @@ namespace DundeeComicBookStore.Pages
             };
             button.Click += ContinueAsCustomer;
             staffActionButtonsPanel.Children.Add(button);
+
             button = new Button()
             {
                 Content = "Entity editor"
             };
             button.Click += OpenEntityEditor;
+            staffActionButtonsPanel.Children.Add(button);
+
+            button = new Button()
+            {
+                Content = "Stock Levels"
+            };
+            button.Click += OpenStockLevelViewer;
+            staffActionButtonsPanel.Children.Add(button);
+
+            button = new Button()
+            {
+                Content = "Sales Viewer"
+            };
+            button.Click += SalesViewer;
             staffActionButtonsPanel.Children.Add(button);
         }
 
@@ -65,6 +80,16 @@ namespace DundeeComicBookStore.Pages
         private void OpenEntityEditor(object sender, RoutedEventArgs e)
         {
             ChangePageTo(new EntityEditorPage(Staff));
+        }
+
+        private void OpenStockLevelViewer(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SalesViewer(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
