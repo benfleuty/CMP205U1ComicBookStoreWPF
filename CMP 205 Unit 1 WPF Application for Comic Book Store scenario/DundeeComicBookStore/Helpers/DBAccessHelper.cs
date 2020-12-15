@@ -841,6 +841,45 @@ namespace DundeeComicBookStore
 
         #endregion Add Products
 
+        #region Update Products
+
+        public static bool AlterProduct(ProductModel changedModel)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append("UPDATE ");
+                sql.Append("Products ");
+                sql.Append("SET name = @name, description = @description, ");
+                sql.Append("unitPrice = @unitPrice, stockCount = @stockCount, unitCost = @unitCost ");
+                sql.Append("WHERE id = @id");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("name", changedModel.Name);
+                command.Parameters.AddWithValue("description", changedModel.Description);
+                command.Parameters.AddWithValue("unitPrice", changedModel.UnitPrice);
+                command.Parameters.AddWithValue("stockCount", changedModel.UnitsInStock);
+                command.Parameters.AddWithValue("unitCost", changedModel.UnitCost);
+                command.Parameters.AddWithValue("id", changedModel.ID);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion Update Products
+
         #endregion Products
 
         #region Orders
