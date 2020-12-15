@@ -84,12 +84,12 @@ namespace DundeeComicBookStore.Pages
 
         private void OpenStockLevelViewer(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ChangePageTo(new StockLevelPage(Staff));
         }
 
         private void SalesViewer(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ChangePageTo(new SalesViewerPage(Staff));
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
