@@ -1397,6 +1397,13 @@ namespace DundeeComicBookStore
                 command.Parameters.AddWithValue("amount", order.Total);
 
                 int affected = command.ExecuteNonQuery();
+
+                #region decrease stock
+
+                ReduceStock(conn, order);
+
+                #endregion decrease stock
+
                 if (affected == 1) return true;
                 else return false;
 
@@ -1440,6 +1447,13 @@ namespace DundeeComicBookStore
                 command.Parameters.AddWithValue("amount", order.Total);
 
                 int affected = command.ExecuteNonQuery();
+
+                #region decrease stock
+
+                ReduceStock(conn, order);
+
+                #endregion decrease stock
+
                 if (affected == 1) return true;
                 else return false;
 
@@ -1449,6 +1463,26 @@ namespace DundeeComicBookStore
             {
                 return false;
             }
+        }
+
+        private static void ReduceStock(SqlConnection conn, OrderModel order)
+        {
+            #region decrease the amount of the sold products in stock
+
+            var sql = new StringBuilder();
+
+            foreach (var item in order.Basket.Items)
+            {
+                sql.Clear();
+                sql.Append("UPDATE Products ");
+                sql.Append($"SET stockCount = stockCount - {item.Value} ");
+                sql.Append($"WHERE id = {item.Key.ID}");
+                string query = sql.ToString();
+                SqlCommand command = new SqlCommand(query, conn);
+                command.ExecuteNonQuery();
+            }
+
+            #endregion decrease the amount of the sold products in stock
         }
 
         #endregion Process order
