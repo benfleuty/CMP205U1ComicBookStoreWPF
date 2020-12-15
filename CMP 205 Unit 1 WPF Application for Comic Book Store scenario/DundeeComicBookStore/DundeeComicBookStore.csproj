@@ -14,8 +14,4 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TolmountDatabase\TolmountDatabase.sqlproj" />
-  </ItemGroup>
 </Project>
