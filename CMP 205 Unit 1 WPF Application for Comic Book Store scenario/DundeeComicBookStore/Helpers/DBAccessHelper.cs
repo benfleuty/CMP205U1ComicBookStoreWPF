@@ -437,7 +437,7 @@ namespace DundeeComicBookStore
                     return true;
                 return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
