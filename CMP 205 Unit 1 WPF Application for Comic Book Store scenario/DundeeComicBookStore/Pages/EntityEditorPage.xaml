@@ -461,6 +461,7 @@
                 CanUserSortColumns="True"
                 IsReadOnly="True"
                 ItemsSource="{Binding dataSource}"
+                SelectionChanged="ResultDg_SelectionChanged"
                 SelectionMode="Single"
                 Visibility="Collapsed" />
 
@@ -488,10 +489,12 @@
                             Margin="5,0"
                             Text="Last Name" />
                         <TextBox
+                            x:Name="formCustomerFirstNameTextbox"
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="5,0" />
                         <TextBox
+                            x:Name="formCustomerLastNameTextbox"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="5,0" />
@@ -504,6 +507,7 @@
                         Margin="5,0"
                         Text="Phone Number" />
                     <TextBox
+                        x:Name="formCustomerPhoneNumberTextbox"
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
@@ -516,6 +520,7 @@
                         Margin="5,0"
                         Text="Email address" />
                     <TextBox
+                        x:Name="formCustomerEmailAddressTextbox"
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
@@ -542,10 +547,12 @@
                             Margin="5,0"
                             Text="Post Code" />
                         <TextBox
+                            x:Name="formCustomerHouseNumberNameTextbox"
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="5,0" />
                         <TextBox
+                            x:Name="formCustomerPostCodeTextbox"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="5,0" />
@@ -576,10 +583,12 @@
                             Margin="5,0"
                             Text="Last Name" />
                         <TextBox
+                            x:Name="formEmployeeFirstNameTextbox"
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="5,0" />
                         <TextBox
+                            x:Name="formEmployeeLastNameTextbox"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="5,0" />
@@ -592,6 +601,7 @@
                         Margin="5,0"
                         Text="Phone Number" />
                     <TextBox
+                        x:Name="formEmployeePhoneNumberTextbox"
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
@@ -604,6 +614,7 @@
                         Margin="5,0"
                         Text="Email address" />
                     <TextBox
+                        x:Name="formEmployeeEmailTextbox"
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
@@ -630,10 +641,12 @@
                             Margin="5,0"
                             Text="Post Code" />
                         <TextBox
+                            x:Name="formEmployeeHouseNumberNameTextbox"
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="5,0" />
                         <TextBox
+                            x:Name="formEmployeePostCodeTextbox"
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="5,0" />
@@ -680,11 +693,11 @@
                     <StackPanel x:Name="formProductData" Visibility="Collapsed">
                         <!--#region Product Name-->
                         <TextBlock Margin="5,0" Text="Product Name" />
-                        <TextBox Margin="5,0" />
+                        <TextBox x:Name="formProductName" Margin="5,0" />
                         <!--#endregion-->
                         <!--#region Product Description-->
                         <TextBlock Margin="5,0" Text="Product Description" />
-                        <TextBox Margin="5,0" />
+                        <TextBox x:Name="formProductDescription" Margin="5,0" />
                         <!--#endregion-->
                         <!--#region Address-->
                         <Grid>
@@ -714,7 +727,7 @@
                                 Text="Cost per unit" />
 
                             <xctk:DecimalUpDown
-                                x:Name="productPricePerUnit"
+                                x:Name="formProductPricePerUnit"
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 ClipValueToMinMax="True"
@@ -724,7 +737,7 @@
                                 Watermark="£/unit" />
 
                             <xctk:IntegerUpDown
-                                x:Name="productStockCount"
+                                x:Name="formProductStockCount"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 ClipValueToMinMax="True"
@@ -733,7 +746,7 @@
                                 Watermark="Stock count" />
 
                             <xctk:DecimalUpDown
-                                x:Name="productUnitCost"
+                                x:Name="formProductUnitCost"
                                 Grid.Row="1"
                                 Grid.Column="2"
                                 ClipValueToMinMax="True"
