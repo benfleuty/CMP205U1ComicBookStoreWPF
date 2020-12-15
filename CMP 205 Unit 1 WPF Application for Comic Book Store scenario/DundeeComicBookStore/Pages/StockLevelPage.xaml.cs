@@ -121,7 +121,7 @@ namespace DundeeComicBookStore.Pages
                 #region Get low and out of stock items
 
                 sql = new StringBuilder();
-                sql.Append("SELECT COUNT(id) as quantity ");
+                sql.Append("SELECT * ");
                 sql.Append("FROM Products ");
                 sql.Append("WHERE stockCount < 6 ");
                 sql.Append("ORDER BY stockCount ASC ");
