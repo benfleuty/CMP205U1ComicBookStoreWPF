@@ -7,7 +7,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using static DundeeComicBookStore.Models.StaffModel;
 
 namespace DundeeComicBookStore
@@ -1409,7 +1408,7 @@ namespace DundeeComicBookStore
 
                 #endregion insert the payment information
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

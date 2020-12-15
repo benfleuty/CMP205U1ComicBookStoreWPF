@@ -1,13 +1,4 @@
-﻿using DundeeComicBookStore.Interfaces;
-using DundeeComicBookStore.Models;
-using DundeeComicBookStore.Pages;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using DundeeComicBookStore.Pages;
 using System.Windows;
 
 namespace DundeeComicBookStore

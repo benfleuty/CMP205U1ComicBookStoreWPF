@@ -1,17 +1,6 @@
 ﻿using DundeeComicBookStore.Models;
 using DundeeComicBookStore.Windows;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DundeeComicBookStore.Pages
 {
@@ -81,7 +70,6 @@ namespace DundeeComicBookStore.Pages
 
         private void DeliveryChoice_Changed(object sender, RoutedEventArgs e)
         {
-            decimal basketTotal = Order.Basket.Total;
             if (rbHomeDelivery.IsChecked == true)
             {
                 Order.HomeDelivery = true;

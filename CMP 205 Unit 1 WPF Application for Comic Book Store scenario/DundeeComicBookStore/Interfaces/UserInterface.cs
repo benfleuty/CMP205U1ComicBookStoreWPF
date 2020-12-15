@@ -1,9 +1,4 @@
-﻿using DundeeComicBookStore.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DundeeComicBookStore.Interfaces
+﻿namespace DundeeComicBookStore.Interfaces
 {
     public interface IUser
     {
