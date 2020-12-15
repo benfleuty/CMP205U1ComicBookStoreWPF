@@ -306,6 +306,44 @@ namespace DundeeComicBookStore
 
         #endregion Deleting Users
 
+        #region Updating Users
+
+        public static bool AlterUser(CustomerModel changedModel)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append("UPDATE ");
+                sql.Append("Users ");
+                sql.Append("SET firstName = @firstName, lastName = @lastName, ");
+                sql.Append("phone = @phone, email = @email, address = @address ");
+                sql.Append("WHERE id = @id");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("firstName", changedModel.FirstName);
+                command.Parameters.AddWithValue("lastName", changedModel.LastName);
+                command.Parameters.AddWithValue("phone", changedModel.PhoneNumber);
+                command.Parameters.AddWithValue("email", changedModel.EmailAddress);
+                command.Parameters.AddWithValue("address", changedModel.Address);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion Updating Users
+
         #region User Functions
 
         public static bool IsEmailNotInUse(string email)
