@@ -542,7 +542,24 @@ ORDER BY Orders.id DESC";
 
         private void DeleteStaffRecord()
         {
-            CheckFields();
+            if (!CheckFields()) return;
+            if (!Staff.Can(StaffModel.Permission.AccessEmployeeData))
+            {
+                MessageBox.Show("You do not have the correct permissions to perform this action!");
+                return;
+            }
+            var employee = ((StaffModel)toStore);
+
+            bool result = DBAccessHelper.DeleteUser(employee.ID);
+            // delete failed
+            if (!result)
+            {
+                MessageBox.Show("Record could not be deleted!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // delete was a success
+            ClearForm();
         }
 
         private void ClearForm()
