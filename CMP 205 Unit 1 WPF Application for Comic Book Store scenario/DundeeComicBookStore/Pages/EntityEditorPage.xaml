@@ -675,8 +675,14 @@
                             <StackPanel Margin="20">
                                 <TextBlock Margin="0,0,0,20" Text="Employee Data" />
                                 <CheckBox x:Name="employeeCB_AED" Content="Can access" />
-                                <Button x:Name="employeeBtn_applyAll" Content="Apply all" Click="EmployeeBtn_applyAll_Click" />
-                                <Button x:Name="employeeBtn_removeAll" Content="Remove all" Click="EmployeeBtn_removeAll_Click" />
+                                <Button
+                                    x:Name="employeeBtn_applyAll"
+                                    Click="EmployeeBtn_applyAll_Click"
+                                    Content="Apply all" />
+                                <Button
+                                    x:Name="employeeBtn_removeAll"
+                                    Click="EmployeeBtn_removeAll_Click"
+                                    Content="Remove all" />
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -758,12 +764,39 @@
                         <!--#endregion-->
                     </StackPanel>
                     <!--#endregion-->
-                    <Button
-                        x:Name="saveFormChanges"
-                        Margin="50,20"
-                        Click="SaveChanges_Click"
-                        Content="Save Changes"
-                        Style="{DynamicResource RoundedCorners}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            x:Name="deleteSelectedRecord"
+                            Grid.Column="0"
+                            Margin="10,20"
+                            Padding="5"
+                            Background="OrangeRed"
+                            Click="DeleteSelectedRecord_Click"
+                            Content="Delete"
+                            FontWeight="Bold"
+                            Style="{DynamicResource RoundedCorners}" />
+                        <Button
+                            x:Name="addNewRecord"
+                            Grid.Column="1"
+                            Margin="10,20"
+                            Background="DeepSkyBlue"
+                            Click="AddNewRecord_Click"
+                            Content="Add New"
+                            Style="{DynamicResource RoundedCorners}" />
+                        <Button
+                            x:Name="saveFormChanges"
+                            Grid.Column="2"
+                            Margin="10,20"
+                            Background="Green"
+                            Click="SaveChanges_Click"
+                            Content="Save Changes"
+                            Style="{DynamicResource RoundedCorners}" />
+                    </Grid>
                 </StackPanel>
             </StackPanel>
         </Grid>
