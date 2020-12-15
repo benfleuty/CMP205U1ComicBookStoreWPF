@@ -187,7 +187,7 @@ namespace DundeeComicBookStore
                 FirstName = (string)data["firstName"],
                 LastName = (string)data["lastName"],
                 EmailAddress = (string)data["email"],
-                //Address = new AddressModel((string)row["address"])),
+                Address = ((string)data["address"]).Replace('|', ' '),
                 PhoneNumber = (string)data["phone"],
                 //ProfilePictureSource = (string)row["profilePicture"],
                 RewardPoints = (uint)(int)data["rewardPoints"],
@@ -1339,7 +1339,7 @@ namespace DundeeComicBookStore
 
                 #endregion insert the payment information
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
