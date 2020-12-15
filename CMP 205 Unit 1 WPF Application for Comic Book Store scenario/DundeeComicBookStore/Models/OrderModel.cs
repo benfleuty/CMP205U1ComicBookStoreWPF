@@ -68,7 +68,7 @@ namespace DundeeComicBookStore.Models
             set { _user = value; }
         }
 
-        private bool _homeDelivery;
+        private bool _homeDelivery = true;
 
         public bool HomeDelivery
         {
@@ -90,6 +90,16 @@ namespace DundeeComicBookStore.Models
             get
             {
                 return DBAccessHelper.DiscountOrder(User);
+            }
+        }
+
+        public decimal Subtotal
+        {
+            get
+            {
+                decimal subtotal = Basket.Total;
+                if (Discounted) subtotal *= 0.75m;
+                return subtotal;
             }
         }
 
