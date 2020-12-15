@@ -576,6 +576,17 @@ ORDER BY Orders.id DESC";
         private void AddProductRecord()
         {
             if (!CheckFields()) return;
+
+            var newProduct = new ProductModel()
+            {
+                Name = formProductName.Text,
+                Description = formProductDescription.Text,
+                UnitPrice = (decimal)formProductPricePerUnit.Value,
+                UnitsInStock = (int)formProductStockCount.Value,
+                UnitCost = (decimal)formProductUnitCost.Value
+            };
+
+            DBAccessHelper.AddProduct(newProduct);
         }
 
         #endregion Form Add
