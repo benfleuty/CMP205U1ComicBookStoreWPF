@@ -343,6 +343,64 @@ namespace DundeeComicBookStore
             }
         }
 
+        public static bool AlterUser(CustomerModel changedModel, string currentEmail, string password)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                // verify password before doing anything
+
+                string pwdToCheck = HashPassword(password, currentEmail);
+
+                sql.Append("SELECT id ");
+                sql.Append("FROM Users ");
+                sql.Append("WHERE password = @password");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("password", pwdToCheck);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                // cancel alter if password is wrong
+                if (dataTable.Rows.Count < 1)
+                    return false;
+
+                // password is correct
+
+                sql.Clear();
+                sql.Append("UPDATE ");
+                sql.Append("Users ");
+                sql.Append("SET firstName = @firstName, lastName = @lastName, ");
+                sql.Append("phone = @phone, email = @email, address = @address, password = @password ");
+                sql.Append("WHERE id = @id");
+
+                command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("firstName", changedModel.FirstName);
+                command.Parameters.AddWithValue("lastName", changedModel.LastName);
+                command.Parameters.AddWithValue("phone", changedModel.PhoneNumber);
+                command.Parameters.AddWithValue("email", changedModel.EmailAddress);
+                command.Parameters.AddWithValue("address", changedModel.Address);
+                command.Parameters.AddWithValue("password", pwdToCheck);
+                command.Parameters.AddWithValue("id", changedModel.ID);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         #endregion Updating Users
 
         #region User Functions
