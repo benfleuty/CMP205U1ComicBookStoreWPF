@@ -8,7 +8,100 @@
     Title="SalesViewerPage"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    FontSize="28"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions />
+        <!--#region Top bar-->
+        <!--  Row 0  -->
+        <TextBlock
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="Dundee Comic Book Store" />
+        <TextBlock
+            Name="pageName"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="48"
+            Text="Sales Viewer" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <TextBlock
+                x:Name="usernameTextblock"
+                Margin="0,0,5,0"
+                VerticalAlignment="Center" />
+            <Button
+                x:Name="logoutButton"
+                Padding="5"
+                Click="LogoutButton_Click"
+                Content="Log out" />
+            <Button
+                x:Name="homeButton"
+                Padding="5"
+                Click="HomeButton_Click"
+                Content="Home" />
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--  Row 1  -->
+        <Grid Grid.Row="1" Margin="20,100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="# of items sold:" />
+            <TextBlock
+                Name="numOfItemsSold"
+                Grid.Row="0"
+                Grid.Column="1" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="# of orders:" />
+            <TextBlock
+                Name="numOfOrders"
+                Grid.Row="1"
+                Grid.Column="1" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="Gross Revenue:" />
+            <TextBlock
+                Name="grossRevenue"
+                Grid.Row="2"
+                Grid.Column="1" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                Text="Expenses:" />
+            <TextBlock
+                Name="expenses"
+                Grid.Row="3"
+                Grid.Column="1" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                Text="Net Revenue:" />
+            <TextBlock
+                Name="netRevenue"
+                Grid.Row="4"
+                Grid.Column="1" />
+        </Grid>
+    </Grid>
 </local:BasePage>
