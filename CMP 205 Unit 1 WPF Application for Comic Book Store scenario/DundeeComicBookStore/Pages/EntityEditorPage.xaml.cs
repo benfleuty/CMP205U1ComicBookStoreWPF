@@ -119,6 +119,13 @@ namespace DundeeComicBookStore.Pages
             pageName.Text = "Entity Editor - Customer Records";
             bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
             dataSource = DBAccessHelper.GetUsers(canAccessEmployees);
+            if (dataSource == null) dataSource = new DataTable()
+            {
+                Columns = {
+                    {"error" },
+                    {"no values found" }
+                }
+            };
             resultDg.ItemsSource = dataSource.AsDataView();
             customerSearchBar.Visibility = Visibility.Visible;
             formCustomerData.Visibility = Visibility.Visible;
@@ -128,8 +135,15 @@ namespace DundeeComicBookStore.Pages
         private void ProductSetup()
         {
             pageName.Text = "Entity Editor - Product Records";
-            string query = $"select * from products";
+            string query = $"select id,name,description,unitPrice,stockCount,unitCost from products";
             dataSource = DBAccessHelper.GetProductsReturnDataTable(query);
+            if (dataSource == null) dataSource = new DataTable()
+            {
+                Columns = {
+                    {"error" },
+                    {"no values found" }
+                }
+            };
             resultDg.ItemsSource = dataSource.AsDataView();
             productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
                 formProductData.Visibility = Visibility.Visible;
@@ -171,6 +185,13 @@ ORDER BY Orders.id DESC";
             //bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
             //// need get staff function
             //dataSource = DBAccessHelper.GetStaff(canAccessEmployees);
+            //if (dataSource == null) dataSource = new DataTable()
+            //{
+            //    Columns = {
+            //        {"error" },
+            //        {"no values found" }
+            //    }
+            //};
             //resultDg.ItemsSource = dataSource.AsDataView();
             //employeeSearchBar.Visibility = Visibility.Visible;
             //formEmployeeData.Visibility = Visibility.Visible;
