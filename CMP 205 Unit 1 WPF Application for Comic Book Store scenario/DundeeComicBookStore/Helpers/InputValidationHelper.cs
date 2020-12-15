@@ -55,6 +55,62 @@ namespace DundeeComicBookStore.Helpers
             return text.Length > 0;
         }
 
+        public static bool ValidInput(object sender, ErrorHelper.UIError uiErrorReason)
+        {
+            switch (uiErrorReason)
+            {
+                case ErrorHelper.UIError.RequiredField:
+                    string text = ((TextBox)sender).Text;
+                    // If the text is valid
+                    return ValidText(text);
+
+                case ErrorHelper.UIError.InvalidPhoneNumber:
+                    string number = ((TextBox)sender).Text;
+                    if (ValidPhoneNumber(number))
+                    {
+                        SanitisePhoneNumber(ref number);
+                        ((TextBox)sender).Text = number;
+                        return true;
+                    }
+                    break;
+
+                case ErrorHelper.UIError.InvalidEmail:
+                    {
+                        // Check if email is valid
+                        string email = ((TextBox)sender).Text;
+                        return ValidEmail(email);
+                    }
+
+                case ErrorHelper.UIError.EmailInUse:
+                    {
+                        string email = ((TextBox)sender).Text;
+                        return DBAccessHelper.IsEmailNotInUse(email);
+                    }
+
+                case ErrorHelper.UIError.PasswordComplexity:
+                    string password = ((PasswordBox)sender).Password.ToString();
+                    return ValidNewPassword(password);
+
+                default:
+                    MessageBox.Show("The given error message is not handled here!", "Error RegisterPage.xaml.cs:ValidateInput(3)", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+            }
+            return false;
+        }
+
+        public static bool ValidInput(object sender, object compare, ErrorHelper.UIError uiErrorReason)
+        {
+            switch (uiErrorReason)
+            {
+                case ErrorHelper.UIError.PasswordMismatch:
+                    string password1 = ((PasswordBox)sender).Password;
+                    string password2 = ((PasswordBox)compare).Password;
+                    return ValidPasswords(password1, password2);
+            }
+
+            return false;
+        }
+
         public static bool ValidInput(object sender, TextBlock errorMsgTextBlock, ErrorHelper.UIError uiErrorReason)
         {
             switch (uiErrorReason)
