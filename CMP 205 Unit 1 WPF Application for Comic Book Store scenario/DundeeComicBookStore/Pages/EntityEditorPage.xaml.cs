@@ -129,7 +129,7 @@ namespace DundeeComicBookStore.Pages
                 }
             };
             resultDg.ItemsSource = dataSource.AsDataView();
-            customerSearchBar.Visibility = resultDg.Visibility = form.Visibility =
+            resultDg.Visibility = form.Visibility =
                 formCustomerData.Visibility = deleteSelectedRecord.Visibility =
                 addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
         }
@@ -147,7 +147,7 @@ namespace DundeeComicBookStore.Pages
                 }
             };
             resultDg.ItemsSource = dataSource.AsDataView();
-            productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
+            resultDg.Visibility = form.Visibility =
                 formProductData.Visibility = deleteSelectedRecord.Visibility =
                 addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
         }
@@ -178,7 +178,7 @@ ORDER BY Orders.id DESC";
             };
             resultDg.ItemsSource = dataSource.AsDataView();
             saveFormChanges.Visibility = Visibility.Collapsed;
-            orderSearchBar.Visibility = resultDg.Visibility = form.Visibility =
+            resultDg.Visibility = form.Visibility =
                 formOrderData.Visibility = Visibility.Visible;
             deleteSelectedRecord.Visibility =
                addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Collapsed;
@@ -198,10 +198,8 @@ ORDER BY Orders.id DESC";
                 }
             };
             resultDg.ItemsSource = dataSource.AsDataView();
-            employeeSearchBar.Visibility = Visibility.Visible;
-            productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
-                formEmployeeData.Visibility = deleteSelectedRecord.Visibility =
-                saveFormChanges.Visibility = Visibility.Visible;
+            resultDg.Visibility = form.Visibility = formEmployeeData.Visibility =
+                deleteSelectedRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
 
             addNewRecord.Visibility = Visibility.Collapsed;
         }
