@@ -395,7 +395,7 @@ namespace DundeeComicBookStore
                         Name = (string)row["name"],
                         Description = (string)row["description"],
                         UnitPrice = (decimal)row["unitPrice"],
-                        UnitsInStock = (uint)(int)row["stockCount"]
+                        UnitsInStock = (int)row["stockCount"]
                     };
                     productList.Add(product);
                 }
@@ -437,7 +437,7 @@ namespace DundeeComicBookStore
                         Name = (string)row["name"],
                         Description = (string)row["description"],
                         UnitPrice = (decimal)row["unitPrice"],
-                        UnitsInStock = (uint)(int)row["stockCount"]
+                        UnitsInStock = (int)row["stockCount"]
                     };
                     productList.Add(product);
                 }
@@ -524,7 +524,7 @@ namespace DundeeComicBookStore
                     Name = (string)data["name"],
                     Description = (string)data["description"],
                     UnitPrice = (decimal)data["unitPrice"],
-                    UnitsInStock = (uint)(int)data["stockCount"],
+                    UnitsInStock = (int)data["stockCount"],
                     UnitCost = (decimal)data["unitCost"]
                 };
             }
