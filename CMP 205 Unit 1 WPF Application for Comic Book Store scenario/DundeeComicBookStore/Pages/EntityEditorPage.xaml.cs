@@ -573,20 +573,6 @@ ORDER BY Orders.id DESC";
 
         #region Form Add
 
-        private void AddCustomerRecord()
-        {
-            if (!CheckFields()) return;
-            var customer = ((CustomerModel)selectedRow);
-            var enteredData = new CustomerModel()
-            {
-            };
-        }
-
-        private void AddStaffRecord()
-        {
-            if (!CheckFields()) return;
-        }
-
         private void AddProductRecord()
         {
             if (!CheckFields()) return;
