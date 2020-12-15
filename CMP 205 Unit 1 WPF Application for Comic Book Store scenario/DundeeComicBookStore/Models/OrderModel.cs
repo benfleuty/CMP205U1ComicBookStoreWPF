@@ -92,5 +92,16 @@ namespace DundeeComicBookStore.Models
                 return DBAccessHelper.DiscountOrder(User);
             }
         }
+
+        public decimal Total
+        {
+            get
+            {
+                decimal total = Basket.Total;
+                if (Discounted) total *= 0.75m;
+                if (HomeDelivery) total += 4.99m;
+                return total;
+            }
+        }
     }
 }
