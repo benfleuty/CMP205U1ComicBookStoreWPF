@@ -1320,13 +1320,13 @@ namespace DundeeComicBookStore
 
                 command.Parameters.AddWithValue("orderId", lastOrderId);
 
-                switch (order.PaymentType)
+                switch (order.PaymentMethod)
                 {
-                    case 0:
+                    case OrderModel.PaymentType.Card:
                         command.Parameters.AddWithValue("type", "card");
                         break;
 
-                    case 1:
+                    case OrderModel.PaymentType.Cash:
                         command.Parameters.AddWithValue("type", "cash");
                         break;
                 }
@@ -1363,13 +1363,13 @@ namespace DundeeComicBookStore
 
                 command.Parameters.AddWithValue("orderId", order.ID);
 
-                switch (order.PaymentType)
+                switch (order.PaymentMethod)
                 {
-                    case 0:
+                    case OrderModel.PaymentType.Card:
                         command.Parameters.AddWithValue("type", "card");
                         break;
 
-                    case 1:
+                    case OrderModel.PaymentType.Cash:
                         command.Parameters.AddWithValue("type", "cash");
                         break;
                 }
