@@ -92,6 +92,8 @@ namespace DundeeComicBookStore.Pages
 
         #endregion No entity type given
 
+        #region Initial page setup
+
         public EntityEditorPage(StaffModel staff, EntityType entityType)
         {
             InitializeComponent();
@@ -99,8 +101,6 @@ namespace DundeeComicBookStore.Pages
             Entity = entityType;
             SetupPage();
         }
-
-        #region Initial page setup
 
         private void SetupPage()
         {
