@@ -33,7 +33,7 @@ namespace DundeeComicBookStore.Pages
 
         private EntityType Entity;
 
-        private object toStore;
+        private object selectedRow;
 
         public enum EntityType
         {
@@ -279,7 +279,7 @@ ORDER BY Orders.id DESC";
             formCustomerHouseNumberNameTextbox.Text = roadAddr;
             formCustomerPostCodeTextbox.Text = postCode;
 
-            toStore = new CustomerModel()
+            selectedRow = new CustomerModel()
             {
                 ID = (int)row["id"],
                 FirstName = (string)row["firstName"],
@@ -304,7 +304,7 @@ ORDER BY Orders.id DESC";
             formProductStockCount.Text = $"{stockCount:C}";
             formProductUnitCost.Text = $"{unitCost:C}";
 
-            toStore = new ProductModel()
+            selectedRow = new ProductModel()
             {
                 Name = name,
                 Description = desc,
@@ -364,7 +364,7 @@ ORDER BY Orders.id DESC";
             if (selected.Can(StaffModel.Permission.AccessEmployeeData))
                 employeeCB_AED.IsChecked = true;
 
-            toStore = selected;
+            selectedRow = selected;
         }
 
         #region Events
@@ -427,7 +427,7 @@ ORDER BY Orders.id DESC";
                 errorMessage.Append("You have not entered a valid email address!\n");
 
             // if the email entered is in use and isn't the email already set for the selected entity
-            else if (formCustomerEmailAddressTextbox.Text != ((CustomerModel)toStore).EmailAddress
+            else if (formCustomerEmailAddressTextbox.Text != ((CustomerModel)selectedRow).EmailAddress
                 && InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
                 errorMessage.Append("The email you have entered is already in use by another user!\n");
 
@@ -492,7 +492,7 @@ ORDER BY Orders.id DESC";
                 errorMessage.Append("You have not entered a valid email address!\n");
 
             // if the email entered is in use and isn't the email already set for the selected entity
-            else if (formEmployeeEmailAddressTextbox.Text != ((StaffModel)toStore).EmailAddress
+            else if (formEmployeeEmailAddressTextbox.Text != ((StaffModel)selectedRow).EmailAddress
                 && InputValidationHelper.ValidInput(formEmployeeEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
                 errorMessage.Append("The email you have entered is already in use by another user!\n");
 
@@ -509,11 +509,13 @@ ORDER BY Orders.id DESC";
 
         #endregion Form Check
 
+        #region Form Delete
+
         private void DeleteCustomerRecord()
         {
             if (!CheckFields()) return;
 
-            var customer = ((CustomerModel)toStore);
+            var customer = ((CustomerModel)selectedRow);
 
             bool result = DBAccessHelper.DeleteUser(customer.ID);
             // delete failed
@@ -531,7 +533,7 @@ ORDER BY Orders.id DESC";
         {
             if (!CheckFields()) return;
 
-            var product = ((ProductModel)toStore);
+            var product = ((ProductModel)selectedRow);
 
             bool result = DBAccessHelper.DeleteProduct(product.ID);
             // delete failed
@@ -553,7 +555,7 @@ ORDER BY Orders.id DESC";
                 MessageBox.Show("You do not have the correct permissions to perform this action!");
                 return;
             }
-            var employee = ((StaffModel)toStore);
+            var employee = ((StaffModel)selectedRow);
 
             bool result = DBAccessHelper.DeleteUser(employee.ID);
             // delete failed
@@ -566,6 +568,31 @@ ORDER BY Orders.id DESC";
             // delete was a success
             ClearForm();
         }
+
+        #endregion Form Delete
+
+        #region Form Add
+
+        private void AddCustomerRecord()
+        {
+            if (!CheckFields()) return;
+            var customer = ((CustomerModel)selectedRow);
+            var enteredData = new CustomerModel()
+            {
+            };
+        }
+
+        private void AddStaffRecord()
+        {
+            if (!CheckFields()) return;
+        }
+
+        private void AddProductRecord()
+        {
+            if (!CheckFields()) return;
+        }
+
+        #endregion Form Add
 
         private void ClearForm()
         {
@@ -597,7 +624,7 @@ ORDER BY Orders.id DESC";
             employeeCB_WSD.IsChecked = employeeCB_DSD.IsChecked =
             employeeCB_AED.IsChecked = false;
 
-            toStore = new object();
+            selectedRow = new object();
         }
 
         #endregion Form Actions
