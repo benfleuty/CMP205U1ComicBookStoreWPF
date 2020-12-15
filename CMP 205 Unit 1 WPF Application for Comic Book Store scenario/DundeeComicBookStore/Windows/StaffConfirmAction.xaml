@@ -8,6 +8,8 @@
     Title="StaffConfirmAction"
     Width="800"
     Height="450"
+    BorderBrush="Black"
+    BorderThickness="2"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
