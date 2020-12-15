@@ -525,6 +525,16 @@
                         Grid.Column="0"
                         Margin="5,0"
                         MaxLength="254" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,0"
+                        Text="Password" />
+                    <PasswordBox
+                        x:Name="formCustomerPasswordbox"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5,0" />
                     <!--#endregion-->
                     <!--#region Address-->
                     <Grid>
@@ -619,6 +629,16 @@
                         Grid.Column="0"
                         Margin="5,0"
                         MaxLength="254" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5,0"
+                        Text="Password" />
+                    <PasswordBox
+                        x:Name="formEmployeePasswordbox"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5,0" />
                     <!--#endregion-->
                     <!--#region Address-->
                     <Grid>
