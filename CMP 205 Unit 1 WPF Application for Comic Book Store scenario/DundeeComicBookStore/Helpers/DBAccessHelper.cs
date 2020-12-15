@@ -600,6 +600,8 @@ namespace DundeeComicBookStore
 
         #endregion Deleting Products
 
+        #endregion Products
+
         #region Orders
 
         #region Save an order
