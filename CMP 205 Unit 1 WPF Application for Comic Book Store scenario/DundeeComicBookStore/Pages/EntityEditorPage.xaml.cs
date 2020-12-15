@@ -292,6 +292,7 @@ ORDER BY Orders.id DESC";
 
         private void ParseTableToProductForm(DataRow row)
         {
+            int id = (int)row["id"];
             string name = (string)row["name"];
             string desc = (string)row["description"];
             decimal unitPrice = (decimal)row["unitPrice"];
@@ -426,9 +427,9 @@ ORDER BY Orders.id DESC";
             else if (!InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.InvalidEmail))
                 errorMessage.Append("You have not entered a valid email address!\n");
 
-            // if the email entered is in use and isn't the email already set for the selected entity
+            // if the email entered is in use and isn't the email for the selected entity
             else if (formCustomerEmailAddressTextbox.Text != ((CustomerModel)selectedRow).EmailAddress
-                && InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
+                && !InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
                 errorMessage.Append("The email you have entered is already in use by another user!\n");
 
             // House Name / Number
@@ -575,6 +576,8 @@ ORDER BY Orders.id DESC";
 
         private void AddProductRecord()
         {
+            // can only add a new product record
+            if (Entity != EntityType.ProductRecord) return;
             if (!CheckFields()) return;
 
             var newProduct = new ProductModel()
@@ -590,6 +593,37 @@ ORDER BY Orders.id DESC";
         }
 
         #endregion Form Add
+
+        #region Form Save
+
+        private bool SaveCustomerChanges()
+        {
+            if (!CheckFields()) return false;
+
+            var changedModel = new CustomerModel()
+            {
+                ID = ((CustomerModel)selectedRow).ID,
+                FirstName = formCustomerFirstNameTextbox.Text.Trim(),
+                LastName = formCustomerLastNameTextbox.Text.Trim(),
+                PhoneNumber = formCustomerPhoneNumberTextbox.Text.Trim(),
+                EmailAddress = formCustomerEmailAddressTextbox.Text.Trim(),
+                Address = $"{formCustomerHouseNumberNameTextbox.Text.Trim()}|{formCustomerPostCodeTextbox.Text.Trim()}"
+            };
+
+            return DBAccessHelper.AlterUser(changedModel); ;
+        }
+
+        private bool SaveProductChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool SaveStaffChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Form Save
 
         private void ClearForm()
         {
@@ -657,13 +691,26 @@ ORDER BY Orders.id DESC";
                 DeleteStaffRecord();
         }
 
-        private void AddNewRecord_Click(object sender, RoutedEventArgs e)
-        {
-        }
+        private void AddNewRecord_Click(object sender, RoutedEventArgs e) => AddProductRecord();
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            if (Entity == EntityType.CustomerRecord)
+                result = SaveCustomerChanges();
+            else if (Entity == EntityType.ProductRecord)
+                result = SaveProductChanges();
+            else if (Entity == EntityType.StaffRecord)
+                result = SaveStaffChanges();
+
+            if (result)
+            {
+                MessageBox.Show("Changes saved successfully!", "Changes Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+                ClearForm();
+                return;
+            }
+
+            MessageBox.Show("Your changes could not be saved!", "Error: Changes not saved!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion Form events
