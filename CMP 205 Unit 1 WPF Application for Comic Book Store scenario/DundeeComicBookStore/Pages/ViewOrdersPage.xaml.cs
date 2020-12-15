@@ -48,6 +48,16 @@ namespace DundeeComicBookStore.Pages
         {
             ordersViewer.Children.Clear();
             Orders = DBAccessHelper.GetOrders(CurrentOrder.User.ID);
+            if (Orders == null)
+            {
+                TextBlock tb = new TextBlock()
+                {
+                    Text = "There are no orders to display!"
+                };
+
+                ordersViewer.Children.Add(tb);
+                return;
+            }
             // iterate orders
             foreach (var order in Orders)
             {
