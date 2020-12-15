@@ -1451,48 +1451,6 @@ namespace DundeeComicBookStore
             }
         }
 
-        /* process existing
-        private static bool ProcessNewOrder(SqlConnection conn, OrderModel order)
-        {
-            try
-            {
-                conn.Open();
-
-                string insertInto = "INSERT INTO";
-                string table = "Payments";
-                string columns = "orderId,type,amount";
-                string values = "VALUES (@orderId,@type,@amount)";
-                string query = $"{insertInto} {table} {columns} {values}";
-
-                SqlCommand command = new SqlCommand(query, conn);
-
-                command.Parameters.AddWithValue("orderId", order.ID);
-
-                switch (order.PaymentType)
-                {
-                    case 0:
-                        command.Parameters.AddWithValue("type", "card");
-                        break;
-
-                    case 1:
-                        command.Parameters.AddWithValue("type", "cash");
-                        break;
-                }
-
-                command.Parameters.AddWithValue("amount", order.Basket.Total);
-
-                int affected = command.ExecuteNonQuery();
-                if (affected == 1) return true;
-                else return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        */
-
         #endregion Process order
 
         #endregion Orders
