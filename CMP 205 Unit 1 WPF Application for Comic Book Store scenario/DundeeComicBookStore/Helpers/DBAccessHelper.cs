@@ -590,6 +590,35 @@ namespace DundeeComicBookStore
             return value;
         }
 
+        public static bool DiscountOrder(IUser user)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append("SELECT rewardPoints as points");
+                sql.Append("FROM Users ");
+                sql.Append($"WHERE id = {user.ID} ");
+
+                string query = sql.ToString();
+
+                SqlCommand command = new SqlCommand(query, conn);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                int points = int.Parse((string)dataTable.Rows[0]["points"]);
+                return points >= 100;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         #endregion User Functions
 
         #endregion Users

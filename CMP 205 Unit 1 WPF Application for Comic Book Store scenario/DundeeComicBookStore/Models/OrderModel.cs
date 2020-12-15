@@ -84,5 +84,13 @@ namespace DundeeComicBookStore.Models
             Card,
             Cash
         }
+
+        public bool Discounted
+        {
+            get
+            {
+                return DBAccessHelper.DiscountOrder(User);
+            }
+        }
     }
 }
