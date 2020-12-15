@@ -197,7 +197,7 @@ namespace DundeeComicBookStore
             };
         }
 
-        private static BitArray CalculatePermissions(byte permsToCheck)
+        public static BitArray CalculatePermissions(byte permsToCheck)
         {
             BitArray perms = new BitArray(8);
 
