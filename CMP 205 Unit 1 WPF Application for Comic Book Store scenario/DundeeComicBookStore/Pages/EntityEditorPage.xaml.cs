@@ -763,7 +763,7 @@ ORDER BY Orders.id DESC";
             MessageBox.Show("Your changes could not be saved!", "Error: Changes not saved!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void formCustomerEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        private void FormCustomerEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (selectedRow == null) return;
             if (formCustomerEmailAddressTextbox.Text.Trim() != ((CustomerModel)selectedRow).EmailAddress)
@@ -779,7 +779,7 @@ ORDER BY Orders.id DESC";
             customerPasswordTb.Visibility = Visibility.Collapsed;
         }
 
-        private void formEmployeeEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        private void FormEmployeeEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (selectedRow == null) return;
             if (formEmployeeEmailAddressTextbox.Text.Trim() != ((StaffModel)selectedRow).EmailAddress)

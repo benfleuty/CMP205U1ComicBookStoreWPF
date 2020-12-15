@@ -175,7 +175,7 @@
                         Grid.Column="0"
                         Margin="5,0"
                         MaxLength="254"
-                        TextChanged="formCustomerEmailAddressTextbox_TextChanged" />
+                        TextChanged="FormCustomerEmailAddressTextbox_TextChanged" />
                     <TextBlock
                         Name="customerPasswordTb"
                         Grid.Row="0"
@@ -283,7 +283,7 @@
                         Grid.Column="0"
                         Margin="5,0"
                         MaxLength="254"
-                        TextChanged="formEmployeeEmailAddressTextbox_TextChanged" />
+                        TextChanged="FormEmployeeEmailAddressTextbox_TextChanged" />
                     <TextBlock
                         Name="employeePasswordTb"
                         Grid.Row="0"
