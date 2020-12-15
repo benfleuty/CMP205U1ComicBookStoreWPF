@@ -19,28 +19,9 @@ namespace DundeeComicBookStore
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            //string debugEmail = "bfleuty@outlook.com";
-            string debugEmail = "bfleuty@outlook.com";
-            string debugPassword = "123456";
-            IUser user = DBAccessHelper.GetUser(debugEmail, debugPassword);
-
             MainWindow window = new MainWindow();
-            if (user == null)
-            {
-                RegisterPage page = new RegisterPage();
-                window.MainFrame.Content = page;
-            }
-            else
-            {
-                //OrderModel om = new OrderModel()
-                //{
-                //    User = user
-                //};
-                var staff = (StaffModel)user;
-                var page = new StaffLandingPage(staff);
-                window.MainFrame.Content = page;
-            }
-
+            LoginPage lp = new LoginPage();
+            window.MainFrame.Content = lp;
             window.Show();
         }
     }
