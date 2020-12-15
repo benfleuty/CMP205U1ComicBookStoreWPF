@@ -131,7 +131,8 @@ namespace DundeeComicBookStore.Pages
             };
             resultDg.ItemsSource = dataSource.AsDataView();
             customerSearchBar.Visibility = resultDg.Visibility = form.Visibility =
-                formCustomerData.Visibility = Visibility.Visible;
+                formCustomerData.Visibility = deleteSelectedRecord.Visibility =
+                addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
         }
 
         private void ProductSetup()
@@ -148,7 +149,8 @@ namespace DundeeComicBookStore.Pages
             };
             resultDg.ItemsSource = dataSource.AsDataView();
             productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
-                formProductData.Visibility = Visibility.Visible;
+                formProductData.Visibility = deleteSelectedRecord.Visibility =
+                addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
         }
 
         private void OrderSetup()
@@ -179,6 +181,8 @@ ORDER BY Orders.id DESC";
             saveFormChanges.Visibility = Visibility.Collapsed;
             orderSearchBar.Visibility = resultDg.Visibility = form.Visibility =
                 formOrderData.Visibility = Visibility.Visible;
+            deleteSelectedRecord.Visibility =
+               addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Collapsed;
         }
 
         private void StaffSetup()
@@ -197,7 +201,8 @@ ORDER BY Orders.id DESC";
             resultDg.ItemsSource = dataSource.AsDataView();
             employeeSearchBar.Visibility = Visibility.Visible;
             productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
-                formProductData.Visibility = Visibility.Visible;
+                formProductData.Visibility = deleteSelectedRecord.Visibility =
+                addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
         }
 
         #endregion Initial page setup
