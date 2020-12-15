@@ -330,6 +330,7 @@ namespace DundeeComicBookStore
                 command.Parameters.AddWithValue("phone", changedModel.PhoneNumber);
                 command.Parameters.AddWithValue("email", changedModel.EmailAddress);
                 command.Parameters.AddWithValue("address", changedModel.Address);
+                command.Parameters.AddWithValue("id", changedModel.ID);
 
                 int affected = command.ExecuteNonQuery();
                 if (affected == 1)
