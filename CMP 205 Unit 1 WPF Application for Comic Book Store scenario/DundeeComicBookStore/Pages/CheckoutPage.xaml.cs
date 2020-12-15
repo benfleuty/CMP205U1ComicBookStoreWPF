@@ -134,7 +134,13 @@ namespace DundeeComicBookStore.Pages
             // enter order into the db
             Order.PaymentMethod = (selectedPaymentMethod.SelectedIndex == 0) ? OrderModel.PaymentType.Card : OrderModel.PaymentType.Cash;
 
-            if (DBAccessHelper.ProcessOrder(Order)) MessageBox.Show("Payment saved!");
+            if (DBAccessHelper.ProcessOrder(Order))
+            {
+                MessageBox.Show("Payment saved!");
+                Order.Basket.Items.Clear();
+                confirmPaymentButton.IsEnabled = false;
+                confirmPaymentButton.Visibility = Visibility.Collapsed;
+            }
             else MessageBox.Show("Payment could not be saved!");
         }
     }
