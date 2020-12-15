@@ -1,4 +1,5 @@
-﻿using DundeeComicBookStore.Models;
+﻿using DundeeComicBookStore.Helpers;
+using DundeeComicBookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,6 +32,8 @@ namespace DundeeComicBookStore.Pages
         }
 
         private EntityType Entity;
+
+        private object toStore;
 
         public enum EntityType
         {
@@ -127,9 +130,8 @@ namespace DundeeComicBookStore.Pages
                 }
             };
             resultDg.ItemsSource = dataSource.AsDataView();
-            customerSearchBar.Visibility = Visibility.Visible;
-            formCustomerData.Visibility = Visibility.Visible;
-            resultDg.Visibility = Visibility.Visible;
+            customerSearchBar.Visibility = resultDg.Visibility = form.Visibility =
+                formCustomerData.Visibility = Visibility.Visible;
         }
 
         private void ProductSetup()
@@ -194,8 +196,8 @@ ORDER BY Orders.id DESC";
             };
             resultDg.ItemsSource = dataSource.AsDataView();
             employeeSearchBar.Visibility = Visibility.Visible;
-            formEmployeeData.Visibility = Visibility.Visible;
-            resultDg.Visibility = Visibility.Visible;
+            productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
+                formProductData.Visibility = Visibility.Visible;
         }
 
         #endregion Initial page setup
@@ -258,40 +260,81 @@ ORDER BY Orders.id DESC";
 
         private void ParseTableToCustomerForm(DataRow row)
         {
-            formCustomerFirstNameTextbox.Text = (string)row["firstName"];
-            formCustomerLastNameTextbox.Text = (string)row["lastName"];
-            formCustomerPhoneNumberTextbox.Text = (string)row["phone"];
-            formCustomerEmailAddressTextbox.Text = (string)row["email"];
-            string content = (string)row["address"];
-            string[] address = content.Split('|');
-            formCustomerHouseNumberNameTextbox.Text = address[0];
-            formCustomerPostCodeTextbox.Text = address[1];
+            string firstName = (string)row["firstName"];
+            string lastName = (string)row["lastName"];
+            string phone = (string)row["phone"];
+            string email = (string)row["email"];
+            string address = (string)row["address"];
+            string roadAddr = address.Split('|')[0];
+            string postCode = address.Split('|')[1];
+            formCustomerFirstNameTextbox.Text = firstName;
+            formCustomerLastNameTextbox.Text = lastName;
+            formCustomerPhoneNumberTextbox.Text = phone;
+            formCustomerEmailAddressTextbox.Text = email;
+            formCustomerHouseNumberNameTextbox.Text = roadAddr;
+            formCustomerPostCodeTextbox.Text = postCode;
+
+            toStore = new CustomerModel()
+            {
+                ID = (int)row["id"],
+                FirstName = (string)row["firstName"],
+                LastName = (string)row["lastName"],
+                PhoneNumber = phone,
+                EmailAddress = email,
+                Address = address
+            };
         }
 
         private void ParseTableToProductForm(DataRow row)
         {
-            formProductName.Text = (string)row["name"];
-            formProductDescription.Text = (string)row["description"];
-            formProductPricePerUnit.Text = $"{(decimal)row["unitPrice"]:C}";
-            formProductStockCount.Text = $"{(int)row["stockCount"]}";
-            formProductUnitCost.Text = $"{(decimal)row["unitCost"]:C}";
+            string name = (string)row["name"];
+            string desc = (string)row["description"];
+            decimal unitPrice = (decimal)row["unitPrice"];
+            int stockCount = (int)row["stockCount"];
+            decimal unitCost = (decimal)row["unitCost"];
+
+            formProductName.Text = name;
+            formProductDescription.Text = desc;
+            formProductPricePerUnit.Text = $"{unitPrice:C}";
+            formProductStockCount.Text = $"{stockCount:C}";
+            formProductUnitCost.Text = $"{unitCost:C}";
+
+            toStore = new ProductModel()
+            {
+                Name = name,
+                Description = desc,
+                UnitPrice = unitPrice,
+                UnitsInStock = stockCount,
+                UnitCost = unitCost
+            };
         }
 
         private void ParseTableToEmployeeForm(DataRow row)
         {
-            formEmployeeFirstNameTextbox.Text = (string)row["firstName"];
-            formEmployeeLastNameTextbox.Text = (string)row["lastName"];
-            formEmployeePhoneNumberTextbox.Text = (string)row["phone"];
-            formEmployeeEmailAddressTextbox.Text = (string)row["email"];
-            string content = (string)row["address"];
-            string[] address = content.Split('|');
-            formEmployeeHouseNumberNameTextbox.Text = address[0];
-            formEmployeePostCodeTextbox.Text = address[1];
+            string firstName = (string)row["firstName"];
+            string lastName = (string)row["lastName"];
+            string phone = (string)row["phone"];
+            string email = (string)row["email"];
+            string address = (string)row["address"];
+            string roadAddr = address.Split('|')[0];
+            string postCode = address.Split('|')[1];
+            formEmployeeFirstNameTextbox.Text = firstName;
+            formEmployeeLastNameTextbox.Text = lastName;
+            formEmployeePhoneNumberTextbox.Text = phone;
+            formEmployeeEmailAddressTextbox.Text = email;
+            formEmployeeHouseNumberNameTextbox.Text = roadAddr;
+            formEmployeePostCodeTextbox.Text = postCode;
 
             byte permissions = ((byte[])row["permissions"])[0];
 
             StaffModel selected = new StaffModel()
             {
+                ID = (int)row["id"],
+                FirstName = (string)row["firstName"],
+                LastName = (string)row["lastName"],
+                PhoneNumber = phone,
+                EmailAddress = email,
+                Address = address,
                 Permissions = DBAccessHelper.CalculatePermissions(permissions)
             };
 
@@ -315,6 +358,8 @@ ORDER BY Orders.id DESC";
 
             if (selected.Can(StaffModel.Permission.AccessEmployeeData))
                 employeeCB_AED.IsChecked = true;
+
+            toStore = selected;
         }
 
         #region Events
@@ -333,6 +378,208 @@ ORDER BY Orders.id DESC";
 
         #region Form
 
+        #region Form Actions
+
+        #region Form Check
+
+        private bool CheckFields()
+        {
+            string error = string.Empty;
+            if (Entity == EntityType.CustomerRecord)
+                error = CheckCustomerRecord();
+            else if (Entity == EntityType.ProductRecord)
+                error = CheckProductRecord();
+            else if (Entity == EntityType.StaffRecord)
+                error = CheckStaffRecord();
+
+            if (error == string.Empty)
+                return true;
+
+            MessageBox.Show(error, "Error In Form!", MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+        }
+
+        private string CheckCustomerRecord()
+        {
+            var errorMessage = new StringBuilder();
+
+            // First name
+            if (formCustomerFirstNameTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a first name!\n");
+
+            // Last name
+            if (formCustomerLastNameTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a last name!\n");
+
+            // Phone number
+            if (formCustomerPhoneNumberTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a phone number!\n");
+
+            // Email address
+            if (formCustomerEmailAddressTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a first name!\n");
+            else if (!InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.InvalidEmail))
+                errorMessage.Append("You have not entered a valid email address!\n");
+
+            // if the email entered is in use and isn't the email already set for the selected entity
+            else if (formCustomerEmailAddressTextbox.Text != ((CustomerModel)toStore).EmailAddress
+                && InputValidationHelper.ValidInput(formCustomerEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
+                errorMessage.Append("The email you have entered is already in use by another user!\n");
+
+            // House Name / Number
+            if (formCustomerHouseNumberNameTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a house name or number!\n");
+
+            // PostCode
+            if (formCustomerPostCodeTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a post code!");
+
+            return errorMessage.ToString();
+        }
+
+        private string CheckProductRecord()
+        {
+            var errorMessage = new StringBuilder();
+
+            // Product name
+            if (formProductName.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a name for the product!\n");
+
+            // Product description
+            if (formProductDescription.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a description for the product!\n");
+
+            // Price per unit
+            if (formProductPricePerUnit.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered the price per unit!\n");
+
+            // Stock count
+            if (formProductStockCount.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered how many there are in stock!\n");
+
+            // Unit cost
+            if (formProductUnitCost.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered the cost per unit!\n");
+
+            return errorMessage.ToString();
+        }
+
+        private string CheckStaffRecord()
+        {
+            var errorMessage = new StringBuilder();
+
+            // First name
+            if (employeeSearchFirstNameTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a first name!\n");
+
+            // Last name
+            if (employeeSearchLastNameTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a last name!\n");
+
+            // Phone number
+            if (employeeSearchPhoneTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a phone number!\n");
+
+            // Email address
+            if (formEmployeeEmailAddressTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a first name!\n");
+            else if (!InputValidationHelper.ValidInput(formEmployeeEmailAddressTextbox, ErrorHelper.UIError.InvalidEmail))
+                errorMessage.Append("You have not entered a valid email address!\n");
+
+            // if the email entered is in use and isn't the email already set for the selected entity
+            else if (formEmployeeEmailAddressTextbox.Text != ((StaffModel)toStore).EmailAddress
+                && InputValidationHelper.ValidInput(formEmployeeEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
+                errorMessage.Append("The email you have entered is already in use by another user!\n");
+
+            // House Name / Number
+            if (formEmployeeHouseNumberNameTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a house name or number!\n");
+
+            // PostCode
+            if (formEmployeePostCodeTextbox.Text.Trim().Length == 0)
+                errorMessage.Append("You have not entered a post code!");
+
+            return errorMessage.ToString();
+        }
+
+        #endregion Form Check
+
+        private void DeleteCustomerRecord()
+        {
+            if (!CheckFields()) return;
+
+            var customer = ((CustomerModel)toStore);
+
+            bool result = DBAccessHelper.DeleteUser(customer.ID);
+            // delete failed
+            if (!result)
+            {
+                MessageBox.Show("Record could not be deleted!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // delete was a success
+            ClearForm();
+        }
+
+        private void DeleteProductRecord()
+        {
+            if (!CheckFields()) return;
+
+            var product = ((ProductModel)toStore);
+
+            bool result = DBAccessHelper.DeleteProduct(product.ID);
+            // delete failed
+            if (!result)
+            {
+                MessageBox.Show("Record could not be deleted!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // delete was a success
+            ClearForm();
+        }
+
+        private void DeleteStaffRecord()
+        {
+            CheckFields();
+        }
+
+        private void ClearForm()
+        {
+            // Customer
+            formCustomerFirstNameTextbox.Text = string.Empty;
+            formCustomerLastNameTextbox.Text = string.Empty;
+            formCustomerPhoneNumberTextbox.Text = string.Empty;
+            formCustomerEmailAddressTextbox.Text = string.Empty;
+            formCustomerHouseNumberNameTextbox.Text = string.Empty;
+            formCustomerPostCodeTextbox.Text = string.Empty;
+
+            // Product
+            formProductName.Text = string.Empty;
+            formProductDescription.Text = string.Empty;
+            formProductPricePerUnit.Text = string.Empty;
+            formProductStockCount.Text = string.Empty;
+            formProductUnitCost.Text = string.Empty;
+
+            // Employee
+            formEmployeeFirstNameTextbox.Text = string.Empty;
+            formEmployeeLastNameTextbox.Text = string.Empty;
+            formEmployeePhoneNumberTextbox.Text = string.Empty;
+            formEmployeeEmailAddressTextbox.Text = string.Empty;
+            formEmployeeHouseNumberNameTextbox.Text = string.Empty;
+            formEmployeePostCodeTextbox.Text = string.Empty;
+
+            employeeCB_RCD.IsChecked = employeeCB_WCD.IsChecked =
+            employeeCB_DCD.IsChecked = employeeCB_RSD.IsChecked =
+            employeeCB_WSD.IsChecked = employeeCB_DSD.IsChecked =
+            employeeCB_AED.IsChecked = false;
+
+            toStore = new object();
+        }
+
+        #endregion Form Actions
+
         #region Form events
 
         private void EmployeeBtn_applyAll_Click(object sender, RoutedEventArgs e)
@@ -347,6 +594,25 @@ ORDER BY Orders.id DESC";
             employeeCB_RCD.IsChecked = employeeCB_WCD.IsChecked = employeeCB_DCD.IsChecked =
                 employeeCB_RSD.IsChecked = employeeCB_WSD.IsChecked = employeeCB_DSD.IsChecked =
                 employeeCB_AED.IsChecked = false;
+        }
+
+        private void DeleteSelectedRecord_Click(object sender, RoutedEventArgs e)
+        {
+            var result = System.Windows.MessageBox.Show("Are you sure you want to delete this record?\nYou cannot undo this aciton!", "Delete Record", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+            // dont delete
+            if (result == MessageBoxResult.No) return;
+            // delete confirmed
+
+            if (Entity == EntityType.CustomerRecord)
+                DeleteCustomerRecord();
+            else if (Entity == EntityType.ProductRecord)
+                DeleteProductRecord();
+            else if (Entity == EntityType.StaffRecord)
+                DeleteStaffRecord();
+        }
+
+        private void AddNewRecord_Click(object sender, RoutedEventArgs e)
+        {
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
