@@ -229,7 +229,7 @@ namespace DundeeComicBookStore
 
         #endregion Getting Users
 
-        #region Setting users
+        #region Setting Users
 
         public static IUser SetUser(string firstName, string lastName, string email, string password, string phone, string address/*, string profilPicture*/)
         {
@@ -272,7 +272,39 @@ namespace DundeeComicBookStore
             }
         }
 
-        #endregion Setting users
+        #endregion Setting Users
+
+        #region Deleting Users
+
+        public static bool DeleteUser(int id)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append("DELETE FROM");
+                sql.Append("Users");
+                sql.Append("WHERE id = @id");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("id", id);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion Deleting Users
 
         #region User Functions
 
