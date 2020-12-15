@@ -151,6 +151,8 @@ namespace DundeeComicBookStore.Pages
 
                 #endregion Net revenue
 
+                #region Output
+
                 numOfItemsSold.Text = totalItems.ToString();
 
                 numOfOrders.Text = totalOrders.ToString();
@@ -160,8 +162,10 @@ namespace DundeeComicBookStore.Pages
                 expenses.Text = totalExpense.ToString("C");
 
                 netRevenueTb.Text = netRevenue.ToString("C");
+
+                #endregion Output
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return;
             }
