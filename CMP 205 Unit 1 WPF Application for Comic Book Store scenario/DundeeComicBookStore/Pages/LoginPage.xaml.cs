@@ -86,5 +86,17 @@ namespace DundeeComicBookStore.Pages
         {
             ChangePageTo(new RegisterPage());
         }
+
+        private void GuestButton_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerModel guest = (CustomerModel)DBAccessHelper.GetUser("guest@guest", "guest");
+            OrderModel order = new OrderModel()
+            {
+                ID = 0,
+                User = guest
+            };
+
+            ChangePageTo(new SearchProductsPage(order));
+        }
     }
 }

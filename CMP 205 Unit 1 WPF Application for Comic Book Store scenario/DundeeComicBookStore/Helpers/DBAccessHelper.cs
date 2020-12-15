@@ -592,6 +592,7 @@ namespace DundeeComicBookStore
 
         public static bool DiscountOrder(IUser user)
         {
+            if (user.ID == 0) return false;
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
             try
             {
@@ -613,7 +614,7 @@ namespace DundeeComicBookStore
                 int points = int.Parse((dataTable.Rows[0]["points"]).ToString());
                 return points >= 100;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -1279,6 +1280,8 @@ namespace DundeeComicBookStore
 
                 // if no success, end function
                 if (!result) return false;
+                // if guest, end function
+                if (order.User.ID == 0) return result;
 
                 // otherwise add reward points to user
 
@@ -1322,7 +1325,10 @@ namespace DundeeComicBookStore
 
                 BasketModel basket = order.Basket;
 
-                command.Parameters.AddWithValue("userId", order.User.ID);
+                if (order.User.ID == 0)
+                    command.Parameters.AddWithValue("userId", 0);
+                else
+                    command.Parameters.AddWithValue("userId", order.User.ID);
                 command.Parameters.AddWithValue("address", order.User.Address);
 
                 SqlDataReader reader = command.ExecuteReader();
@@ -1396,7 +1402,7 @@ namespace DundeeComicBookStore
 
                 #endregion insert the payment information
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

@@ -49,6 +49,10 @@
                 Visibility="Collapsed" />
             <PasswordBox x:Name="PasswordPBox" PasswordChanged="PasswordPBox_PasswordChanged" />
             <Grid Margin="0,15,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -70,6 +74,20 @@
                     Content="Login"
                     IsEnabled="False"
                     Style="{DynamicResource RoundedCorners}" />
+
+                <Button
+                    x:Name="GuestButton"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="2.5,0"
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Click="GuestButton_Click"
+                    Content="Continue as guest"
+                    FontSize="24"
+                    Foreground="#444" />
             </Grid>
         </StackPanel>
 

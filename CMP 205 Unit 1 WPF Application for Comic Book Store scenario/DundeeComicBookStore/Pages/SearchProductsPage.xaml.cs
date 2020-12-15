@@ -40,7 +40,11 @@ namespace DundeeComicBookStore.Pages
             CurrentOrder = order;
             UpdateBasket();
 
-            DisplayUserInfo();
+            // if guest
+            if (order.User.ID == 0)
+                DisplayGuestInfo();
+            else
+                DisplayUserInfo();
 
             OutputSearchResults(GetCatalog());
         }
@@ -49,6 +53,14 @@ namespace DundeeComicBookStore.Pages
         {
             string message = $"Welcome, {CurrentOrder.User.FullName} ({CurrentOrder.User.EmailAddress})";
             usernameTextblock.Text = message;
+        }
+
+        private void DisplayGuestInfo()
+        {
+            usernameTextblock.Text = $"Welcome, Guest";
+
+            saveOrderButton.IsEnabled = false;
+            saveOrderButton.Visibility = Visibility.Collapsed;
         }
 
         private List<IProduct> GetCatalog()

@@ -33,6 +33,13 @@ namespace DundeeComicBookStore.Pages
         {
             CurrentOrder = order;
             InitializeComponent();
+
+            if(order.User.ID == 0)
+            {
+                saveOrderButton.IsEnabled = viewOrdersButton.IsEnabled = false;
+                saveOrderButton.Visibility = viewOrdersButton.Visibility = Visibility.Collapsed;
+            }
+
             OutputBasketItems();
         }
 
