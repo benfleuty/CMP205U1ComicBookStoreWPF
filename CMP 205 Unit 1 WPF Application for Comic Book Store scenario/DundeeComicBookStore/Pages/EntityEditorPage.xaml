@@ -524,7 +524,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
-                        MaxLength="11" />
+                        MaxLength="254" />
                     <!--#endregion-->
                     <!--#region Address-->
                     <Grid>
@@ -618,7 +618,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
-                        MaxLength="11" />
+                        MaxLength="254" />
                     <!--#endregion-->
                     <!--#region Address-->
                     <Grid>
