@@ -598,7 +598,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 StringBuilder sql = new StringBuilder();
-                sql.Append("SELECT rewardPoints as points");
+                sql.Append("SELECT rewardPoints as points ");
                 sql.Append("FROM Users ");
                 sql.Append($"WHERE id = {user.ID} ");
 
@@ -610,10 +610,10 @@ namespace DundeeComicBookStore
                 DataTable dataTable = new DataTable();
                 dataTable.Load(reader);
 
-                int points = int.Parse((string)dataTable.Rows[0]["points"]);
+                int points = int.Parse((dataTable.Rows[0]["points"]).ToString());
                 return points >= 100;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
