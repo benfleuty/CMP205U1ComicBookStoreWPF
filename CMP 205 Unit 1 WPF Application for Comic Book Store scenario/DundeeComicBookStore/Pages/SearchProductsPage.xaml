@@ -24,12 +24,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             FontSize="48"
-            Text="Dundee Comic Book Store" />
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="48"
-            Text="Catalog" />
+            Text="Dundee Comic Book Store - Catalog" />
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             <TextBlock
                 x:Name="usernameTextblock"
