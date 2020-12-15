@@ -393,7 +393,7 @@ namespace DundeeComicBookStore
 
         #region Products
 
-        #region Get products
+        #region Get Products
 
         public static List<IProduct> GetAllProducts()
         {
@@ -566,9 +566,39 @@ namespace DundeeComicBookStore
             }
         }
 
-        #endregion Get products
+        #endregion Get Products
 
-        #endregion Products
+        #region Deleting Products
+
+        public static bool DeleteProduct(int id)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append("DELETE FROM");
+                sql.Append("Products");
+                sql.Append("WHERE id = @id");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("id", id);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion Deleting Products
 
         #region Orders
 
