@@ -120,8 +120,7 @@ namespace DundeeComicBookStore.Pages
         private void CustomerSetup()
         {
             pageName.Text = "Entity Editor - Customer Records";
-            bool canAccessEmployees = Staff.Can(StaffModel.Permission.AccessEmployeeData);
-            dataSource = DBAccessHelper.GetUsers(canAccessEmployees);
+            dataSource = DBAccessHelper.GetUsers();
             if (dataSource == null) dataSource = new DataTable()
             {
                 Columns = {
@@ -201,8 +200,10 @@ ORDER BY Orders.id DESC";
             resultDg.ItemsSource = dataSource.AsDataView();
             employeeSearchBar.Visibility = Visibility.Visible;
             productSearchBar.Visibility = resultDg.Visibility = form.Visibility =
-                formProductData.Visibility = deleteSelectedRecord.Visibility =
-                addNewRecord.Visibility = saveFormChanges.Visibility = Visibility.Visible;
+                formEmployeeData.Visibility = deleteSelectedRecord.Visibility =
+                saveFormChanges.Visibility = Visibility.Visible;
+
+            addNewRecord.Visibility = Visibility.Collapsed;
         }
 
         #endregion Initial page setup
@@ -475,15 +476,15 @@ ORDER BY Orders.id DESC";
             var errorMessage = new StringBuilder();
 
             // First name
-            if (employeeSearchFirstNameTextbox.Text.Trim().Length == 0)
+            if (formEmployeeFirstNameTextbox.Text.Trim().Length == 0)
                 errorMessage.Append("You have not entered a first name!\n");
 
             // Last name
-            if (employeeSearchLastNameTextbox.Text.Trim().Length == 0)
+            if (formEmployeeLastNameTextbox.Text.Trim().Length == 0)
                 errorMessage.Append("You have not entered a last name!\n");
 
             // Phone number
-            if (employeeSearchPhoneTextbox.Text.Trim().Length == 0)
+            if (formEmployeePhoneNumberTextbox.Text.Trim().Length == 0)
                 errorMessage.Append("You have not entered a phone number!\n");
 
             // Email address
@@ -494,7 +495,7 @@ ORDER BY Orders.id DESC";
 
             // if the email entered is in use and isn't the email already set for the selected entity
             else if (formEmployeeEmailAddressTextbox.Text != ((StaffModel)selectedRow).EmailAddress
-                && InputValidationHelper.ValidInput(formEmployeeEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
+                && !InputValidationHelper.ValidInput(formEmployeeEmailAddressTextbox, ErrorHelper.UIError.EmailInUse))
                 errorMessage.Append("The email you have entered is already in use by another user!\n");
 
             // House Name / Number
@@ -589,7 +590,8 @@ ORDER BY Orders.id DESC";
                 UnitCost = (decimal)formProductUnitCost.Value
             };
 
-            DBAccessHelper.AddProduct(newProduct);
+            if (DBAccessHelper.AddProduct(newProduct)) MessageBox.Show("Your product was added!", "Product added", MessageBoxButton.OK, MessageBoxImage.Information);
+            else MessageBox.Show("Your product was not added!", "Error: Product not added", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion Form Add
@@ -610,7 +612,16 @@ ORDER BY Orders.id DESC";
                 Address = $"{formCustomerHouseNumberNameTextbox.Text.Trim()}|{formCustomerPostCodeTextbox.Text.Trim()}"
             };
 
-            return DBAccessHelper.AlterUser(changedModel); ;
+            bool changeEmail = customerPasswordTb.Visibility == Visibility.Visible;
+
+            if (changeEmail)
+            {
+                if (formCustomerPasswordbox.Password == string.Empty)
+                    MessageBox.Show("You need to input the customer's password to change their email.", "No password entered!");
+                else return DBAccessHelper.AlterUser(changedModel, ((CustomerModel)selectedRow).EmailAddress, formCustomerPasswordbox.Password);
+            }
+
+            return DBAccessHelper.AlterUser(changedModel);
         }
 
         private bool SaveProductChanges()
@@ -620,7 +631,47 @@ ORDER BY Orders.id DESC";
 
         private bool SaveStaffChanges()
         {
-            throw new NotImplementedException();
+            if (!CheckFields()) return false;
+
+            #region Calculate new permissions
+
+            byte newPerms = 0;
+            if (employeeCB_RCD.IsChecked ?? false)
+                newPerms += 1;
+            if (employeeCB_WCD.IsChecked ?? false)
+                newPerms += 2;
+            if (employeeCB_DCD.IsChecked ?? false)
+                newPerms += 4;
+            if (employeeCB_RSD.IsChecked ?? false)
+                newPerms += 8;
+            if (employeeCB_WSD.IsChecked ?? false)
+                newPerms += 16;
+            if (employeeCB_DSD.IsChecked ?? false)
+                newPerms += 32;
+            if (employeeCB_AED.IsChecked ?? false)
+                newPerms += 64;
+
+            #endregion Calculate new permissions
+
+            var changedModel = new StaffModel()
+            {
+                ID = ((StaffModel)selectedRow).ID,
+                FirstName = formEmployeeFirstNameTextbox.Text.Trim(),
+                LastName = formEmployeeLastNameTextbox.Text.Trim(),
+                PhoneNumber = formEmployeePhoneNumberTextbox.Text.Trim(),
+                EmailAddress = formEmployeeEmailAddressTextbox.Text.Trim(),
+                Address = $"{formEmployeeHouseNumberNameTextbox.Text.Trim()}|{formEmployeePostCodeTextbox.Text.Trim()}"
+            };
+
+            bool changeEmail = employeePasswordTb.Visibility == Visibility.Visible;
+
+            if (changeEmail)
+            {
+                if (formEmployeePasswordbox.Password == string.Empty)
+                    MessageBox.Show("You need to input the staff member's password to change their email.", "No password entered!");
+                else return DBAccessHelper.AlterStaff(changedModel, ((StaffModel)selectedRow).EmailAddress, formEmployeePasswordbox.Password, newPerms);
+            }
+            return DBAccessHelper.AlterStaff(changedModel, newPerms);
         }
 
         #endregion Form Save

@@ -103,7 +103,7 @@ namespace DundeeComicBookStore
             }
         }
 
-        public static DataTable GetUsers(bool canAccessEmployees)
+        public static DataTable GetUsers()
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
             try
@@ -113,8 +113,7 @@ namespace DundeeComicBookStore
                 string select = "SELECT *";
                 string from = "FROM Users";
                 string where = "";
-                if (!canAccessEmployees)
-                    where = $"WHERE permissions IS NULL";
+                where = $"WHERE permissions IS NULL";
                 string query = $"{select} {from} {where}";
 
                 SqlCommand command = new SqlCommand(query, conn);
@@ -308,6 +307,8 @@ namespace DundeeComicBookStore
 
         #region Updating Users
 
+        #region Updating Customers
+
         public static bool AlterUser(CustomerModel changedModel)
         {
             using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
@@ -400,6 +401,111 @@ namespace DundeeComicBookStore
                 return false;
             }
         }
+
+        #endregion Updating Customers
+
+        #region Updating Staff
+
+        public static bool AlterStaff(StaffModel changedModel, byte newPerms)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                sql.Append("UPDATE ");
+                sql.Append("Users ");
+                sql.Append("SET firstName = @firstName, lastName = @lastName, ");
+                sql.Append("phone = @phone, email = @email, address = @address, ");
+                sql.Append("permissions = @newPerms ");
+                sql.Append("WHERE id = @id");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("firstName", changedModel.FirstName);
+                command.Parameters.AddWithValue("lastName", changedModel.LastName);
+                command.Parameters.AddWithValue("phone", changedModel.PhoneNumber);
+                command.Parameters.AddWithValue("email", changedModel.EmailAddress);
+                command.Parameters.AddWithValue("address", changedModel.Address);
+                command.Parameters.AddWithValue("newPerms", newPerms);
+                command.Parameters.AddWithValue("id", changedModel.ID);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public static bool AlterStaff(StaffModel changedModel, string currentEmail, string password, byte newPerms)
+        {
+            using SqlConnection conn = new SqlConnection(ConnectionHelper.ConnVal("mssql1900040"));
+            try
+            {
+                conn.Open();
+
+                StringBuilder sql = new StringBuilder();
+
+                // verify password before doing anything
+
+                string pwdToCheck = HashPassword(password, currentEmail);
+
+                sql.Append("SELECT id ");
+                sql.Append("FROM Users ");
+                sql.Append("WHERE password = @password");
+
+                SqlCommand command = new SqlCommand(sql.ToString(), conn);
+                command.Parameters.AddWithValue("password", pwdToCheck);
+
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+
+                // cancel alter if password is wrong
+                if (dataTable.Rows.Count < 1)
+                    return false;
+
+                // password is correct
+
+                string newPwdHash = HashPassword(password, changedModel.EmailAddress);
+
+                sql.Clear();
+                sql.Append("UPDATE ");
+                sql.Append("Users ");
+                sql.Append("SET firstName = @firstName, lastName = @lastName, ");
+                sql.Append("phone = @phone, email = @email, address = @address, ");
+                sql.Append("password = @password, permissions = @newPerms ");
+                sql.Append("WHERE id = @id");
+
+                command = new SqlCommand(sql.ToString(), conn);
+
+                command.Parameters.AddWithValue("firstName", changedModel.FirstName);
+                command.Parameters.AddWithValue("lastName", changedModel.LastName);
+                command.Parameters.AddWithValue("phone", changedModel.PhoneNumber);
+                command.Parameters.AddWithValue("email", changedModel.EmailAddress);
+                command.Parameters.AddWithValue("address", changedModel.Address);
+                command.Parameters.AddWithValue("password", newPwdHash);
+                command.Parameters.AddWithValue("newPerms", newPerms);
+                command.Parameters.AddWithValue("id", changedModel.ID);
+
+                int affected = command.ExecuteNonQuery();
+                if (affected == 1)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion Updating Staff
 
         #endregion Updating Users
 
