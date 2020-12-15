@@ -524,17 +524,21 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
-                        MaxLength="254" />
+                        MaxLength="254"
+                        TextChanged="formCustomerEmailAddressTextbox_TextChanged" />
                     <TextBlock
+                        Name="customerPasswordTb"
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="5,0"
-                        Text="Password" />
+                        Text="Password: [Required to change email]"
+                        Visibility="Collapsed" />
                     <PasswordBox
                         x:Name="formCustomerPasswordbox"
                         Grid.Row="1"
                         Grid.Column="0"
-                        Margin="5,0" />
+                        Margin="5,0"
+                        Visibility="Collapsed" />
                     <!--#endregion-->
                     <!--#region Address-->
                     <Grid>
@@ -628,17 +632,21 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="5,0"
-                        MaxLength="254" />
+                        MaxLength="254"
+                        TextChanged="formEmployeeEmailAddressTextbox_TextChanged" />
                     <TextBlock
+                        Name="employeePasswordTb"
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="5,0"
-                        Text="Password" />
+                        Text="Password: [Required to change email]"
+                        Visibility="Collapsed" />
                     <PasswordBox
                         x:Name="formEmployeePasswordbox"
                         Grid.Row="1"
                         Grid.Column="0"
-                        Margin="5,0" />
+                        Margin="5,0"
+                        Visibility="Collapsed" />
                     <!--#endregion-->
                     <!--#region Address-->
                     <Grid>

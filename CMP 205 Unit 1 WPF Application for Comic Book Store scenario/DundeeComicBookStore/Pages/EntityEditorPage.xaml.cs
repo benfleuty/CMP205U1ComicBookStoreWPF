@@ -713,6 +713,38 @@ ORDER BY Orders.id DESC";
             MessageBox.Show("Your changes could not be saved!", "Error: Changes not saved!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        private void formCustomerEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selectedRow == null) return;
+            if (formCustomerEmailAddressTextbox.Text.Trim() != ((CustomerModel)selectedRow).EmailAddress)
+            {
+                formCustomerPasswordbox.Password = string.Empty;
+                formCustomerPasswordbox.Visibility = Visibility.Visible;
+                customerPasswordTb.Visibility = Visibility.Visible;
+                return;
+            }
+
+            formCustomerPasswordbox.Password = string.Empty;
+            formCustomerPasswordbox.Visibility = Visibility.Collapsed;
+            customerPasswordTb.Visibility = Visibility.Collapsed;
+        }
+
+        private void formEmployeeEmailAddressTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selectedRow == null) return;
+            if (formEmployeeEmailAddressTextbox.Text.Trim() != ((StaffModel)selectedRow).EmailAddress)
+            {
+                formEmployeePasswordbox.Password = string.Empty;
+                formEmployeePasswordbox.Visibility = Visibility.Visible;
+                employeePasswordTb.Visibility = Visibility.Visible;
+                return;
+            }
+
+            formEmployeePasswordbox.Password = string.Empty;
+            formEmployeePasswordbox.Visibility = Visibility.Collapsed;
+            employeePasswordTb.Visibility = Visibility.Collapsed;
+        }
+
         #endregion Form events
 
         #endregion Form
