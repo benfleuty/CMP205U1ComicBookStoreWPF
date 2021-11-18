@@ -27,7 +27,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT *";
-                string from = "FROM Users";
+                string from = "FROM CMP205_Users";
                 string where = "WHERE email = @email AND password = @password";
                 string query = $"{select} {from} {where}";
 
@@ -69,7 +69,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT *";
-                string from = "FROM Users";
+                string from = "FROM CMP205_Users";
                 string where = "WHERE id = @userId";
                 string query = $"{select} {from} {where}";
 
@@ -110,7 +110,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT *";
-                string from = "FROM Users";
+                string from = "FROM CMP205_Users";
                 string where = "";
                 where = $"WHERE permissions IS NULL";
                 string query = $"{select} {from} {where}";
@@ -142,7 +142,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT *";
-                string from = "FROM Users";
+                string from = "FROM CMP205_Users";
                 string where = $"WHERE permissions IS NOT NULL";
                 string query = $"{select} {from} {where}";
 
@@ -239,7 +239,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string insertInto = "INSERT INTO";
-                string table = "Users";
+                string table = "CMP205_Users";
                 string columns = "(firstName,lastName,phone,email,address,password)";
                 //string columns = "('firstName','lastName','phone','email','address','password','profilePicture')";
                 string values = $"VALUES (@firstName,@lastName,@phone,@email,@address,@password)";
@@ -284,7 +284,7 @@ namespace DundeeComicBookStore
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append("DELETE FROM ");
-                sql.Append("Users ");
+                sql.Append("CMP205_Users ");
                 sql.Append("WHERE id = @id");
 
                 SqlCommand command = new SqlCommand(sql.ToString(), conn);
@@ -318,7 +318,7 @@ namespace DundeeComicBookStore
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append("UPDATE ");
-                sql.Append("Users ");
+                sql.Append("CMP205_Users ");
                 sql.Append("SET firstName = @firstName, lastName = @lastName, ");
                 sql.Append("phone = @phone, email = @email, address = @address ");
                 sql.Append("WHERE id = @id");
@@ -357,7 +357,7 @@ namespace DundeeComicBookStore
                 string pwdToCheck = HashPassword(password, currentEmail);
 
                 sql.Append("SELECT id ");
-                sql.Append("FROM Users ");
+                sql.Append("FROM CMP205_Users ");
                 sql.Append("WHERE password = @password");
 
                 SqlCommand command = new SqlCommand(sql.ToString(), conn);
@@ -375,7 +375,7 @@ namespace DundeeComicBookStore
 
                 sql.Clear();
                 sql.Append("UPDATE ");
-                sql.Append("Users ");
+                sql.Append("CMP205_Users ");
                 sql.Append("SET firstName = @firstName, lastName = @lastName, ");
                 sql.Append("phone = @phone, email = @email, address = @address, password = @password ");
                 sql.Append("WHERE id = @id");
@@ -415,7 +415,7 @@ namespace DundeeComicBookStore
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append("UPDATE ");
-                sql.Append("Users ");
+                sql.Append("CMP205_Users ");
                 sql.Append("SET firstName = @firstName, lastName = @lastName, ");
                 sql.Append("phone = @phone, email = @email, address = @address, ");
                 sql.Append("permissions = @newPerms ");
@@ -456,7 +456,7 @@ namespace DundeeComicBookStore
                 string pwdToCheck = HashPassword(password, currentEmail);
 
                 sql.Append("SELECT id ");
-                sql.Append("FROM Users ");
+                sql.Append("FROM CMP205_Users ");
                 sql.Append("WHERE password = @password");
 
                 SqlCommand command = new SqlCommand(sql.ToString(), conn);
@@ -476,7 +476,7 @@ namespace DundeeComicBookStore
 
                 sql.Clear();
                 sql.Append("UPDATE ");
-                sql.Append("Users ");
+                sql.Append("CMP205_Users ");
                 sql.Append("SET firstName = @firstName, lastName = @lastName, ");
                 sql.Append("phone = @phone, email = @email, address = @address, ");
                 sql.Append("password = @password, permissions = @newPerms ");
@@ -518,7 +518,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT email";
-                string from = "FROM Users";
+                string from = "FROM CMP205_Users";
                 string where = "WHERE email = @email";
                 string query = $"{select} {from} {where}";
 
@@ -599,7 +599,7 @@ namespace DundeeComicBookStore
 
                 StringBuilder sql = new StringBuilder();
                 sql.Append("SELECT rewardPoints as points ");
-                sql.Append("FROM Users ");
+                sql.Append("FROM CMP205_Users ");
                 sql.Append($"WHERE id = {user.ID} ");
 
                 string query = sql.ToString();
@@ -635,7 +635,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT id,name,description,unitPrice,stockCount";
-                string from = "FROM Products";
+                string from = "FROM CMP205_Products";
                 string query = $"{select} {from}";
 
                 SqlCommand command = new SqlCommand(query, conn);
@@ -765,7 +765,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string select = "SELECT id,name,description,unitPrice,stockCount,unitCost";
-                string from = "FROM Products";
+                string from = "FROM CMP205_Products";
                 string where = "WHERE id = @productId";
                 string query = $"{select} {from} {where}";
 
@@ -812,7 +812,7 @@ namespace DundeeComicBookStore
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append("DELETE FROM ");
-                sql.Append("Products ");
+                sql.Append("CMP205_Products ");
                 sql.Append("WHERE id = @id");
 
                 SqlCommand command = new SqlCommand(sql.ToString(), conn);
@@ -844,7 +844,7 @@ namespace DundeeComicBookStore
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append("INSERT INTO ");
-                sql.Append("Products ");
+                sql.Append("CMP205_Products ");
                 sql.Append("(name,description,unitPrice,stockCount,unitCost) ");
                 sql.Append("VALUES ");
                 sql.Append("(@name,@description,@unitPrice,@stockCount,@unitCost)");
@@ -882,7 +882,7 @@ namespace DundeeComicBookStore
                 StringBuilder sql = new StringBuilder();
 
                 sql.Append("UPDATE ");
-                sql.Append("Products ");
+                sql.Append("CMP205_Products ");
                 sql.Append("SET name = @name, description = @description, ");
                 sql.Append("unitPrice = @unitPrice, stockCount = @stockCount, unitCost = @unitCost ");
                 sql.Append("WHERE id = @id");
@@ -941,7 +941,7 @@ namespace DundeeComicBookStore
             string select = "SELECT";
             string columns = "productId,quantity";
             string from = "FROM";
-            string table = "OrderItems";
+            string table = "CMP205_OrderItems";
             string where = $"WHERE";
             string conditions = $"orderId = @orderId";
             string query = $"{select} {columns} {from} {table} {where} {conditions}";
@@ -993,7 +993,7 @@ namespace DundeeComicBookStore
                     int quantity = product.Value;
 
                     string update = "UPDATE";
-                    table = "OrderItems";
+                    table = "CMP205_OrderItems";
                     string set = "SET";
                     columns = "quantity = @quantity";
                     where = $"WHERE";
@@ -1021,7 +1021,7 @@ namespace DundeeComicBookStore
                 int quantity = product.Value;
 
                 string insertInto = "INSERT INTO";
-                table = "OrderItems";
+                table = "CMP205_OrderItems";
                 columns = "(orderId,productId,quantity)";
                 string values = $"VALUES (@orderId,@productId,@quantity)";
                 query = $"{insertInto} {table} {columns} {values}";
@@ -1039,7 +1039,7 @@ namespace DundeeComicBookStore
         private static void SaveNewOrder(SqlConnection conn, OrderModel order)
         {
             string insertInto = "INSERT INTO";
-            string table = "Orders";
+            string table = "CMP205_Orders";
             string columns = "(userId,address)";
             string output = "OUTPUT inserted.id";
             string values = $"VALUES (@userId,@address)";
@@ -1064,7 +1064,7 @@ namespace DundeeComicBookStore
             int lastOrderId = (int)data["id"];
 
             insertInto = "INSERT INTO";
-            table = "OrderItems";
+            table = "CMP205_OrderItems";
             columns = "(orderId,productId,quantity)";
             values = $"VALUES ";
             int count = 1;
@@ -1105,7 +1105,7 @@ namespace DundeeComicBookStore
                 // Get orders
 
                 string select = "SELECT Orders.id AS order_id, Orders.address,Orders.orderDate";
-                string from = "FROM Orders";
+                string from = "FROM CMP205_Orders";
                 string where = "WHERE Orders.userId = @userId";
                 string query = $"{select} {from} {where}";
 
@@ -1138,7 +1138,7 @@ namespace DundeeComicBookStore
                 foreach (var order in orders)
                 {
                     select = "SELECT OrderItems.productId, OrderItems.quantity";
-                    from = "FROM OrderItems";
+                    from = "FROM CMP205_OrderItems";
                     where = $"WHERE OrderItems.orderId = {order.ID}";
                     query = $"{select} {from} {where}";
 
@@ -1166,7 +1166,7 @@ namespace DundeeComicBookStore
                     // check for made payments
 
                     select = "SELECT id";
-                    from = "FROM Payments";
+                    from = "FROM CMP205_Payments";
                     where = $"WHERE orderId = {order.ID}";
                     query = $"{select} {from} {where}";
 
@@ -1245,7 +1245,7 @@ namespace DundeeComicBookStore
                 conn.Open();
 
                 string deleteFROM = "DELETE FROM";
-                string table = "Orders";
+                string table = "CMP205_Orders";
                 string where = "WHERE id = @orderId";
                 string query = $"{deleteFROM} {table} {where}";
 
@@ -1290,7 +1290,7 @@ namespace DundeeComicBookStore
                 var sql = new StringBuilder();
 
                 sql.Append("UPDATE ");
-                sql.Append("Users ");
+                sql.Append("CMP205_Users ");
                 sql.Append("SET ");
                 sql.Append($"rewardPoints = rewardPoints + {points} ");
                 sql.Append($"WHERE id = {order.User.ID}");
@@ -1373,7 +1373,7 @@ namespace DundeeComicBookStore
                 #region insert the payment information
 
                 insertInto = "INSERT INTO";
-                table = "Payments";
+                table = "CMP205_Payments";
                 columns = "(orderId,type,amount)";
                 values = "VALUES (@orderId,@type,@amount)";
                 query = $"{insertInto} {table} {columns} {values}";
@@ -1423,7 +1423,7 @@ namespace DundeeComicBookStore
                 #region insert the payment information
 
                 string insertInto = "INSERT INTO";
-                string table = "Payments";
+                string table = "CMP205_Payments";
                 string columns = "(orderId,type,amount)";
                 string values = "VALUES (@orderId,@type,@amount)";
                 string query = $"{insertInto} {table} {columns} {values}";
@@ -1473,7 +1473,7 @@ namespace DundeeComicBookStore
             foreach (var item in order.Basket.Items)
             {
                 sql.Clear();
-                sql.Append("UPDATE Products ");
+                sql.Append("UPDATE CMP205_Products ");
                 sql.Append($"SET stockCount = stockCount - {item.Value} ");
                 sql.Append($"WHERE id = {item.Key.ID}");
                 string query = sql.ToString();
